@@ -1,0 +1,11 @@
+2:I[1114,["931","static/chunks/app/page-bf65bd6af4dae611.js"],""]
+3:I[78,["185","static/chunks/app/layout-72b7702a501984e6.js"],"ThemeProvider"]
+4:I[368,["185","static/chunks/app/layout-72b7702a501984e6.js"],"LanguageProvider"]
+5:I[6909,["185","static/chunks/app/layout-72b7702a501984e6.js"],""]
+6:I[5613,[],""]
+7:I[449,["601","static/chunks/app/error-cbad8637d5009712.js"],""]
+8:I[1778,[],""]
+9:I[8667,["792","static/chunks/792-f2dae40d511d62bf.js","160","static/chunks/app/not-found-56047153f6c20149.js"],""]
+0:["6sbYXSpoHdOfSN3102DPm",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",{"children":["__PAGE__",{},["$L1",["$","$L2",null,{}],null]]},[null,["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"__className_067971","children":["$","$L3",null,{"children":["$","$L4",null,{"children":["$","$L5",null,{"children":["$","$L6",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":["$","div",null,{"className":"min-h-screen flex items-center justify-center","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-600"}]}],"loadingStyles":[],"loadingScripts":[],"hasLoading":true,"error":"$7","errorStyles":[],"errorScripts":[],"template":["$","$L8",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","$L9",null,{}],"notFoundStyles":[],"styles":null}]}]}]}]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/blog/_next/static/css/ba7142e6899ab26c.css","precedence":"next","crossOrigin":""}]],"$La"]]]]
+a:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"Have Fun!"}],["$","meta","3",{"name":"description","content":"Personal blog website"}],["$","meta","4",{"name":"next-size-adjust"}]]
+1:null
