@@ -1,0 +1,10 @@
+2:I[1114,["931","static/chunks/app/page-f359acc0d5b5d2e1.js"],""]
+3:I[368,["792","static/chunks/792-1ad433d264a42eab.js","185","static/chunks/app/layout-7a2870e741ae9f99.js"],"LanguageProvider"]
+4:I[2062,["792","static/chunks/792-1ad433d264a42eab.js","185","static/chunks/app/layout-7a2870e741ae9f99.js"],""]
+5:I[5613,[],""]
+6:I[449,["601","static/chunks/app/error-895528c9442cfcd7.js"],""]
+7:I[1778,[],""]
+8:I[8667,["792","static/chunks/792-1ad433d264a42eab.js","160","static/chunks/app/not-found-ce46c19fcb9f365d.js"],""]
+0:["CPwdQFPAT0QMKYsBKiOU-",[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",{"children":["__PAGE__",{},["$L1",["$","$L2",null,{}],null]]},[null,["$","html",null,{"lang":"en","className":"dark","suppressHydrationWarning":true,"children":["$","body",null,{"className":"__className_e8ce0c","children":["$","$L3",null,{"children":["$","$L4",null,{"children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"loading":["$","div",null,{"className":"min-h-screen flex items-center justify-center","children":["$","div",null,{"className":"animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-600"}]}],"loadingStyles":[],"loadingScripts":[],"hasLoading":true,"error":"$6","errorStyles":[],"errorScripts":[],"template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","$L8",null,{}],"notFoundStyles":[],"styles":null}]}]}]}]}],null]],[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/1df43bd11b3dda02.css","precedence":"next","crossOrigin":""}]],"$L9"]]]]
+9:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"LJ Playground"}],["$","meta","3",{"name":"description","content":"A personal blog with Mario game style for sharing technology and useful tools."}]]
+1:null
