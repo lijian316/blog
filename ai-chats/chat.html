@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 对话 · LJ's Playground</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .chat-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 32px;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    /* Chat header */
+    .chat-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .chat-header-cover {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+
+    .chat-header-info {
+      flex: 1;
+    }
+
+    .chat-header-info h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .chat-header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .chat-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Chat window */
+    .chat-window {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chat-window-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .chat-window-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+
+    .chat-window-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Message bubbles */
+    .message {
+      display: flex;
+      gap: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .message-user {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .avatar-user {
+      background: var(--gradient);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .avatar-ai {
+      background: rgba(167,139,250,0.2);
+      border: 1px solid rgba(167,139,250,0.3);
+    }
+
+    .message-content {
+      max-width: 75%;
+    }
+
+    .message-name {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .message-user .message-name {
+      text-align: right;
+    }
+
+    .bubble {
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .bubble-user {
+      background: var(--gradient);
+      color: white;
+      border-radius: 18px 4px 18px 18px;
+    }
+
+    .bubble-ai {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      border-radius: 4px 18px 18px 18px;
+    }
+
+    /* Markdown rendering in AI bubble */
+    .bubble-ai h1, .bubble-ai h2, .bubble-ai h3 {
+      color: var(--text-primary);
+      margin: 16px 0 8px;
+      font-weight: 700;
+    }
+
+    .bubble-ai h2 { font-size: 16px; }
+    .bubble-ai h3 { font-size: 14px; }
+
+    .bubble-ai p { margin: 8px 0; }
+
+    .bubble-ai ul, .bubble-ai ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .bubble-ai li { margin: 4px 0; }
+
+    .bubble-ai strong { color: var(--text-primary); font-weight: 700; }
+
+    .bubble-ai code {
+      background: rgba(124,106,247,0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+
+    .bubble-ai pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    .bubble-ai pre code {
+      background: none;
+      padding: 0;
+      color: #e8e8f0;
+      font-size: 13px;
+    }
+
+    .bubble-ai table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 12px 0;
+    }
+
+    .bubble-ai th {
+      background: var(--bg-primary);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bubble-ai td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bubble-ai tr:last-child td { border-bottom: none; }
+
+    .bubble-ai blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin: 8px 0;
+      color: var(--text-secondary);
+    }
+
+    .bubble-ai hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+
+    /* Loading state */
+    .loading-state {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-muted);
+    }
+
+    /* Not found */
+    .not-found {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .not-found h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .chat-header-card { flex-direction: column; align-items: flex-start; }
+      .chat-header-cover { width: 60px; height: 60px; font-size: 30px; }
+      .message-content { max-width: 88%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">🎮</div>
+      LJ's Playground
+    </a>
+    <ul class="nav-links">
+      <li><a href="../sites/index.html">🔖 站点收集</a></li>
+      <li><a href="index.html" class="active">💬 AI 对话</a></li>
+      <li><a href="../gallery/index.html">🖼️ 图库</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="chat-page">
+  <a href="index.html" class="back-btn">← 返回对话列表</a>
+  <div id="chatContent">
+    <div class="loading-state">加载中...</div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 LJ's Playground</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+// Simple markdown parser
+function parseMarkdown(text) {
+  return text
+    // Code blocks
+    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="lang-$1">$2</code></pre>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // Headers
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // HR
+    .replace(/^---$/gm, '<hr>')
+    // Tables (simplified)
+    .replace(/^\|(.+)\|$/gm, (match, content) => {
+      const cells = content.split('|').map(c => c.trim());
+      if (cells.every(c => /^[-:]+$/.test(c))) return ''; // separator row
+      const isHeader = false; // simplified
+      const tag = 'td';
+      return '<tr>' + cells.map(c => `<${tag}>${c}</${tag}>`).join('') + '</tr>';
+    })
+    // Wrap consecutive table rows
+    .replace(/(<tr>.*<\/tr>\n?)+/g, m => `<table>${m}</table>`)
+    // Unordered lists
+    .replace(/^[•\-\*] (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
+    // Ordered lists
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    // Blockquote
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    // Paragraphs - wrap lines not already in block elements
+    .split('\n\n')
+    .map(block => {
+      if (/^<(h[1-6]|ul|ol|pre|table|blockquote|hr)/.test(block.trim())) return block;
+      return block.trim() ? `<p>${block.replace(/\n/g, '<br>')}</p>` : '';
+    })
+    .join('\n');
+}
+
+function renderChat(chat) {
+  const messagesHtml = chat.messages.map((msg, i) => {
+    const isUser = msg.role === 'user';
+    const content = isUser
+      ? msg.content.replace(/\n/g, '<br>').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&lt;br&gt;/g, '<br>')
+      : parseMarkdown(msg.content);
+
+    return `
+      <div class="message ${isUser ? 'message-user' : ''}" style="animation-delay: ${i * 0.08}s">
+        <div class="message-avatar ${isUser ? 'avatar-user' : 'avatar-ai'}">
+          ${isUser ? 'LJ' : chat.ai_icon}
+        </div>
+        <div class="message-content">
+          <div class="message-name">${isUser ? '我' : chat.ai}</div>
+          <div class="bubble ${isUser ? 'bubble-user' : 'bubble-ai'}">${content}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="chat-header-card">
+      <div class="chat-header-cover" style="background: ${chat.cover_color}">
+        ${chat.cover_emoji}
+      </div>
+      <div class="chat-header-info">
+        <h1>${chat.title}</h1>
+        <div class="chat-header-meta">
+          <span class="chat-meta-item">${chat.ai_icon} ${chat.ai}</span>
+          <span class="chat-meta-item">📁 ${chat.category}</span>
+          <span class="chat-meta-item">📅 ${chat.date}</span>
+          <span class="chat-meta-item">💬 ${chat.messages.length} 条消息</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-window">
+      <div class="chat-window-header">
+        <div class="chat-window-dots">
+          <span class="dot-red"></span>
+          <span class="dot-yellow"></span>
+          <span class="dot-green"></span>
+        </div>
+        <div class="chat-window-title">${chat.ai} · ${chat.title}</div>
+      </div>
+      ${messagesHtml}
+    </div>
+  `;
+}
+
+function init() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+
+  if (!id) {
+    location.href = 'index.html';
+    return;
+  }
+
+  const chat = CHATS_DATA.find(c => c.id === id);
+
+  if (!chat) {
+    document.getElementById('chatContent').innerHTML = `
+      <div class="not-found">
+        <div style="font-size: 64px; margin-bottom: 20px">🤷</div>
+        <h2>对话不存在</h2>
+        <a href="index.html" class="back-btn" style="display:inline-flex; margin-top: 16px">
+          返回对话列表
+        </a>
+      </div>
+    `;
+    return;
+  }
+
+  document.title = `${chat.title} · AI 对话 · LJ's Playground`;
+  document.getElementById('chatContent').innerHTML = renderChat(chat);
+}
+
+init();
+</script>
+</body>
+</html>

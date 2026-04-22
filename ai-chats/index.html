@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 对话 · LJ's Playground</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* Chat bubble list */
+    .chats-intro {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chats-intro-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(167,139,250,0.15);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .chats-intro p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Chat cards */
+    .chat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .chat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-card:hover {
+      border-color: rgba(167,139,250,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(124,106,247,0.2);
+    }
+
+    .chat-card-cover {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chat-card-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.3));
+    }
+
+    .chat-card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-ai-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      background: rgba(167,139,250,0.15);
+      border-radius: 100px;
+      font-size: 11px;
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .chat-category {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chat-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .chat-preview {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .chat-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .chat-msg-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chat-read-btn {
+      font-size: 12px;
+      color: var(--accent-2);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .chat-card:hover .chat-read-btn { opacity: 1; }
+
+    /* Link type card */
+    .chat-card-link {
+      border-color: rgba(96,165,250,0.25);
+    }
+
+    .chat-card-link:hover {
+      border-color: rgba(96,165,250,0.5);
+      box-shadow: 0 12px 40px rgba(96,165,250,0.15);
+    }
+
+    .link-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: rgba(96,165,250,0.12);
+      border: 1px solid rgba(96,165,250,0.3);
+      border-radius: 100px;
+      font-size: 10px;
+      color: #60a5fa;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .chat-card-link .chat-read-btn {
+      color: #60a5fa;
+    }
+
+    @media (max-width: 768px) {
+      .chat-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">🎮</div>
+      LJ's Playground
+    </a>
+    <ul class="nav-links">
+      <li><a href="../sites/index.html">🔖 站点收集</a></li>
+      <li><a href="index.html" class="active">💬 AI 对话</a></li>
+      <li><a href="../gallery/index.html">🖼️ 图库</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" style="padding-bottom: 60px;">
+  <div class="page-header">
+    <div class="page-header-tag">💬 AI Conversations</div>
+    <h1>AI 对话</h1>
+    <p>记录我与 AI 之间有趣、有价值的对话，分享给每一个人</p>
+  </div>
+
+  <div class="chats-intro">
+    <div class="chats-intro-icon">💡</div>
+    <p>这里收录了我和 Claude、GPT 等 AI 的对话精选。点击任意一个对话气泡，可以查看完整的对话内容。如果你觉得某个对话对你有帮助，欢迎分享给朋友。</p>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar" id="filterBar"></div>
+
+  <!-- Chat cards -->
+  <div class="chat-cards stagger" id="chatCards"></div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 LJ's Playground</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+let currentCat = '全部';
+
+function renderFilter() {
+  const counts = {};
+  CHATS_DATA.forEach(c => { counts[c.category] = (counts[c.category] || 0) + 1; });
+
+  document.getElementById('filterBar').innerHTML = CHAT_CATEGORIES.map(cat => {
+    const count = cat === '全部' ? CHATS_DATA.length : (counts[cat] || 0);
+    if (cat !== '全部' && count === 0) return '';
+    return `
+      <button class="filter-btn ${currentCat === cat ? 'active' : ''}"
+        onclick="setFilter('${cat}')">
+        ${cat}
+        <span class="filter-count">${count}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderCards() {
+  const filtered = currentCat === '全部'
+    ? CHATS_DATA
+    : CHATS_DATA.filter(c => c.category === currentCat);
+
+  document.getElementById('chatCards').innerHTML = filtered.map(chat => {
+    const isLink = chat.type === 'link';
+    const href = isLink ? chat.share_url : `chat.html?id=${chat.id}`;
+    const target = isLink ? ' target="_blank" rel="noopener"' : '';
+    const footerRight = isLink
+      ? `<span class="link-badge">🔗 Claude 原页面</span>`
+      : `<span class="chat-msg-count">💬 ${chat.messages?.length || 0} 条消息</span>`;
+    const readBtn = isLink ? '在 Claude 查看 ↗' : '查看对话 →';
+
+    return `
+      <a href="${href}"${target} class="chat-card ${isLink ? 'chat-card-link' : ''}">
+        <div class="chat-card-cover" style="background: ${chat.cover_color}">
+          ${chat.cover_emoji}
+        </div>
+        <div class="chat-card-body">
+          <div class="chat-card-header">
+            <div class="chat-ai-badge">${chat.ai_icon} ${chat.ai}</div>
+            <span class="chat-category">${chat.category}</span>
+          </div>
+          <div class="chat-title">${chat.title}</div>
+          <div class="chat-preview">${chat.preview}</div>
+          <div class="chat-footer">
+            <span class="chat-date">${chat.date}</span>
+            ${footerRight}
+            <span class="chat-read-btn">${readBtn}</span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function setFilter(cat) {
+  currentCat = cat;
+  renderFilter();
+  renderCards();
+}
+
+renderFilter();
+renderCards();
+</script>
+</body>
+</html>

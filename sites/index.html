@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>站点收集 · LJ's Playground</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .sites-layout {
+      padding-bottom: 60px;
+    }
+
+    /* Featured Section */
+    .featured-section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    /* Site Card */
+    .site-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .site-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .site-card-featured {
+      border-color: rgba(201,100,66,0.25);
+      background: linear-gradient(135deg, var(--bg-card), rgba(201,100,66,0.03));
+    }
+
+    .site-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .site-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .site-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .site-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-url {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .site-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-muted);
+    }
+
+    .site-visit {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .site-card:hover .site-visit {
+      opacity: 1;
+      color: var(--accent-2);
+    }
+
+    /* Category badge on card */
+    .cat-badge {
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Count badge */
+    .count-badge {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .results-count {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .results-count span {
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    /* Category color dots */
+    .cat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="page-top">
+  <a href="../index.html" class="back-home"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="10" fill="#c96442"/><path d="M8 10 L8 26 L15 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="20" y1="10" x2="26" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M20 10 L20 22 Q20 26 16 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>LJ's Playground</a>
+</header>
+
+<div class="container sites-layout">
+  <div class="page-header">
+    <div class="page-header-tag">🔖 Sites Collection</div>
+    <h1>站点收集</h1>
+    <p>精心整理的各类优质网站，按类别分类整理</p>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text"
+      class="search-input"
+      id="searchInput"
+      placeholder="搜索站点名称、描述或标签..."
+      oninput="handleSearch(this.value)"
+    >
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar" id="filterBar"></div>
+
+  <!-- Results count -->
+  <div class="results-count" id="resultsCount"></div>
+
+  <!-- Featured -->
+  <div class="featured-section" id="featuredSection">
+    <div class="section-title">⭐ 精选推荐</div>
+    <div class="featured-grid stagger" id="featuredGrid"></div>
+  </div>
+
+  <!-- All sites -->
+  <div id="allSection">
+    <div class="section-title" id="allSectionTitle">📋 全部站点</div>
+    <div class="grid-3 stagger" id="sitesGrid"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 LJ's Playground</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+let currentCategory = 'all';
+let searchQuery = '';
+
+function getCategoryClass(cat) {
+  const map = {
+    tool: 'tag-tool', blog: 'tag-blog', design: 'tag-design',
+    dev: 'tag-dev', ai: 'tag-ai', resource: 'tag-resource', other: 'tag-other'
+  };
+  return map[cat] || 'tag-other';
+}
+
+function getCategoryColor(cat) {
+  return CATEGORIES[cat]?.color || '#9ca3af';
+}
+
+function renderSiteCard(site) {
+  const catInfo = CATEGORIES[site.category] || CATEGORIES.other;
+  const tagsHtml = site.tags.slice(0, 2).map(t =>
+    `<span class="site-tag">${t}</span>`
+  ).join('');
+  const urlDisplay = site.url.replace(/^https?:\/\//,'');
+
+  return `
+    <a href="${site.url}" target="_blank" rel="noopener" class="site-card ${site.featured ? 'site-card-featured' : ''}">
+      <div class="site-card-header">
+        <div class="site-icon">${site.icon}</div>
+        <div class="site-meta">
+          <div class="site-name">${site.name}</div>
+          <div class="site-url">${urlDisplay}</div>
+        </div>
+        <span class="tag ${getCategoryClass(site.category)}">${catInfo.icon} ${catInfo.label}</span>
+      </div>
+      <div class="site-description">${site.description}</div>
+      <div class="site-footer">
+        <div class="site-tags">${tagsHtml}</div>
+        <div class="site-visit">访问 ↗</div>
+      </div>
+    </a>
+  `;
+}
+
+function getFilteredSites() {
+  return SITES_DATA.filter(site => {
+    const matchCat = currentCategory === 'all' || site.category === currentCategory;
+    if (!searchQuery) return matchCat;
+    const q = searchQuery.toLowerCase();
+    const matchSearch = site.name.toLowerCase().includes(q)
+      || site.description.toLowerCase().includes(q)
+      || site.tags.some(t => t.toLowerCase().includes(q));
+    return matchCat && matchSearch;
+  });
+}
+
+function renderFilterBar() {
+  const bar = document.getElementById('filterBar');
+  const counts = {};
+  SITES_DATA.forEach(s => { counts[s.category] = (counts[s.category] || 0) + 1; });
+
+  bar.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => {
+    const count = key === 'all' ? SITES_DATA.length : (counts[key] || 0);
+    if (key !== 'all' && count === 0) return '';
+    return `
+      <button class="filter-btn ${currentCategory === key ? 'active' : ''}"
+        onclick="setCategory('${key}')">
+        ${cat.icon} ${cat.label}
+        <span class="filter-count">${count}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function render() {
+  const filtered = getFilteredSites();
+  const isSearching = searchQuery.length > 0;
+  const isFiltered = currentCategory !== 'all';
+
+  // Results count
+  const countEl = document.getElementById('resultsCount');
+  if (isSearching || isFiltered) {
+    countEl.innerHTML = `找到 <span>${filtered.length}</span> 个站点`;
+  } else {
+    countEl.innerHTML = '';
+  }
+
+  // Featured section - hide when searching/filtering
+  const featuredSection = document.getElementById('featuredSection');
+  const featuredGrid = document.getElementById('featuredGrid');
+  const allSectionTitle = document.getElementById('allSectionTitle');
+
+  if (!isSearching && !isFiltered) {
+    featuredSection.style.display = 'block';
+    const featured = SITES_DATA.filter(s => s.featured);
+    featuredGrid.innerHTML = featured.map(renderSiteCard).join('');
+    allSectionTitle.textContent = '📋 全部站点';
+
+    const notFeatured = SITES_DATA.filter(s => !s.featured);
+    document.getElementById('sitesGrid').innerHTML = notFeatured.length
+      ? notFeatured.map(renderSiteCard).join('')
+      : '';
+  } else {
+    featuredSection.style.display = 'none';
+    const catLabel = isFiltered && currentCategory !== 'all'
+      ? `${CATEGORIES[currentCategory].icon} ${CATEGORIES[currentCategory].label}`
+      : '🔍 搜索结果';
+    allSectionTitle.textContent = catLabel;
+
+    const grid = document.getElementById('sitesGrid');
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <p>没有找到相关站点</p>
+        </div>
+      `;
+    } else {
+      grid.innerHTML = filtered.map(renderSiteCard).join('');
+    }
+  }
+}
+
+function setCategory(cat) {
+  currentCategory = cat;
+  renderFilterBar();
+  render();
+}
+
+function handleSearch(val) {
+  searchQuery = val.trim();
+  render();
+}
+
+// Init
+renderFilterBar();
+render();
+</script>
+</body>
+</html>

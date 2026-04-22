@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LJ's Playground</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    body { height: 100vh; overflow: hidden; }
+
+    /* ── Logo ── */
+    .site-logo {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-text-main {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── Background illustration layer ── */
+    .bg-illus {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* ── Center nav ── */
+    .home-center {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* Flat pill buttons */
+    .module-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 240px;
+      padding: 12px 18px;
+      background: none;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .module-link:hover {
+      background: rgba(201,100,66,0.06);
+      color: var(--accent);
+    }
+
+    .module-link:hover .ml-arrow { color: var(--accent); }
+
+    .ml-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .ml-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .ml-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .ml-arrow {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Accordion */
+    .accordion-wrap {
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .accordion-trigger {
+      cursor: pointer;
+      user-select: none;
+      width: 100%;
+    }
+
+    .accordion-arrow {
+      display: inline-block;
+      transition: transform 0.22s ease;
+    }
+
+    .accordion-wrap.open .accordion-arrow {
+      transform: rotate(90deg);
+    }
+
+    .accordion-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.28s ease, opacity 0.22s ease;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 4px;
+      padding-left: 12px;
+    }
+
+    .accordion-wrap.open .accordion-body {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    .plan-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .plan-item:hover {
+      background: rgba(201,100,66,0.05);
+      border-color: transparent;
+      color: var(--text-primary);
+    }
+
+    .plan-item span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .plan-item:hover span { color: var(--text-muted); }
+
+
+  </style>
+</head>
+<body>
+
+
+<!-- ── Background flat illustrations ── -->
+<div class="bg-illus">
+  <svg width="100%" height="100%" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </svg>
+</div>
+
+<!-- ── Center nav ── -->
+<main class="home-center">
+
+  <!-- 手风琴：计划列表 -->
+  <div class="accordion-wrap" id="plansWrap">
+    <div class="module-link accordion-trigger" onclick="togglePlans()">
+      <div class="ml-left">
+        <span class="ml-icon">
+          <!-- list -->
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="5" y1="4" x2="13" y2="4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="5" y1="8" x2="13" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="5" y1="12" x2="13" y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="2.5" cy="4" r="1" fill="currentColor"/>
+            <circle cx="2.5" cy="8" r="1" fill="currentColor"/>
+            <circle cx="2.5" cy="12" r="1" fill="currentColor"/>
+          </svg>
+        </span>
+        计划列表
+      </div>
+      <span class="ml-arrow accordion-arrow" id="plansArrow">›</span>
+    </div>
+    <div class="accordion-body" id="plansBody">
+      <a href="https://claude.ai/public/artifacts/b6c532fd-fd2e-4fe3-83d7-e6f2a5e8d125" target="_blank" rel="noopener" class="plan-item">
+        健身计划 <span>↗</span>
+      </a>
+      <a href="https://claude.ai/public/artifacts/8f06feb2-2069-40f1-a095-aae74c0f201e" target="_blank" rel="noopener" class="plan-item">
+        英语学习计划 <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 手风琴：博客 -->
+  <div class="accordion-wrap" id="blogWrap">
+    <div class="module-link accordion-trigger" onclick="toggleBlog()">
+      <div class="ml-left">
+        <span class="ml-icon">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="5" y1="10.5" x2="8.5" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        博客
+      </div>
+      <span class="ml-arrow accordion-arrow" id="blogArrow">›</span>
+    </div>
+    <div class="accordion-body" id="blogBody">
+      <a href="blog/qingdao_plans.html" target="_blank" rel="noopener" class="plan-item">
+        青岛·威海·荣成自驾行程 <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <a href="gallery/index.html" class="module-link">
+    <div class="ml-left">
+      <span class="ml-icon">
+        <!-- photo -->
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="5.5" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M1 10.5l3.5-3 3 3 2.5-2.5 4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      图库
+    </div>
+  </a>
+
+</main>
+
+
+
+<script>
+  function togglePlans() {
+    document.getElementById('plansWrap').classList.toggle('open');
+  }
+  function toggleBlog() {
+    document.getElementById('blogWrap').classList.toggle('open');
+  }
+</script>
+
+<div style="
+  position:fixed;
+  bottom:0px;
+  left:0;right:0;
+  text-align:center;
+  font-size:160px;
+  font-weight:900;
+  letter-spacing:-2px;
+  color:#c96442;
+  opacity:0.055;
+  pointer-events:none;
+  z-index:0;
+  user-select:none;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  white-space:nowrap;
+  line-height:0.82;
+">LJPLAYGROUND</div>
+
+</body>
+</html>

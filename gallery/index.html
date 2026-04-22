@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图库 · LJ's Playground</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* Masonry grid */
+    .gallery-grid {
+      columns: 3 280px;
+      column-gap: 12px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--bg-card);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .gallery-item-location {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gallery-item-tags {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-item-tags {
+      opacity: 1;
+    }
+
+    .gallery-img-tag {
+      padding: 3px 8px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 100px;
+      font-size: 10px;
+      color: white;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+    }
+
+    .lightbox-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      max-height: 70vh;
+    }
+
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-info {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .lightbox-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .lightbox-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .lightbox-tags {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .lightbox-tag {
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 100px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+
+    /* Loading skeleton */
+    .img-skeleton {
+      background: var(--bg-card);
+      animation: shimmer 1.5s ease infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Stats */
+    .gallery-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .gallery-stats span { color: var(--accent-2); font-weight: 600; }
+
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 2 160px; }
+      .lightbox-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="page-top">
+  <a href="../index.html" class="back-home"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="10" fill="#c96442"/><path d="M8 10 L8 26 L15 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="20" y1="10" x2="26" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M20 10 L20 22 Q20 26 16 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>LJ's Playground</a>
+</header>
+
+<div class="container" style="padding-bottom: 60px;">
+  <div class="page-header">
+    <div class="page-header-tag">🖼️ Photo Gallery</div>
+    <h1>图库</h1>
+    <p>记录生活中的每一个美好瞬间</p>
+  </div>
+
+  <!-- Filter tags -->
+  <div class="filter-bar" id="filterBar"></div>
+
+  <!-- Stats -->
+  <div class="gallery-stats" id="galleryStats"></div>
+
+  <!-- Grid -->
+  <div class="gallery-grid" id="galleryGrid"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="">
+    </div>
+    <div class="lightbox-info">
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="lightbox-meta" id="lightboxMeta"></div>
+      <div class="lightbox-tags" id="lightboxTags"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 LJ's Playground</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+let currentFilter = '全部';
+let currentIndex = 0;
+let filteredPhotos = [];
+
+function getFiltered() {
+  return currentFilter === '全部'
+    ? PHOTOS_DATA
+    : PHOTOS_DATA.filter(p => p.tags.includes(currentFilter));
+}
+
+function renderFilterBar() {
+  document.getElementById('filterBar').innerHTML = PHOTO_TAGS.map(tag => {
+    const count = tag === '全部' ? PHOTOS_DATA.length
+      : PHOTOS_DATA.filter(p => p.tags.includes(tag)).length;
+    return `
+      <button class="filter-btn ${currentFilter === tag ? 'active' : ''}"
+        onclick="setFilter('${tag}')">
+        ${tag}
+        <span class="filter-count">${count}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderGallery() {
+  filteredPhotos = getFiltered();
+
+  document.getElementById('galleryStats').innerHTML =
+    `共 <span>${filteredPhotos.length}</span> 张照片`;
+
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = filteredPhotos.map((photo, i) => `
+    <div class="gallery-item" onclick="openLightbox(${i})" style="animation-delay: ${i * 0.04}s">
+      <img
+        src="${photo.thumb}"
+        alt="${photo.title}"
+        loading="lazy"
+        style="min-height: 160px"
+      >
+      <div class="gallery-item-tags">
+        ${photo.tags.slice(0,2).map(t => `<span class="gallery-img-tag">${t}</span>`).join('')}
+      </div>
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">${photo.title}</div>
+        <div class="gallery-item-location">📍 ${photo.location}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setFilter(tag) {
+  currentFilter = tag;
+  renderFilterBar();
+  renderGallery();
+}
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+function navLightbox(dir) {
+  currentIndex = (currentIndex + dir + filteredPhotos.length) % filteredPhotos.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const photo = filteredPhotos[currentIndex];
+  document.getElementById('lightboxImg').src = photo.src;
+  document.getElementById('lightboxImg').alt = photo.title;
+  document.getElementById('lightboxTitle').textContent = photo.title;
+  document.getElementById('lightboxMeta').innerHTML = `
+    <span>📍 ${photo.location}</span>
+    <span>📅 ${photo.date}</span>
+    <span>${currentIndex + 1} / ${filteredPhotos.length}</span>
+  `;
+  document.getElementById('lightboxTags').innerHTML =
+    photo.tags.map(t => `<span class="lightbox-tag">${t}</span>`).join('');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Init
+renderFilterBar();
+renderGallery();
+</script>
+</body>
+</html>
