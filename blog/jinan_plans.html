@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>济南旅游攻略 · 2026年6月</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+    :root {
+      --blue:       #1a5fa8;
+      --blue-mid:   #2176c7;
+      --blue-lt:    #daeeff;
+      --blue-pale:  #f0f8ff;
+      --gold:       #c87d0e;
+      --gold-lt:    #fff4db;
+      --gold-vivid: #f0a820;
+      --green:      #1e7e52;
+      --green-lt:   #e4f7ed;
+      --red:        #b83232;
+      --red-lt:     #fdf0f0;
+      --purple:     #6b3fa0;
+      --purple-lt:  #f3eeff;
+      --teal:       #0d7e7e;
+      --teal-lt:    #e2f6f6;
+      --gray-dark:  #2d3748;
+      --gray:       #5a6a80;
+      --gray-lt:    #8a9ab0;
+      --border:     #dde6f0;
+      --bg:         #f2f6fc;
+      --card:       #ffffff;
+      --shadow-sm:  0 2px 8px rgba(26,95,168,.08);
+      --shadow-md:  0 6px 24px rgba(26,95,168,.12);
+      --shadow-lg:  0 12px 40px rgba(26,95,168,.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--gray-dark);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════ HERO ═══════════════════════════════════ */
+    .hero {
+      position: relative;
+      background:
+        linear-gradient(160deg,
+          rgba(8,40,90,0.82)  0%,
+          rgba(14,72,138,0.72) 35%,
+          rgba(20,100,180,0.58) 65%,
+          rgba(40,140,210,0.45) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Jinan_Baotu_Spring_pond-20150519-RM-174750.jpg/1280px-Jinan_Baotu_Spring_pond-20150519-RM-174750.jpg')
+        center 60% / cover no-repeat;
+      padding: 0;
+      overflow: hidden;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* animated bubble decoration */
+    .hero-bubbles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      animation: rise 8s infinite ease-in;
+    }
+    .bubble:nth-child(1)  { width:18px;height:18px; left:8%;  animation-delay:0s;   animation-duration:7s;  }
+    .bubble:nth-child(2)  { width:12px;height:12px; left:18%; animation-delay:1.5s; animation-duration:9s;  }
+    .bubble:nth-child(3)  { width:28px;height:28px; left:32%; animation-delay:3s;   animation-duration:11s; }
+    .bubble:nth-child(4)  { width:8px; height:8px;  left:46%; animation-delay:0.8s; animation-duration:8s;  }
+    .bubble:nth-child(5)  { width:20px;height:20px; left:58%; animation-delay:2.2s; animation-duration:10s; }
+    .bubble:nth-child(6)  { width:14px;height:14px; left:72%; animation-delay:1s;   animation-duration:7s;  }
+    .bubble:nth-child(7)  { width:32px;height:32px; left:85%; animation-delay:4s;   animation-duration:12s; }
+    .bubble:nth-child(8)  { width:10px;height:10px; left:93%; animation-delay:0.3s; animation-duration:8s;  }
+    @keyframes rise {
+      0%   { transform: translateY(120%) scale(.6); opacity:0; }
+      20%  { opacity: 1; }
+      80%  { opacity: .6; }
+      100% { transform: translateY(-20px) scale(1); opacity:0; }
+    }
+
+    /* wave bottom */
+    .hero-wave {
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 80px;
+    }
+    .hero-wave svg { width:100%; height:100%; display:block; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 100px;
+      padding: 5px 18px;
+      font-size: .75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7de0ff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(1.4); }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: .06em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+    .hero-date {
+      font-size: 1rem;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 36px;
+      font-weight: 300;
+      letter-spacing: .04em;
+    }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-size: .82rem;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+    .chip:hover { background: rgba(255,255,255,.22); }
+    .chip-icon { font-size: .95rem; }
+
+    /* ═══════════════════════════════════ OVERVIEW STRIP ═══════════════════════════════════ */
+    .overview-strip {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .overview-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .ov-item {
+      flex: 1 1 140px;
+      padding: 10px 20px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .ov-item:last-child { border-right: none; }
+    .ov-label { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-lt); margin-bottom: 4px; }
+    .ov-val   { font-size: .92rem; font-weight: 700; color: var(--blue); }
+
+    /* ═══════════════════════════════════ MAIN LAYOUT ═══════════════════════════════════ */
+    .container { max-width: 860px; margin: 0 auto; padding: 40px 16px 72px; }
+
+    /* ═══════════════════════════════════ SECTION TITLE ═══════════════════════════════════ */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--gray-dark);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 48px 0 20px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px; height: 20px;
+      border-radius: 2px;
+      background: linear-gradient(to bottom, var(--blue), var(--blue-mid));
+      flex-shrink: 0;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ═══════════════════════════════════ TIPS BANNER ═══════════════════════════════════ */
+    .tips-banner {
+      background: linear-gradient(135deg, #fffbef 0%, #fff8e1 100%);
+      border: 1px solid #f0d070;
+      border-left: 4px solid var(--gold-vivid);
+      border-radius: 14px;
+      padding: 16px 20px;
+      font-size: .87rem;
+      color: #6b4b10;
+      line-height: 1.85;
+    }
+    .tips-banner strong { color: #a86010; }
+
+    /* ═══════════════════════════════════ DAY LABEL ═══════════════════════════════════ */
+    .day-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 36px 0 16px;
+    }
+    .day-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .day-label-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      border: 1.5px solid;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════ DAY CARD ═══════════════════════════════════ */
+    .day-card {
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .day-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    /* colored top accent bar */
+    .day-card-top {
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+    }
+
+    .day-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 26px 18px;
+    }
+    .day-num-badge {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,.18);
+    }
+    .day-num-d { font-size: 1.5rem; font-weight: 900; line-height: 1; }
+    .day-num-m { font-size: .62rem; font-weight: 500; opacity: .85; letter-spacing: .03em; }
+
+    .day-info h2 { font-size: 1.1rem; font-weight: 800; color: var(--gray-dark); line-height: 1.3; }
+    .day-info p  { font-size: .8rem; color: var(--gray-lt); margin-top: 3px; }
+
+    .day-region-tag {
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: 100px;
+      background: var(--blue-lt);
+      color: var(--blue);
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    /* ═══════════════════════════════════ TIMELINE ═══════════════════════════════════ */
+    .timeline {
+      padding: 6px 26px 20px;
+    }
+    .tl-item {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+    .tl-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 52px;
+      flex-shrink: 0;
+    }
+    .tl-time {
+      font-size: .68rem;
+      font-weight: 800;
+      color: var(--blue);
+      white-space: nowrap;
+      line-height: 1;
+      margin-bottom: 5px;
+      background: var(--blue-lt);
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tl-time.food  { background: var(--gold-lt);   color: var(--gold); }
+    .tl-time.rest  { background: #f1f5f9;           color: #8a9ab0; }
+
+    .tl-dot {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--blue);
+      flex-shrink: 0;
+      margin: 2px 0;
+    }
+    .tl-dot.food   { background: var(--gold-vivid);  box-shadow: 0 0 0 2px var(--gold-vivid); }
+    .tl-dot.rest   { background: #94a3b8;             box-shadow: 0 0 0 2px #94a3b8; }
+    .tl-dot.nature { background: var(--green);        box-shadow: 0 0 0 2px var(--green); }
+
+    .tl-line {
+      width: 2px;
+      flex: 1;
+      min-height: 24px;
+      background: linear-gradient(to bottom, var(--border), transparent);
+      margin: 2px 0;
+    }
+
+    .tl-body {
+      flex: 1;
+      padding: 0 0 22px;
+    }
+    .tl-title {
+      font-weight: 700;
+      font-size: .96rem;
+      color: var(--gray-dark);
+      margin-bottom: 4px;
+    }
+    .tl-desc {
+      font-size: .84rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .tl-desc strong { color: var(--gray-dark); }
+    .tl-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      background: var(--green-lt);
+      color: var(--green);
+      border-radius: 7px;
+      padding: 3px 10px;
+      font-size: .75rem;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════ DIVIDER ═══════════════════════════════════ */
+    .divider { height: 1px; background: var(--border); margin: 0 26px 20px; }
+
+    /* ═══════════════════════════════════ MEAL SECTION ═══════════════════════════════════ */
+    .meal-section { padding: 0 26px 24px; }
+    .meal-heading {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .meal-heading::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    .meal-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width:540px) { .meal-row { grid-template-columns: 1fr; } }
+
+    .meal-card {
+      border-radius: 14px;
+      padding: 16px 18px;
+      border: 1px solid transparent;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .meal-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+    .meal-card.lunch {
+      background: linear-gradient(135deg, #fffbef, #fff4d0);
+      border-color: #f0d878;
+    }
+    .meal-card.dinner {
+      background: linear-gradient(135deg, #fff3f0, #ffe8e4);
+      border-color: #f0b0a0;
+    }
+
+    .meal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .meal-type-badge {
+      font-size: .64rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 9px;
+      border-radius: 100px;
+    }
+    .lunch  .meal-type-badge { background: var(--gold-vivid); color: #fff; }
+    .dinner .meal-type-badge { background: var(--red);        color: #fff; }
+
+    .meal-score-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 100px;
+      background: #fff;
+    }
+    .lunch  .meal-score-badge { color: var(--gold);  border: 1px solid #f0c060; }
+    .dinner .meal-score-badge { color: var(--red);   border: 1px solid #f0a090; }
+    .meal-score-badge.fav {
+      background: linear-gradient(90deg, #fff8e1, #fff3f0);
+      color: #b06010;
+      border: 1px solid #e8c060;
+      font-weight: 800;
+    }
+
+    .meal-name { font-size: .97rem; font-weight: 800; color: var(--gray-dark); margin-bottom: 6px; }
+    .meal-info { font-size: .8rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── Snack / Breakfast note ── */
+    .snack-note {
+      margin-top: 12px;
+      background: linear-gradient(135deg, #f5f0ff, #ede8ff);
+      border: 1px solid #c8b8f0;
+      border-left: 4px solid var(--purple);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .82rem;
+      color: #4a3370;
+      line-height: 1.7;
+    }
+    .snack-note-label {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      border-radius: 100px;
+      padding: 2px 12px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* ── Room photo strip ── */
+    .room-photos {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .room-photos .rp-wrap {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: zoom-in;
+    }
+    .room-photos .rp-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform .3s ease;
+    }
+    .room-photos .rp-wrap:hover img { transform: scale(1.05); }
+    .rp-zoom-hint {
+      position: absolute;
+      top: 7px; right: 7px;
+      width: 26px; height: 26px;
+      background: rgba(0,0,0,.42);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      pointer-events: none;
+      opacity: 0.85;
+      transition: opacity .2s;
+    }
+    .room-photos .rp-wrap { position: relative; }
+    .room-photos .rp-wrap:hover .rp-zoom-hint { opacity: 1; }
+    @media(max-width:600px){
+      .room-photos { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ── Lightbox ── */
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-overlay.active { display: flex; }
+    .lb-overlay img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.6);
+    }
+    .lb-close {
+      position: fixed;
+      top: 18px; right: 24px;
+      color: #fff;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: .8;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-prev, .lb-next {
+      position: fixed;
+      top: 50%; transform: translateY(-50%);
+      color: #fff;
+      font-size: 2.5rem;
+      cursor: pointer;
+      opacity: .7;
+      padding: 0 18px;
+      user-select: none;
+    }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+    .lb-prev:hover, .lb-next:hover { opacity: 1; }
+
+    /* ═══════════════════════════════════ SPECIALTY GRID ═══════════════════════════════════ */
+    .specialty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    .specialty-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 16px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s;
+      cursor: default;
+    }
+    .specialty-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .specialty-icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem;
+      margin: 0 auto 12px;
+    }
+    .specialty-name { font-size: .9rem; font-weight: 800; color: var(--gray-dark); margin-bottom: 4px; }
+    .specialty-desc { font-size: .75rem; color: var(--gray-lt); line-height: 1.5; }
+
+    /* ═══════════════════════════════════ NOTES GRID ═══════════════════════════════════ */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .note-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 12px;
+    }
+    .note-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .note-title { font-size: .82rem; font-weight: 800; color: var(--gray-dark); margin-bottom: 4px; }
+    .note-text  { font-size: .79rem; color: var(--gray); line-height: 1.6; }
+
+    /* ═══════════════════════════════════ FOOTER ═══════════════════════════════════ */
+    .footer {
+      background: linear-gradient(160deg, #0a3870, #1060a8);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: .82rem;
+      line-height: 2;
+    }
+    .footer-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+
+    /* ═══════════════════════════════════ DAY-SPECIFIC COLORS ═══════════════════════════════════ */
+    .day-1 { --accent-a: #1a6fcc; --accent-b: #40a8f0; }
+    .day-2 { --accent-a: #1e8a5c; --accent-b: #38c890; }
+    .day-3 { --accent-a: #0d7e7e; --accent-b: #1ec0c0; }
+    .day-4 { --accent-a: #8840cc; --accent-b: #b870f0; }
+    .day-5 { --accent-a: #c87020; --accent-b: #f0a840; }
+    .day-6 { --accent-a: #c83260; --accent-b: #f06090; }
+    .day-7 { --accent-a: #607080; --accent-b: #8090a8; }
+
+    /* ═══════════════════════════════════ RESPONSIVE ═══════════════════════════════════ */
+    @media (max-width: 600px) {
+      .day-header { grid-template-columns: auto 1fr; }
+      .day-region-tag { display: none; }
+      .ov-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .ov-item:last-child { border-bottom: none; }
+      .overview-inner { flex-direction: column; padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-bubbles">
+    <div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">泉城济南 · 六日深度游</div>
+    <h1>济南旅游攻略</h1>
+    <p class="hero-date">2026 年 6 月 3 日（周三）— 6 月 9 日（周二）· 共 6 天</p>
+    <div class="hero-chips">
+      <div class="chip"><span class="chip-icon">📍</span>历下区后宰门街 46 号</div>
+      <div class="chip"><span class="chip-icon">🛵</span>电动车出行</div>
+      <div class="chip"><span class="chip-icon">👴</span>老少皆宜 · 节奏舒缓</div>
+      <div class="chip"><span class="chip-icon">🌡</span>6 月气温 25~34°C</div>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#f2f6fc"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ MAIN ══════════════════════════════ -->
+<div class="container">
+
+  <!-- ─────────────── 行程 ─────────────── -->
+  <div class="section-title">六日详细行程</div>
+
+
+  <!-- ══ DAY 1 ══ -->
+  <div class="day-card day-1">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">3</span>
+        <span class="day-num-m">6月 · 周三</span>
+      </div>
+      <div class="day-info">
+        <h2>第一天 · 抵达 &amp; 五龙潭 + 曲水亭街</h2>
+        <p>下午轻游 · 首日不过劳 · 夜逛住所旁曲水亭街</p>
+      </div>
+      <div class="day-region-tag">五龙潭</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:15</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">落地 · 取行李 · 航站楼早餐</div>
+          <div class="tl-desc">落地后约 30 分钟取完行李出航站楼，在楼内快餐简单吃个早餐垫肚子，随后打车前往住所，全程约 50~60 分钟高速。</div>
+          <span class="tl-note">航站楼内德克士等快餐 · 打车约 80~100 元</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:00</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">抵达住所 · 办理入住</div>
+          <div class="tl-desc">安顿行李，稍作休整。住所地处历下区核心，距大明湖南门约 300 米，周边生活配套完善。</div>
+          <div class="room-photos">
+            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130517(1).jpg" alt="民宿图片1"></div>
+            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130522(1).jpg" alt="民宿图片2"></div>
+            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130527(1).jpg" alt="民宿图片3"></div>
+            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130556(1).jpg" alt="民宿图片4"></div>
+            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130608(1).jpg" alt="民宿图片5"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:30</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">租赁电动车</div>
+          <div class="tl-desc">放下行李后第一件事，在住所附近找一家共享电动车或租车点租好车，这是全程出行的主力工具，确认电量充足、熟悉操作后即可出发。</div>
+          <span class="tl-note">建议提前查好周边租车点 · 日租约 20~40 元</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐 · 春水锅贴</div>
+          <div class="tl-desc">就在住所曲水亭街口，步行即到，现煎现吃、底部焦脆，吃完直接回住所休息，省去任何绕路，轻松开启第一天。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">14:00</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">回住所午休</div>
+          <div class="tl-desc">饭后回住所小憩，避开正午最热时段，下午出发前养足精神。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">五龙潭公园</div>
+          <div class="tl-desc">园内汇聚月牙泉、青泉、天镜泉等数十处泉池，清澈见底，可近距离观泉。公园幽静，人流远少于趵突泉，更适合带长辈悠然游览，首日不过劳，约 2 小时。</div>
+          <span class="tl-note">骑车约 15 分钟 · 门票 10 元 · 下午人少清静</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">17:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐 · 魁盛居百年鲁菜馆</div>
+          <div class="tl-desc">从五龙潭骑车返回途中，顺路在县西巷停下吃饭。大众点评必吃榜老字号，1919 年创立，九转大肠、糖醋鲤鱼、爆炒腰花是招牌。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">20:00</div><div class="tl-dot nature"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🌙 曲水亭街夜游</div>
+          <div class="tl-desc">就在住所门口，泉水穿街而过，入夜后灯影摇曳、柳树倒映水中，两岸古朴民居透出暖光，漫步约 1 小时，随时可回住所休息。</div>
+          <span class="tl-note">步行即达 · 免费 · 夜晚灯影最美</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">⭐ 您的收藏</span>
+          </div>
+          <div class="meal-name">春水锅贴（曲水亭街）</div>
+          <div class="meal-info">就在住所门口曲水亭街口，步行即到，现煎现吃、底部焦脆金黄，配一碗酸辣汤，吃完直接回住所休息，完全不走弯路，轻松开启第一天，人均约 25~35 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">必吃榜老字号</span>
+          </div>
+          <div class="meal-name">魁盛居百年鲁菜馆（县西巷店）</div>
+          <div class="meal-info">大众点评必吃榜老字号，1919 年创立，素有"鲁菜博物馆"美誉。九转大肠、糖醋鲤鱼、爆炒腰花是镇店招牌。从五龙潭骑车返回途中顺路在县西巷停下，人均约 100~130 元。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DAY 2 ══ -->
+  <div class="day-card day-2">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">4</span>
+        <span class="day-num-m">6月 · 周四</span>
+      </div>
+      <div class="day-info">
+        <h2>第二天 · 趵突泉深度游</h2>
+        <p>"天下第一泉" · 名泉人文一整天 · 尽揽园内胜景</p>
+      </div>
+      <div class="day-region-tag">趵突泉景区</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">入园 · 趵突泉主景区</div>
+          <div class="tl-desc">从东门入园，直奔"天下第一泉"核心区——三股泉水昼夜喷涌，水声轰鸣，气势磅礴。沿泉池漫游<strong>观澜亭</strong>（明代石刻赏泉佳处）、<strong>泺源堂</strong>（宋代古建），不赶时间，走走停停，约 1 小时。</div>
+          <span class="tl-note">门票 30 元 · 上午人流较少</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">10:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">金线泉 · 漱玉泉</div>
+          <div class="tl-desc">沿园内小径继续赏泉，金线泉水面可见一道金色细线随水波荡漾，漱玉泉水位是泉群中最高的，两处泉池相距不远，慢慢走约 30 分钟。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">李清照纪念堂 · 沧园</div>
+          <div class="tl-desc">宋代女词人李清照故居坐落漱玉泉边，纪念堂院落幽静，陈列词人生平与手迹复刻；相邻的沧园小景可顺路走走，适合慢慢品读，约 1 小时。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐 · 燕喜堂</div>
+          <div class="tl-desc">出东门步行 3 分钟即达泉城路燕喜堂，百年鲁菜老字号，九转大肠、糖醋鲤鱼、葱烧海参是招牌，正式坐下来吃一顿，约 1 小时。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">13:00</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午休</div>
+          <div class="tl-desc">6 月午后气温最高，按当天状态二选一：<br>　<strong>① 就地歇脚</strong>——燕喜堂或附近茶馆点壶茶，坐着消食纳凉，约 1 小时；<br>　<strong>② 回住所午睡</strong>——骑车 5 分钟即到，睡一觉精力更足，约 1~1.5 小时。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">14:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">再入园 · 万竹园</div>
+          <div class="tl-desc">元代私家园林，因园内广植翠竹而得名。3 套院落、13 个庭院、186 间房屋，融合南方庭院与北京王府及济南四合院多种风格，是园内规模最大的古建筑群，步移景异，约 1 小时。</div>
+          <span class="tl-note">年卡入园 · 含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">李苦禅纪念馆 · 王雪涛纪念馆</div>
+          <div class="tl-desc">紧邻万竹园，两座纪念馆分别陈列大写意花鸟画宗师李苦禅与工笔花鸟名家王雪涛的真迹与生平，馆内清静凉快，边欣赏边歇脚，约 45 分钟。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">16:15</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">望鹤亭茶社 · 品茗听泉</div>
+          <div class="tl-desc">就在趵突泉主泉旁，用趵突泉水现泡一壶香茗，坐在亭内听泉声、看涌泉，是下午最惬意的收尾，约 45 分钟。</div>
+          <span class="tl-note">园内 · 人均约 30~50 元</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">18:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐 · 鲁南仔炒鸡</div>
+          <div class="tl-desc">出园后骑车返程，傍晚在收藏的炒鸡馆子用餐，鸡肉鲜嫩酱汁浓香，家常味道暖胃解馋。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">20:30</div><div class="tl-dot nature"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🌙 解放阁夜景</div>
+          <div class="tl-desc">护城河东端的解放阁入夜后灯光璀璨，阁影倒映水中，沿护城河散步感受老城夜韵，约 40 分钟。</div>
+          <span class="tl-note">免费 · 护城河夜景最美路段</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">百年老字号</span>
+          </div>
+          <div class="meal-name">燕喜堂（泉城路店）</div>
+          <div class="meal-info">济南百年鲁菜老字号，趵突泉东门旁步行 3 分钟即到，九转大肠、糖醋鲤鱼、葱烧海参均是镇店招牌，出园正式坐下来吃一顿，吃完午休后凭年卡再入园，人均约 80~120 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">⭐ 您的收藏</span>
+          </div>
+          <div class="meal-name">鲁南仔炒鸡</div>
+          <div class="meal-info">您收藏的本地炒鸡馆子，济南特色炒鸡鸡肉鲜嫩、酱汁浓香，傍晚出园后就近用餐，家常味道暖胃解馋，人均约 50~80 元。</div>
+        </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">下午茶 · 园内收尾</div>
+        <strong>望鹤亭茶社</strong>就在趵突泉主泉旁，用趵突泉水现泡的香茗别有风味，下午游完所有景点后在此坐下歇脚，听泉声、喝茶，是一天最惬意的句号，人均约 30~50 元。
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">早餐 · 出发前打卡</div>
+        出门前可顺路打卡您收藏的 <strong>义利永百年老号牛肉烧饼</strong> 或 <strong>老周家牛肉烧饼</strong>，当早餐出发最合适，人均约 15 元。
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DAY 3 ══ -->
+  <div class="day-card day-3">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">5</span>
+        <span class="day-num-m">6月 · 周五</span>
+      </div>
+      <div class="day-info">
+        <h2>第三天 · 大明湖深度游</h2>
+        <p>住所步行可达 · 荷花游船戏楼 · 一整天慢享湖光</p>
+      </div>
+      <div class="day-region-tag">大明湖</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">入园 · 铁公祠 · 小沧浪亭</div>
+          <div class="tl-desc">从南门入园后沿西岸北行，首站铁公祠，纪念明代忠臣铁铉，祠内小沧浪亭临水而建、荷花环绕，是大明湖最幽静的角落，约 35 分钟。</div>
+          <span class="tl-note">门票 40 元 · 铁公祠含在内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">10:15</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">北极阁</div>
+          <div class="tl-desc">沿北岸东行，元代道教庙宇坐落在 7 米高台之上，登台可俯瞰全湖，钟鼓楼古朴壮观，约 25 分钟。</div>
+          <span class="tl-note">北岸 · 免费</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">10:50</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">汇波楼 · 出东门</div>
+          <div class="tl-desc">继续东行至东北角汇波楼，登楼北望鹊华两山、南俯大明湖全景，约 20 分钟后沿东岸步行至东门出园，骑电动车去吃午饭。</div>
+          <span class="tl-note">东北角 · 免费</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">11:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐 · 鹊华居酒楼</div>
+          <div class="tl-desc">出东门骑车 1 分钟，就在鹊华桥旁，百年老字号鲁菜，二楼包间可望大明湖，九转大肠、海鲜疙瘩汤是招牌，人均约 80~120 元。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">13:00</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午休</div>
+          <div class="tl-desc">骑车回住所午睡，住所距大明湖南门不足 5 分钟，午休最方便的一天。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">14:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">再入园 · 稼轩祠</div>
+          <div class="tl-desc">从南门再入，步行至稼轩祠，辛弃疾塑像与诗词长廊，院内银杏、石榴清幽宜人，约 20 分钟。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">历下亭（游船上岛）</div>
+          <div class="tl-desc">乘游船前往湖中历下亭岛，杜甫留下"海右此亭古，济南名士多"，古亭四面环水、荷花相拥，是大明湖最经典的打卡点，约 40 分钟。</div>
+          <span class="tl-note">游船 30 元/人</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">16:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">超然楼 · 登楼看夕阳</div>
+          <div class="tl-desc">返回后登超然楼，俯瞰大明湖夕照荷花与远山轮廓，是一天中最美的时段，楼内凉爽可坐下休息，约 45 分钟。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">17:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">南丰戏楼 · 喝茶等亮灯</div>
+          <div class="tl-desc">从超然楼下来沿西岸步行约 10 分钟至北岸南丰戏楼，在 2 楼阁楼落座，正好可以隔湖望向超然楼方向，品泉水茶、尝超然楼慕斯与石狮蛋糕，慢慢等待超然楼入夜亮灯、灯影倒映湖面，是这一天最惬意的收尾，约 1.5~2 小时。</div>
+          <span class="tl-note">北岸 · 人均约 50~80 元 · 约 19:30 亮灯</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">20:00</div><div class="tl-dot food"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐 · 会仙楼饭庄</div>
+          <div class="tl-desc">出园步行至芙蓉街北口，济南老字号，把子肉软烂入味、甜沫暖胃、油旋酥脆，正经坐下来吃一顿老济南味道，圆满收尾大明湖深度游这一天。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">百年老字号</span>
+          </div>
+          <div class="meal-name">鹊华居酒楼（大明湖东门）</div>
+          <div class="meal-info">大明湖东门骑车 1 分钟，鹊华桥旁百年老字号鲁菜，二楼包间可望大明湖，九转大肠、海鲜疙瘩汤是招牌菜，环境适合长辈正经坐下来用餐，人均约 80~120 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">济南老字号</span>
+          </div>
+          <div class="meal-name">会仙楼饭庄（芙蓉街店）</div>
+          <div class="meal-info">芙蓉街北口老字号，把子肉软烂入味、甜沫暖胃、油旋酥脆，是最地道的老济南小吃组合。从大明湖出园步行即到，正经坐下来吃一顿，圆满收尾大明湖深度游这一天，人均约 40~60 元。</div>
+        </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">下午茶 · 园内打卡</div>
+        傍晚在园内北岸<strong>南丰戏楼</strong>落座，2 楼阁楼隔湖望超然楼，品泉水茶与超然楼慕斯、石狮蛋糕，等待超然楼约 19:30 亮灯，灯影倒映湖面，是这一天最惬意的时刻，人均约 50~80 元。
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">早餐 · 暖胃推荐</div>
+        出门前推荐您收藏的 <strong>菏泽原汁羊汤</strong>，喝一碗原汁羊汤配烧饼，汤色醇厚、老人最易消化，今日行程轻松，早餐喝汤最舒适，人均约 20 元。
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DAY 4 ══ -->
+  <div class="day-card day-4">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">6</span>
+        <span class="day-num-m">6月 · 周六</span>
+      </div>
+      <div class="day-info">
+        <h2>第四天 · 千佛山 + 山东省博物馆</h2>
+        <p>南部文化线 · 山景与历史并重</p>
+      </div>
+      <div class="day-region-tag">南部文化线</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">千佛山风景区</div>
+          <div class="tl-desc">济南三大名胜之一，山间遍布佛像石刻，兴国禅寺历史厚重。<strong>推荐乘缆车上山</strong>（单程约 5 分钟），节省体力；山顶可俯瞰整个济南城区，远山如黛，约 2~2.5 小时。</div>
+          <span class="tl-note">骑车约 20 分钟 · 门票 30 元 · 缆车另购 · 上山必坐缆车</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐</div>
+          <div class="tl-desc">千佛山附近或英雄山周边用餐，多家本地特色餐厅可选。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">13:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午休</div>
+          <div class="tl-desc">今日活动量较多，午睡充足再出发。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">山东省博物馆</div>
+          <div class="tl-desc">全国重点博物馆，馆藏《孙子兵法》竹简、汉代画像石、商周青铜器等国宝级文物。<strong>室内凉爽</strong>，是夏日最舒适的游览选择，老人不会觉得劳累，建议参观 2 小时。</div>
+          <span class="tl-note">骑车约 10 分钟 · 免费（需网上预约）· 周一闭馆</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">17:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">返回住所休息</div>
+          <div class="tl-desc">今日行程最丰富，务必留足休息时间。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">19:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐</div>
+          <div class="tl-desc">大明湖周边或住所附近，轻松惬意用餐。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">★ 4.6  老字号</span>
+          </div>
+          <div class="meal-name">丰泽园饭店</div>
+          <div class="meal-info">百年鲁菜老字号，以扒猪脸、奶汤蒲菜见长，传统风味保留完整，就餐环境整洁舒适，适合带长辈用餐。英雄山路附近。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">⭐ 您的收藏</span>
+          </div>
+          <div class="meal-name">魁盛居百年鲁菜</div>
+          <div class="meal-info">百年鲁菜老馆，传承正宗济南菜肴技艺，招牌菜如糖醋鱼、扒肘子等制作考究。游完千佛山和博物馆后前往，南部片区顺路，环境适合一家人好好坐下来吃一顿。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DAY 5 ══ -->
+  <div class="day-card day-5">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">7</span>
+        <span class="day-num-m">6月 · 周日</span>
+      </div>
+      <div class="day-info">
+        <h2>第五天 · 府学文庙 + 大观园夜游</h2>
+        <p>上午慢游古迹 · 下午充分休息 · 晚上夜市民俗</p>
+      </div>
+      <div class="day-region-tag">老城慢游</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">府学文庙</div>
+          <div class="tl-desc">距住所步行约 5 分钟，始建于宋代，是济南保存最完整的古代学宫建筑群。古朴庭院、棂星门、大成殿一路走来，清幽宁静，非常适合带长辈慢慢逛，约 1~1.5 小时。</div>
+          <span class="tl-note">步行 5 分钟 · 门票约 20 元 · 人少清静</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">后宰门街 · 住所周边漫步</div>
+          <div class="tl-desc">住所所在的后宰门街本身是条有韵味的老街，沿街随意走走，感受老济南居民日常生活，顺路逛逛附近小店，不赶时间、不定目的地，约 1 小时。</div>
+          <span class="tl-note">步行即可 · 免费 · 随心漫步</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐</div>
+          <div class="tl-desc">住所附近就近用餐，轻松简单。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">13:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午休</div>
+          <div class="tl-desc">睡个好觉，下午精力恢复后再出发。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">珍珠泉 · 院落散步</div>
+          <div class="tl-desc">济南四大泉群之一，泉水从地下涌出时气泡串串如珍珠，距住所步行约 10 分钟。环境极为幽静，人流少、节奏慢，傍晚前游览格外清凉，约 1 小时。</div>
+          <span class="tl-note">步行 10 分钟 · 门票 15 元 · 人少清静</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">18:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐</div>
+          <div class="tl-desc">提前用餐，为晚上大观园夜游留出时间。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">19:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">大观园夜游</div>
+          <div class="tl-desc">大观园入夜后灯光亮起，是济南老城最有市井烟火气的夜游地之一。广场上常有<strong>吕剧、山东快书、杂耍</strong>等传统民俗演出，老人最爱看；周边小摊云集，糖人、捏面人、传统零嘴信手拈来，逛上 1.5~2 小时不嫌多。</div>
+          <span class="tl-note">骑车约 10 分钟 · 免费入场 · 演出多在 20:00 前后</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">21:30</div><div class="tl-dot rest"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">返回休息</div>
+          <div class="tl-desc">骑车回住所，顺路可打包一份春水锅贴当宵夜。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">⭐ 您的收藏</span>
+          </div>
+          <div class="meal-name">老济南四合院正宗鲁菜</div>
+          <div class="meal-info">古朴四合院内品鉴正宗鲁菜，环境与气质和今日"老城慢游"主题完全契合，步行可达，适合带长辈好好坐下吃一顿，人均约 80~120 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">⭐ 您的收藏</span>
+          </div>
+          <div class="meal-name">鲁南仔滕州炒鸡</div>
+          <div class="meal-info">滕州炒鸡鸡肉鲜嫩、汤汁浓香，与鲁菜风格不同，为行程增添别样风味。18:00 提早用餐，吃完正好骑车去大观园夜游，时间衔接完美。</div>
+        </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">宵夜 · 顺路带走</div>
+        大观园夜游结束返程时，顺路打包您收藏的 <strong>春水锅贴</strong>，底部焦脆、现煎现吃，当宵夜再合适不过。
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ DAY 6 泰山一日游 ══ -->
+  <div class="day-card day-6">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">8</span>
+        <span class="day-num-m">6月 · 周一</span>
+      </div>
+      <div class="day-info">
+        <h2>第六天 · 泰山一日游</h2>
+        <p>6:30 早起出发 · 索道轻松登顶 · 傍晚返回济南</p>
+      </div>
+      <div class="day-region-tag">济南↔泰山</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">6:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">早起出发 · 酒店简餐或便利店</div>
+          <div class="tl-desc">今日是全程最早出发的一天，轻便早餐后即前往济南西站。建议提前一天备好零食饮水，山顶商品价格偏贵。</div>
+          <span class="tl-note">出发前检查：防晒、薄外套、零食饮水</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">7:10</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">济南西站 → 泰安站（高铁）</div>
+          <div class="tl-desc">高铁全程约 <strong>30 分钟</strong>，班次密集，到泰安站后打车约 10~15 分钟直达天外村景区入口。</div>
+          <span class="tl-note">二等座约 30 元 · 建议提前购票 · 泰安站打车即走</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">8:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">天外村 → 景区中巴 → 中天门</div>
+          <div class="tl-desc">在天外村购买景区套票，乘景区摆渡车直达中天门，约 30 分钟，全程坐车无需爬坡，长辈完全轻松。</div>
+          <span class="tl-note">景区套票含门票+摆渡车+索道 · 约 200~250 元/人</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">8:40</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">中天门 → 中天门索道 → 南天门</div>
+          <div class="tl-desc">乘坐<strong>中天门索道（天外村线）</strong>直抵南天门，约 20 分钟，是带长辈登泰山最省力的方式，凌空俯瞰山势，壮观震撼。</div>
+          <span class="tl-note">强烈推荐购往返票 · 省力省时 · 风景极佳</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:10</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">南天门 · 天街 · 碧霞祠 · 玉皇顶</div>
+          <div class="tl-desc">南天门海拔 1460m，6 月山顶气温约 <strong>18~22°C</strong>，凉爽宜人。沿<strong>天街</strong>石板路漫步（路面平坦，长辈友好），参观<strong>碧霞祠</strong>（泰山女神庙，香火旺盛），登<strong>玉皇顶</strong>感受"会当凌绝顶，一览众山小"，游览约 2 小时。</div>
+          <span class="tl-note">备薄外套 · 天街石板路平坦 · 碧霞祠免费入内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">索道下山 → 摆渡车返天外村</div>
+          <div class="tl-desc">乘往返索道下至中天门，再乘景区摆渡车返回天外村，全程约 1 小时，轻松无压力，避开午后高温。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">13:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐 · 泰安市区</div>
+          <div class="tl-desc">打车前往泰安市区，品尝一顿<strong>泰安炒鸡</strong>——当地名菜，鸡肉鲜嫩、酱汁浓香，登山后大快朵颐最解馋，人均约 50~80 元。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">14:30</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">泰安站 → 济南西站（高铁返程）</div>
+          <div class="tl-desc">餐后打车返回泰安站，乘高铁约 <strong>30 分钟</strong>回到济南西，再打车约 20 分钟回酒店，全程轻松。</div>
+          <span class="tl-note">返程不必抢早车 · 15:00~16:00 班次充裕</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">16:00</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">回酒店 · 休整放松</div>
+          <div class="tl-desc">今日体力消耗较大，回酒店后好好休息、泡脚放松，傍晚精力恢复后再出门散散步。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">18:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐 · 住所附近</div>
+          <div class="tl-desc">今晚无需远行，在后宰门街附近随意选一家收藏的老馆子，轻松晚餐。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">20:00</div><div class="tl-dot nature"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🌙 曲水亭街夜景散步</div>
+          <div class="tl-desc">距酒店步行约 5 分钟，小桥流水、灯影摇曳，是济南最有烟火气的夜景小街。今晚是在济南的最后一夜，慢慢走、慢慢看，和济南的泉水道个别。散步约 40 分钟。</div>
+          <span class="tl-note">免费 · 步行即达 · 旅程最后一夜的美好收尾</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">泰安特色</span>
+          </div>
+          <div class="meal-name">泰安炒鸡（市区老字号）</div>
+          <div class="meal-info">泰安炒鸡是当地最具代表性的名菜，以散养土鸡为原料，酱汁浓香、肉质鲜嫩。下山后饥肠辘辘时吃一顿最解馋，市区多家老字号可选，人均约 50~80 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">济南收藏馆子</span>
+          </div>
+          <div class="meal-name">鲁南仔炒鸡 或 燕喜堂</div>
+          <div class="meal-info">回济南后的最后一顿晚饭，在收藏的馆子里轻松用餐。鲁南仔炒鸡家常味足，燕喜堂百年鲁菜大气正宗，按当天状态随意选一家，人均约 60~100 元。</div>
+        </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">早餐 · 泉城最后一味</div>
+        明日退房前，推荐最后吃一碗 <strong>甜沫 + 油旋</strong>（清和园或芙蓉街均有），为这趟济南之旅画上美食句号，人均约 10~15 元。
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DAY 7 回深圳 ══ -->
+  <div class="day-card day-7">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">9</span>
+        <span class="day-num-m">6月 · 周二</span>
+      </div>
+      <div class="day-info">
+        <h2>第七天 · 退房 → 济南遥墙机场 → 深圳</h2>
+        <p>从容早餐 · 退房收拾 · 直飞深圳回家</p>
+      </div>
+      <div class="day-region-tag" style="background:#f1f5f9;color:#64748b;">返程日</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">早餐</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">最后一碗济南早餐 · 甜沫油旋</div>
+          <div class="tl-desc">退房前去附近喝一碗甜沫、吃一个油旋，为这趟泉城之旅画上最美的早餐句号，人均约 10~15 元。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">按需</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">办理退房 · 整理行李</div>
+          <div class="tl-desc">从容收拾行李，办理退房。根据航班时间预留充足出发时间，不必着急。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">按需</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">后宰门街 → 济南遥墙机场</div>
+          <div class="tl-desc">
+            打车或机场大巴前往遥墙机场，约 <strong>50~60 分钟</strong>车程（视路况）。<br>
+            建议航班起飞前 <strong>2.5~3 小时</strong> 从酒店出发，时间宽裕不赶。
+          </div>
+          <span class="tl-note">遥墙机场每天多班直飞深圳 · 航程约 3 小时</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">飞行中</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">济南遥墙机场 → 深圳</div>
+          <div class="tl-desc">约 3 小时航程，在机舱里回味这一路的泉水、鲁菜与泰山云海，旅途圆满！</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">落地</div><div class="tl-dot rest"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">抵达深圳 · 平安到家</div>
+          <div class="tl-desc">7 天 6 夜，泉城济南 + 五岳泰山，行程圆满结束。期待下一次出发！</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────── 特色美食 ─────────────── -->
+  <div class="section-title">济南特色美食一览</div>
+  <div class="specialty-grid">
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#fff4db;">🐟</div>
+      <div class="specialty-name">糖醋黄河鲤鱼</div>
+      <div class="specialty-desc">鲁菜头牌，外酥里嫩，甜酸适口</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#fdf0f0;">🥩</div>
+      <div class="specialty-name">把子肉</div>
+      <div class="specialty-desc">五花肉草绳捆扎卤制，济南快餐代表</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#e8f7ed;">🥟</div>
+      <div class="specialty-name">草包包子</div>
+      <div class="specialty-desc">百年名牌，皮薄汁多，必打卡</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#e8f4fd;">🥣</div>
+      <div class="specialty-name">甜沫</div>
+      <div class="specialty-desc">小米蔬菜热汤，济南人的早晨</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#fff4db;">🫓</div>
+      <div class="specialty-name">油旋</div>
+      <div class="specialty-desc">葱油螺旋烙饼，层次分明，现烤最香</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#fdf0f0;">🍲</div>
+      <div class="specialty-name">羊汤</div>
+      <div class="specialty-desc">乳白浓汤，鲜美暖胃，合记最著名</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#f3eeff;">🫔</div>
+      <div class="specialty-name">九转大肠</div>
+      <div class="specialty-desc">鲁菜经典，酸甜苦辣咸五味俱全</div>
+    </div>
+    <div class="specialty-card">
+      <div class="specialty-icon-wrap" style="background:#e8f4fd;">🍡</div>
+      <div class="specialty-name">糖葫芦</div>
+      <div class="specialty-desc">芙蓉街必买，章丘山楂最正宗</div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────── 注意事项 ─────────────── -->
+  <div class="section-title">出行注意事项</div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <div class="note-icon">🌡</div>
+      <div>
+        <div class="note-title">天气与防暑</div>
+        <div class="note-text">6 月气温 25~34°C，建议携带防晒霜、遮阳帽、折叠扇，午后 13:00~15:00 尽量室内休息。</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">🛵</div>
+      <div>
+        <div class="note-title">电动车充电</div>
+        <div class="note-text">每日骑行约 20~30km，确保每晚充满电，住所附近一般有充电桩。</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">📱</div>
+      <div>
+        <div class="note-title">景区预约</div>
+        <div class="note-text">山东省博物馆需提前网上预约（免费）；大明湖旺季建议开门即入场，避开人流高峰。</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">👴</div>
+      <div>
+        <div class="note-title">长辈贴士</div>
+        <div class="note-text">随身备防暑药、创可贴；长时间步行每 45 分钟安排短暂休息；护城河沿岸椅子非常多。</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">🍜</div>
+      <div>
+        <div class="note-title">餐厅高峰</div>
+        <div class="note-text">午餐 11:30~12:30、晚餐 18:00~19:00 为用餐高峰，建议提前 30 分钟到或线上取号。</div>
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">🎁</div>
+      <div>
+        <div class="note-title">济南特产</div>
+        <div class="note-text">章丘大葱、东阿阿胶糕、把子肉酱包、龙山黑陶均是好礼品，建议留最后一天集中购买。</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<div class="footer">
+  <div class="footer-title">济南旅游攻略 · 2026年6月3日—9日</div>
+  历下区后宰门街出发 · 电动车漫游泉城<br>
+  愿此行轻松愉快，岁月静好，一路平安
+</div>
+
+
+<!-- ── Lightbox overlay ── -->
+<div class="lb-overlay" id="lb">
+  <span class="lb-close" id="lb-close">✕</span>
+  <span class="lb-prev" id="lb-prev">&#8249;</span>
+  <img id="lb-img" src="" alt="">
+  <span class="lb-next" id="lb-next">&#8250;</span>
+</div>
+
+<script>
+(function(){
+  const imgs = Array.from(document.querySelectorAll('.room-photos .rp-wrap img'));
+  const overlay = document.getElementById('lb');
+  const lbImg  = document.getElementById('lb-img');
+  let cur = 0;
+
+  function show(i) {
+    cur = (i + imgs.length) % imgs.length;
+    lbImg.src = imgs[cur].src;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  imgs.forEach((img, i) => img.parentElement.addEventListener('click', () => show(i)));
+  document.getElementById('lb-close').addEventListener('click', close);
+  document.getElementById('lb-prev').addEventListener('click', () => show(cur - 1));
+  document.getElementById('lb-next').addEventListener('click', () => show(cur + 1));
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('active')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
+</script>
+</body>
+</html>
