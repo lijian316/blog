@@ -205,6 +205,17 @@
   ];
   document.getElementById('hero-img').src = images[Math.floor(Math.random() * images.length)];
 
+  fetch('blog/articles.json')
+    .then(r => r.json())
+    .then(articles => {
+      document.getElementById('post-list').innerHTML = articles.map(a => `
+        <a href="blog/${a.filename}" target="_blank" rel="noopener" class="post-item">
+          <span class="post-date">${a.date}</span>
+          <span class="post-title">${a.title}</span>
+        </a>
+      `).join('');
+    });
+
   function showPage(name, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
@@ -229,20 +240,7 @@
 <main class="main">
 
   <div class="page active" id="page-home">
-    <div class="post-list">
-      <a href="blog/jinan_plans.html" target="_blank" rel="noopener" class="post-item">
-        <span class="post-date">2026-04-20</span>
-        <span class="post-title">济南旅游攻略 · 2026年6月</span>
-      </a>
-      <a href="blog/qingdao_plan2.html" target="_blank" rel="noopener" class="post-item">
-        <span class="post-date">2026-04-10</span>
-        <span class="post-title">翻滚吧浪花 · 方案二 · 佛系荣成 2026</span>
-      </a>
-      <a href="blog/qingdao_plans.html" target="_blank" rel="noopener" class="post-item">
-        <span class="post-date">2026-04-01</span>
-        <span class="post-title">青岛·威海·荣成 自驾行程</span>
-      </a>
-    </div>
+    <div class="post-list" id="post-list"></div>
   </div>
 
   <div class="page about-section" id="page-about">
