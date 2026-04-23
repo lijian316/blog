@@ -2,21 +2,44 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
-
-// ── Blog articles ──
 const blogDir = path.join(root, 'blog');
-const files = fs.readdirSync(blogDir).filter(f => f.endsWith('.html'));
 
-const articles = files.map(filename => {
-  const content = fs.readFileSync(path.join(blogDir, filename), 'utf8');
-  const titleMatch = content.match(/<title[^>]*>([^<]+)<\/title>/i);
-  const title = titleMatch ? titleMatch[1].trim() : filename;
+function extractArticle(filepath, relpath) {
+  const content = fs.readFileSync(filepath, 'utf8');
+
+  const ogTitle = content.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+    || content.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+  const titleTag = content.match(/<title[^>]*>([^<]+)<\/title>/i);
+  const title = (ogTitle ? ogTitle[1] : titleTag ? titleTag[1] : relpath).trim();
+
   const metaDate = content.match(/<meta\s+name=["']date["']\s+content=["']([^"']+)["']/i);
   const date = metaDate
     ? metaDate[1]
-    : fs.statSync(path.join(blogDir, filename)).mtime.toISOString().slice(0, 10);
-  return { filename, title, date };
-});
+    : fs.statSync(filepath).mtime.toISOString().slice(0, 10);
+
+  return { filename: relpath, title, date };
+}
+
+const articles = [];
+
+// 根目录下的 .html 文件
+for (const f of fs.readdirSync(blogDir)) {
+  if (f.endsWith('.html')) {
+    articles.push(extractArticle(path.join(blogDir, f), f));
+  }
+}
+
+// 子目录下的 index.html
+for (const f of fs.readdirSync(blogDir)) {
+  const sub = path.join(blogDir, f);
+  if (fs.statSync(sub).isDirectory()) {
+    const indexFile = path.join(sub, 'index.html');
+    if (fs.existsSync(indexFile)) {
+      articles.push(extractArticle(indexFile, `${f}/index.html`));
+    }
+  }
+}
+
 articles.sort((a, b) => b.date.localeCompare(a.date));
 fs.writeFileSync(path.join(blogDir, 'articles.json'), JSON.stringify(articles, null, 2));
 console.log(`✓ articles.json updated (${articles.length} articles)`);
@@ -29,10 +52,9 @@ const images = fs.readdirSync(galleryDir)
 
 const indexPath = path.join(root, 'index.html');
 let html = fs.readFileSync(indexPath, 'utf8');
-const newList = JSON.stringify(images);
 html = html.replace(
   /\/\* GALLERY_IMAGES_START \*\/[\s\S]*?\/\* GALLERY_IMAGES_END \*\//,
-  `/* GALLERY_IMAGES_START */ ${newList} /* GALLERY_IMAGES_END */`
+  `/* GALLERY_IMAGES_START */ ${JSON.stringify(images)} /* GALLERY_IMAGES_END */`
 );
 fs.writeFileSync(indexPath, html);
 console.log(`✓ index.html gallery images updated (${images.length} images)`);
