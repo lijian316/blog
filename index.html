@@ -207,16 +207,17 @@
     document.getElementById('hero-img').src = 'gallery/' + _images[Math.floor(Math.random() * _images.length)];
   }
 
-  fetch('blog/articles.json')
-    .then(r => r.json())
-    .then(articles => {
-      document.getElementById('post-list').innerHTML = articles.map(a => `
-        <a href="blog/${a.filename}" target="_blank" rel="noopener" class="post-item">
-          <span class="post-date">${a.date}</span>
-          <span class="post-title">${a.title}</span>
-        </a>
-      `).join('');
-    });
+  function renderList(id, articles) {
+    document.getElementById(id).innerHTML = articles.map(a => `
+      <a href="blog/${a.filename}" target="_blank" rel="noopener" class="post-item">
+        <span class="post-date">${a.date}</span>
+        <span class="post-title">${a.title}</span>
+      </a>
+    `).join('');
+  }
+
+  fetch('blog/articles.json').then(r => r.json()).then(a => renderList('post-list', a));
+  fetch('blog/daily.json').then(r => r.json()).then(a => renderList('daily-list', a));
 
   function showPage(name, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -235,6 +236,8 @@
 <nav class="site-nav">
   <a href="#" class="nav-link active" id="nav-home" onclick="showPage('home', this)">Notes</a>
   <span class="nav-sep">|</span>
+  <a href="#" class="nav-link" id="nav-daily" onclick="showPage('daily', this)">Daily</a>
+  <span class="nav-sep">|</span>
   <a href="#" class="nav-link" id="nav-about" onclick="showPage('about', this)">About</a>
 </nav>
 
@@ -243,6 +246,10 @@
 
   <div class="page active" id="page-home">
     <div class="post-list" id="post-list"></div>
+  </div>
+
+  <div class="page" id="page-daily">
+    <div class="post-list" id="daily-list"></div>
   </div>
 
   <div class="page about-section" id="page-about">
