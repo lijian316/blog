@@ -200,10 +200,13 @@
 </div>
 
 <script>
-  const images = [
-    'gallery/24278850-child-6902674.png',
-  ];
-  document.getElementById('hero-img').src = images[Math.floor(Math.random() * images.length)];
+  fetch('gallery/images.json')
+    .then(r => r.json())
+    .then(images => {
+      if (images.length) {
+        document.getElementById('hero-img').src = 'gallery/' + images[Math.floor(Math.random() * images.length)];
+      }
+    });
 
   fetch('blog/articles.json')
     .then(r => r.json())
