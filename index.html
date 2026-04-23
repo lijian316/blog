@@ -4,321 +4,261 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LJ's Playground</title>
-  <link rel="stylesheet" href="assets/css/main.css">
   <style>
-    body { height: 100vh; overflow: hidden; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── Logo ── */
-    .site-logo {
-      position: fixed;
-      top: 24px;
-      left: 28px;
-      z-index: 10;
+    :root {
+      --bg: #0e0e0e;
+      --bg2: #161616;
+      --text: #d4d0c8;
+      --muted: #555;
+      --accent: #7ec8a0;
+      --accent2: #5aab82;
+      --border: #222;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Illustration ── */
+    .illus {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+
+    .illus img {
+      max-width: 100%;
+      max-height: 33vh;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ── Site header ── */
+    .site-header {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 24px 0;
       display: flex;
       align-items: center;
-      gap: 10px;
-      text-decoration: none;
+      gap: 18px;
     }
 
     .logo-mark {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
       flex-shrink: 0;
     }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .logo-text-main {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .logo-text-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    /* ── Background illustration layer ── */
-    .bg-illus {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    /* ── Center nav ── */
-    .home-center {
-      position: relative;
-      z-index: 1;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .nav-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    /* Flat pill buttons */
-    .module-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 240px;
-      padding: 12px 18px;
-      background: none;
-      border: none;
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--text-primary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.15s ease;
-    }
-
-    .module-link:hover {
-      background: rgba(201,100,66,0.06);
-      color: var(--accent);
-    }
-
-    .module-link:hover .ml-arrow { color: var(--accent); }
-
-    .ml-left {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .ml-icon {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    .ml-icon svg {
-      width: 16px;
-      height: 16px;
+    .logo-mark svg {
+      width: 48px;
+      height: 48px;
       display: block;
     }
 
-    .ml-arrow {
-      font-size: 13px;
-      color: var(--text-muted);
+    .site-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
 
-    /* Accordion */
-    .accordion-wrap {
-      width: 240px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .accordion-trigger {
-      cursor: pointer;
-      user-select: none;
-      width: 100%;
-    }
-
-    .accordion-arrow {
-      display: inline-block;
-      transition: transform 0.22s ease;
-    }
-
-    .accordion-wrap.open .accordion-arrow {
-      transform: rotate(90deg);
-    }
-
-    .accordion-body {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.28s ease, opacity 0.22s ease;
-      opacity: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-top: 4px;
-      padding-left: 12px;
-    }
-
-    .accordion-wrap.open .accordion-body {
-      max-height: 400px;
-      opacity: 1;
-    }
-
-    .plan-item {
+    /* ── Nav ── */
+    .site-nav {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 24px 0;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 9px 14px;
-      border-radius: 8px;
+      gap: 0;
+    }
+
+    .nav-link {
       font-size: 13px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.15s ease;
-      border: 1px solid transparent;
+      color: var(--accent);
+      padding: 0 2px;
+      transition: color 0.15s;
     }
 
-    .plan-item:hover {
-      background: rgba(201,100,66,0.05);
-      border-color: transparent;
-      color: var(--text-primary);
+    .nav-link:hover { color: #fff; }
+
+    .nav-sep {
+      color: var(--muted);
+      margin: 0 14px;
+      font-size: 12px;
     }
 
-    .plan-item span {
+    /* ── Main content ── */
+    .main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── Section label ── */
+    .section-label {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
 
-    .plan-item:hover span { color: var(--text-muted); }
+    /* ── Post list ── */
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
 
+    .post-item {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.15s;
+      cursor: pointer;
+    }
 
+    .post-item:first-child { border-top: 1px solid var(--border); }
+
+    .post-item:hover .post-title {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .post-date {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .post-title {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      transition: color 0.15s;
+    }
+
+    /* ── Nav active ── */
+    .nav-link.active { color: #fff; }
+
+    /* ── Pages ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── About section ── */
+    .about-section {
+      margin-top: 0;
+    }
+
+    .about-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .about-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      font-size: 12px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
 
-
-<!-- ── Background flat illustrations ── -->
-<div class="bg-illus">
-  <svg width="100%" height="100%" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </svg>
+<!-- ── Top illustration ── -->
+<div class="illus">
+  <img id="hero-img" src="" alt="">
 </div>
 
-<!-- ── Center nav ── -->
-<main class="home-center">
-
-  <!-- 手风琴：计划列表 -->
-  <div class="accordion-wrap" id="plansWrap">
-    <div class="module-link accordion-trigger" onclick="togglePlans()">
-      <div class="ml-left">
-        <span class="ml-icon">
-          <!-- list -->
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="5" y1="4" x2="13" y2="4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            <line x1="5" y1="8" x2="13" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            <line x1="5" y1="12" x2="13" y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="2.5" cy="4" r="1" fill="currentColor"/>
-            <circle cx="2.5" cy="8" r="1" fill="currentColor"/>
-            <circle cx="2.5" cy="12" r="1" fill="currentColor"/>
-          </svg>
-        </span>
-        计划列表
-      </div>
-      <span class="ml-arrow accordion-arrow" id="plansArrow">›</span>
-    </div>
-    <div class="accordion-body" id="plansBody">
-      <a href="https://claude.ai/public/artifacts/b6c532fd-fd2e-4fe3-83d7-e6f2a5e8d125" target="_blank" rel="noopener" class="plan-item">
-        健身计划 <span>↗</span>
-      </a>
-      <a href="https://claude.ai/public/artifacts/8f06feb2-2069-40f1-a095-aae74c0f201e" target="_blank" rel="noopener" class="plan-item">
-        英语学习计划 <span>↗</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- 手风琴：博客 -->
-  <div class="accordion-wrap" id="blogWrap">
-    <div class="module-link accordion-trigger" onclick="toggleBlog()">
-      <div class="ml-left">
-        <span class="ml-icon">
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
-            <line x1="5" y1="5.5" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="5" y1="10.5" x2="8.5" y2="10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        博客
-      </div>
-      <span class="ml-arrow accordion-arrow" id="blogArrow">›</span>
-    </div>
-    <div class="accordion-body" id="blogBody">
-      <a href="blog/qingdao_plans.html" target="_blank" rel="noopener" class="plan-item">
-        青岛·威海·荣成自驾行程 <span>↗</span>
-      </a>
-      <a href="blog/qingdao_plan2.html" target="_blank" rel="noopener" class="plan-item">
-        翻滚吧浪花·方案二·佛系荣成 <span>↗</span>
-      </a>
-      <a href="blog/jinan_plans.html" target="_blank" rel="noopener" class="plan-item">
-        济南旅游攻略 2026年6月 <span>↗</span>
-      </a>
-    </div>
-  </div>
-
-  <a href="gallery/index.html" class="module-link">
-    <div class="ml-left">
-      <span class="ml-icon">
-        <!-- photo -->
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
-          <circle cx="5.5" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M1 10.5l3.5-3 3 3 2.5-2.5 4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      图库
-    </div>
-  </a>
-
-</main>
-
-
-
 <script>
-  function togglePlans() {
-    document.getElementById('plansWrap').classList.toggle('open');
-  }
-  function toggleBlog() {
-    document.getElementById('blogWrap').classList.toggle('open');
+  const images = [
+    'gallery/24278850-child-6902674.png',
+  ];
+  document.getElementById('hero-img').src = images[Math.floor(Math.random() * images.length)];
+
+  function showPage(name, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    el.classList.add('active');
   }
 </script>
 
-<div style="
-  position:fixed;
-  bottom:0px;
-  left:0;right:0;
-  text-align:center;
-  font-size:160px;
-  font-weight:900;
-  letter-spacing:-2px;
-  color:#c96442;
-  opacity:0.055;
-  pointer-events:none;
-  z-index:0;
-  user-select:none;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  white-space:nowrap;
-  line-height:0.82;
-">LJPLAYGROUND</div>
+<!-- ── Site header ── -->
+<header class="site-header">
+  <div class="site-title">LJ's Playground</div>
+</header>
+
+<!-- ── Nav ── -->
+<nav class="site-nav">
+  <a href="#" class="nav-link active" id="nav-home" onclick="showPage('home', this)">Home</a>
+  <span class="nav-sep">|</span>
+  <a href="#" class="nav-link" id="nav-about" onclick="showPage('about', this)">About</a>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <div class="page active" id="page-home">
+    <div class="post-list">
+      <a href="blog/jinan_plans.html" target="_blank" rel="noopener" class="post-item">
+        <span class="post-date">2026-04-20</span>
+        <span class="post-title">济南旅游攻略 · 2026年6月</span>
+      </a>
+      <a href="blog/qingdao_plan2.html" target="_blank" rel="noopener" class="post-item">
+        <span class="post-date">2026-04-10</span>
+        <span class="post-title">翻滚吧浪花 · 方案二 · 佛系荣成 2026</span>
+      </a>
+      <a href="blog/qingdao_plans.html" target="_blank" rel="noopener" class="post-item">
+        <span class="post-date">2026-04-01</span>
+        <span class="post-title">青岛·威海·荣成 自驾行程</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="page about-section" id="page-about">
+    <p class="section-label">About</p>
+    <p class="about-text">
+      这里是 LJ 的个人空间，记录旅行计划、生活随笔和各种折腾。<br>
+      A personal space for travel plans, notes, and experiments.
+    </p>
+  </div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <span>© 2026 LJ's Playground</span>
+</footer>
 
 </body>
 </html>
