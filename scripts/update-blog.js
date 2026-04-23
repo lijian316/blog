@@ -1,8 +1,24 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const root = path.join(__dirname, '..');
 const blogDir = path.join(root, 'blog');
+
+function gitFirstCommitDate(filepath) {
+  try {
+    const rel = path.relative(root, filepath).replace(/\\/g, '/');
+    const result = execSync(
+      `git log --follow --format="%as" -- "${rel}"`,
+      { cwd: root, encoding: 'utf8' }
+    ).trim();
+    const lines = result.split('\n').filter(Boolean);
+    // 取最早一次（最后一行）
+    return lines[lines.length - 1] || null;
+  } catch {
+    return null;
+  }
+}
 
 function extractArticle(filepath, relpath) {
   const content = fs.readFileSync(filepath, 'utf8');
@@ -15,7 +31,7 @@ function extractArticle(filepath, relpath) {
   const metaDate = content.match(/<meta\s+name=["']date["']\s+content=["']([^"']+)["']/i);
   const date = metaDate
     ? metaDate[1]
-    : fs.statSync(filepath).mtime.toISOString().slice(0, 10);
+    : gitFirstCommitDate(filepath) || fs.statSync(filepath).mtime.toISOString().slice(0, 10);
 
   return { filename: relpath, title, date };
 }
