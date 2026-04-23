@@ -21,10 +21,18 @@ articles.sort((a, b) => b.date.localeCompare(a.date));
 fs.writeFileSync(path.join(blogDir, 'articles.json'), JSON.stringify(articles, null, 2));
 console.log(`✓ articles.json updated (${articles.length} articles)`);
 
-// ── Gallery images ──
+// ── Gallery images — inline into index.html ──
 const galleryDir = path.join(root, 'gallery');
 const imageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
 const images = fs.readdirSync(galleryDir)
   .filter(f => imageExts.includes(path.extname(f).toLowerCase()));
-fs.writeFileSync(path.join(galleryDir, 'images.json'), JSON.stringify(images, null, 2));
-console.log(`✓ images.json updated (${images.length} images)`);
+
+const indexPath = path.join(root, 'index.html');
+let html = fs.readFileSync(indexPath, 'utf8');
+const newList = JSON.stringify(images);
+html = html.replace(
+  /\/\* GALLERY_IMAGES_START \*\/[\s\S]*?\/\* GALLERY_IMAGES_END \*\//,
+  `/* GALLERY_IMAGES_START */ ${newList} /* GALLERY_IMAGES_END */`
+);
+fs.writeFileSync(indexPath, html);
+console.log(`✓ index.html gallery images updated (${images.length} images)`);

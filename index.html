@@ -35,6 +35,7 @@
       width: 100%;
       display: block;
       text-align: center;
+      min-height: 20px;
     }
 
     .illus img {
@@ -200,13 +201,10 @@
 </div>
 
 <script>
-  fetch('gallery/images.json')
-    .then(r => r.json())
-    .then(images => {
-      if (images.length) {
-        document.getElementById('hero-img').src = 'gallery/' + images[Math.floor(Math.random() * images.length)];
-      }
-    });
+  const _images = /* GALLERY_IMAGES_START */ ["24278850-child-6902674.png"] /* GALLERY_IMAGES_END */;
+  if (_images.length) {
+    document.getElementById('hero-img').src = 'gallery/' + _images[Math.floor(Math.random() * _images.length)];
+  }
 
   fetch('blog/articles.json')
     .then(r => r.json())
