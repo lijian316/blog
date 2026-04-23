@@ -8,6 +8,10 @@ const blogDir = path.join(root, 'blog');
 // 这些子目录作为独立分类，不计入主 Notes 列表
 const SPECIAL_DIRS = ['Daily-english'];
 
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function gitFirstCommitDate(filepath) {
   try {
     const rel = path.relative(root, filepath).replace(/\\/g, '/');
@@ -16,9 +20,10 @@ function gitFirstCommitDate(filepath) {
       { cwd: root, encoding: 'utf8' }
     ).trim();
     const lines = result.split('\n').filter(Boolean);
-    return lines[lines.length - 1] || null;
+    // 有历史取最早，没历史（新文件首次提交）用今天
+    return lines[lines.length - 1] || today();
   } catch {
-    return null;
+    return today();
   }
 }
 
@@ -31,7 +36,7 @@ function extractArticle(filepath, relpath) {
   const metaDate = content.match(/<meta\s+name=["']date["']\s+content=["']([^"']+)["']/i);
   const date = metaDate
     ? metaDate[1]
-    : gitFirstCommitDate(filepath) || fs.statSync(filepath).mtime.toISOString().slice(0, 10);
+    : gitFirstCommitDate(filepath);
   return { filename: relpath, title, date };
 }
 
