@@ -667,6 +667,87 @@
       .ov-item:last-child { border-bottom: none; }
       .overview-inner { flex-direction: column; padding: 12px 16px; }
     }
+    /* ═══════════════════════════════════ TODO SECTION ═══════════════════════════════════ */
+    .todo-card {
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .todo-card-top {
+      height: 5px;
+      background: linear-gradient(90deg, #f59e0b, #ef4444);
+    }
+    .todo-inner { padding: 24px 28px 28px; }
+    .todo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .todo-title-area { display: flex; align-items: center; gap: 12px; }
+    .todo-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .todo-heading { font-size: 1.05rem; font-weight: 800; color: var(--gray-dark); }
+    .todo-subheading { font-size: .75rem; color: var(--gray-lt); margin-top: 2px; }
+    .todo-stats { display: flex; gap: 8px; align-items: center; font-size: .75rem; font-weight: 700; color: var(--gray-lt); }
+    .todo-stats .stat-done { background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 100px; }
+    .todo-stats .stat-total { background: var(--blue-lt); color: var(--blue); padding: 3px 10px; border-radius: 100px; }
+    .todo-add-row { display: flex; gap: 10px; margin-bottom: 18px; }
+    .todo-input {
+      flex: 1; border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 10px 16px; font-size: .88rem; font-family: inherit;
+      color: var(--gray-dark); background: #fafcff; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .todo-input:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(33,118,199,.12); background: #fff; }
+    .todo-input::placeholder { color: var(--gray-lt); }
+    .todo-add-btn {
+      padding: 10px 20px; background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff; border: none; border-radius: 10px; font-size: .88rem;
+      font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: opacity .2s, transform .1s; white-space: nowrap; flex-shrink: 0;
+    }
+    .todo-add-btn:hover { opacity: .88; }
+    .todo-add-btn:active { transform: scale(.97); }
+    .todo-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .todo-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: #fafcff; border: 1.5px solid var(--border); border-radius: 12px;
+      transition: background .2s, border-color .2s; animation: fadeInDown .28s ease;
+    }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .todo-item.done { background: #f0fdf4; border-color: #86efac; opacity: .8; }
+    .todo-check {
+      width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border);
+      background: #fff; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s, border-color .18s; font-size: .85rem; color: transparent;
+    }
+    .todo-item.done .todo-check { background: #22c55e; border-color: #22c55e; color: #fff; }
+    .todo-check:hover { border-color: #22c55e; }
+    .todo-text { flex: 1; font-size: .9rem; color: var(--gray-dark); font-weight: 500; line-height: 1.5; transition: color .18s; }
+    .todo-item.done .todo-text { text-decoration: line-through; color: var(--gray-lt); }
+    .todo-del {
+      width: 28px; height: 28px; border-radius: 8px; border: none;
+      background: transparent; color: #cbd5e1; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, color .15s; flex-shrink: 0;
+    }
+    .todo-del:hover { background: #fee2e2; color: #ef4444; }
+    .todo-empty { text-align: center; padding: 28px 0 12px; color: var(--gray-lt); font-size: .85rem; }
+    .todo-empty-icon { font-size: 2rem; margin-bottom: 8px; }
+
   </style>
 </head>
 <body>
@@ -704,6 +785,41 @@
   <div class="section-title">六日详细行程</div>
 
 
+  <!-- ─────────────── 旅程待办 ─────────────── -->
+  <!-- ─────────────── 旅程待办 ─────────────── -->
+  <div class="section-title">旅程待办事项</div>
+  <div class="todo-card">
+    <div class="todo-card-top"></div>
+    <div class="todo-inner">
+      <div class="todo-header">
+        <div class="todo-title-area">
+          <div class="todo-icon">✅</div>
+          <div>
+            <div class="todo-heading">待办清单</div>
+            <div class="todo-subheading">出发前 &amp; 旅途中需要处理的事项</div>
+          </div>
+        </div>
+        <div class="todo-stats">
+          <span class="stat-done" id="stat-done">已完成 0</span>
+          <span class="stat-total" id="stat-total">共 0 项</span>
+        </div>
+      </div>
+      <div class="todo-add-row">
+        <input class="todo-input" id="todo-input" type="text" placeholder="添加新待办事项…" maxlength="80" />
+        <button class="todo-add-btn" id="todo-add-btn">+ 添加</button>
+      </div>
+      <ul class="todo-list" id="todo-list"></ul>
+      <div class="todo-empty" id="todo-empty" style="display:none;">
+        <div class="todo-empty-icon">🗒️</div>
+        暂无待办，点击"添加"开始记录吧
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────── 行程 ─────────────── -->
+  <div class="section-title">六日详细行程</div>
+
   <!-- ══ DAY 1 ══ -->
   <div class="day-card day-1">
     <div class="day-card-top"></div>
@@ -733,13 +849,7 @@
         <div class="tl-body">
           <div class="tl-title">抵达住所 · 办理入住</div>
           <div class="tl-desc">安顿行李，稍作休整。住所地处历下区核心，距大明湖南门约 300 米，周边生活配套完善。</div>
-          <div class="room-photos">
-            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130517(1).jpg" alt="民宿图片1"></div>
-            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130522(1).jpg" alt="民宿图片2"></div>
-            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130527(1).jpg" alt="民宿图片3"></div>
-            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130556(1).jpg" alt="民宿图片4"></div>
-            <div class="rp-wrap"><span class="rp-zoom-hint">⛶</span><img src="https://raw.githubusercontent.com/lijian316/image-bed/main/Screenshot_20260415_130608(1).jpg" alt="民宿图片5"></div>
-          </div>
+
         </div>
       </div>
       <div class="tl-item">
@@ -900,11 +1010,11 @@
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-left"><div class="tl-time">20:30</div><div class="tl-dot nature"></div></div>
+        <div class="tl-left"><div class="tl-time">20:00</div><div class="tl-dot nature"></div></div>
         <div class="tl-body">
-          <div class="tl-title">🌙 解放阁夜景</div>
-          <div class="tl-desc">护城河东端的解放阁入夜后灯光璀璨，阁影倒映水中，沿护城河散步感受老城夜韵，约 40 分钟。</div>
-          <span class="tl-note">免费 · 护城河夜景最美路段</span>
+          <div class="tl-title">🌙 泉城夜宴·明湖秀</div>
+          <div class="tl-desc">在大明湖畔欣赏大型实景演出《泉城夜宴·明湖秀》，以泉水为舞台、明湖为背景，融合光影、歌舞与济南历史文化，是泉城夜晚最值得看的演出之一，演出约 1 小时。</div>
+          <span class="tl-note">20:00 开演 · 建议提前购票 · 提前到场入座</span>
         </div>
       </div>
     </div>
@@ -1079,55 +1189,64 @@
         <span class="day-num-m">6月 · 周六</span>
       </div>
       <div class="day-info">
-        <h2>第四天 · 千佛山 + 山东省博物馆</h2>
-        <p>南部文化线 · 山景与历史并重</p>
+        <h2>第四天 · 黑虎泉 + 解放阁</h2>
+        <p>护城河沿线漫游 · 古泉名阁 · 夜游泉城广场</p>
       </div>
-      <div class="day-region-tag">南部文化线</div>
+      <div class="day-region-tag">护城河沿线</div>
     </div>
 
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <div class="tl-title">千佛山风景区</div>
-          <div class="tl-desc">济南三大名胜之一，山间遍布佛像石刻，兴国禅寺历史厚重。<strong>推荐乘缆车上山</strong>（单程约 5 分钟），节省体力；山顶可俯瞰整个济南城区，远山如黛，约 2~2.5 小时。</div>
-          <span class="tl-note">骑车约 20 分钟 · 门票 30 元 · 缆车另购 · 上山必坐缆车</span>
+          <div class="tl-title">黑虎泉</div>
+          <div class="tl-desc">济南四大泉群之一，三股泉水从石雕虎口喷涌而出，声如虎啸、气势磅礴。护城河边环境开阔，清晨常有市民来此接泉水，是最接地气的名泉之一，约 1 小时。</div>
+          <span class="tl-note">骑车约 10 分钟 · 免费 · 上午人少最好</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">10:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">解放阁</div>
+          <div class="tl-desc">坐落于护城河东端城墙之上，是济南解放战役的历史见证地。登阁可俯瞰护城河全景，城墙古朴厚重，周边绿荫环绕，步行游览约 45 分钟。</div>
+          <span class="tl-note">护城河东端 · 门票约 15 元 · 步行可达</span>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-title">午餐</div>
-          <div class="tl-desc">千佛山附近或英雄山周边用餐，多家本地特色餐厅可选。</div>
+          <div class="tl-desc">护城河周边或住所附近用餐，就近选择。</div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-time rest">13:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-title">午休</div>
-          <div class="tl-desc">今日活动量较多，午睡充足再出发。</div>
+          <div class="tl-desc">回住所充分休息，养足精神下午坐游船。</div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-time">15:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <div class="tl-title">山东省博物馆</div>
-          <div class="tl-desc">全国重点博物馆，馆藏《孙子兵法》竹简、汉代画像石、商周青铜器等国宝级文物。<strong>室内凉爽</strong>，是夏日最舒适的游览选择，老人不会觉得劳累，建议参观 2 小时。</div>
-          <span class="tl-note">骑车约 10 分钟 · 免费（需网上预约）· 周一闭馆</span>
+          <div class="tl-title">🚢 护城河游船 · 黑虎泉环线全程</div>
+          <div class="tl-desc">从黑虎泉码头上船，乘画舫沿护城河全程环游，途经趵突泉、五龙潭、大明湖等济南核心景点，坐着船就把泉城精华都看了。全程近 7km，沿途两岸杨柳依依，还可体验过船闸——南北护城河水位落差近 2 米，船只过闸时水位缓缓升降，非常特别。船内有广播讲解泉水历史，老人坐着游览不累脚，约 1.5~2 小时。</div>
+          <span class="tl-note">黑虎泉码头上船 · 环线约 100 元/人 · 建议提前查好班次</span>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-left"><div class="tl-time rest">17:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-left"><div class="tl-time food">17:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <div class="tl-title">返回住所休息</div>
-          <div class="tl-desc">今日行程最丰富，务必留足休息时间。</div>
+          <div class="tl-title">晚餐 · 聚丰德饭店</div>
+          <div class="tl-desc">游船结束后直接前往聚丰德用餐，吃完骑车前往泉城广场。</div>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-left"><div class="tl-time food">19:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-left"><div class="tl-time">20:00</div><div class="tl-dot nature"></div></div>
         <div class="tl-body">
-          <div class="tl-title">晚餐</div>
-          <div class="tl-desc">大明湖周边或住所附近，轻松惬意用餐。</div>
+          <div class="tl-title">🌙 泉城广场夜游</div>
+          <div class="tl-desc">济南最大的城市中心广场，入夜后灯光璀璨，喷泉开放，泉标雕塑灯光夺目，市民游客云集，热闹而不嘈杂，是感受泉城夜间烟火气的绝佳去处，漫步约 1 小时。</div>
+          <span class="tl-note">骑车约 10 分钟 · 免费 · 夜晚喷泉灯光最美</span>
         </div>
       </div>
     </div>
@@ -1139,19 +1258,23 @@
         <div class="meal-card lunch">
           <div class="meal-top">
             <span class="meal-type-badge">午餐</span>
-            <span class="meal-score-badge">★ 4.6  老字号</span>
+            <span class="meal-score-badge">2025必吃榜</span>
           </div>
-          <div class="meal-name">丰泽园饭店</div>
-          <div class="meal-info">百年鲁菜老字号，以扒猪脸、奶汤蒲菜见长，传统风味保留完整，就餐环境整洁舒适，适合带长辈用餐。英雄山路附近。</div>
+          <div class="meal-name">金三杯酒家（泉城路店）</div>
+          <div class="meal-info">2025大众点评必吃榜新上榜，经典鲁菜，招牌三杯鸡、爆炒腰花口碑极佳。游完黑虎泉解放阁后骑车约 5 分钟即到，顺路不绕路，人均约 100 元。</div>
         </div>
         <div class="meal-card dinner">
           <div class="meal-top">
             <span class="meal-type-badge">晚餐</span>
-            <span class="meal-score-badge">⭐ 您的收藏</span>
+            <span class="meal-score-badge">济南中华老字号</span>
           </div>
-          <div class="meal-name">魁盛居百年鲁菜</div>
-          <div class="meal-info">百年鲁菜老馆，传承正宗济南菜肴技艺，招牌菜如糖醋鱼、扒肘子等制作考究。游完千佛山和博物馆后前往，南部片区顺路，环境适合一家人好好坐下来吃一顿。</div>
+          <div class="meal-name">聚丰德饭店</div>
+          <div class="meal-info">创办于1947年的济南"中华老字号"，九转大肠、糖醋鲤鱼、葱烧海参是招牌，前几天均未去过，正好补上。吃完骑车去泉城广场，时间衔接刚好，人均约 80~120 元。</div>
         </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">早餐 · 出发前打卡</div>
+        推荐住所附近的 <strong>老周家牛肉烧饼（普利街店）</strong>，大众点评必吃榜老店，烧饼现烙油润香脆，夹的牛肉用牛肋骨炖煮数小时、咸香入味，再配一碗浓白羊汤，暖胃又顶饱，出发去黑虎泉前吃正合适，人均约 15~25 元。
       </div>
     </div>
   </div>
@@ -1166,114 +1289,7 @@
         <span class="day-num-m">6月 · 周日</span>
       </div>
       <div class="day-info">
-        <h2>第五天 · 府学文庙 + 大观园夜游</h2>
-        <p>上午慢游古迹 · 下午充分休息 · 晚上夜市民俗</p>
-      </div>
-      <div class="day-region-tag">老城慢游</div>
-    </div>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">府学文庙</div>
-          <div class="tl-desc">距住所步行约 5 分钟，始建于宋代，是济南保存最完整的古代学宫建筑群。古朴庭院、棂星门、大成殿一路走来，清幽宁静，非常适合带长辈慢慢逛，约 1~1.5 小时。</div>
-          <span class="tl-note">步行 5 分钟 · 门票约 20 元 · 人少清静</span>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time">11:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">后宰门街 · 住所周边漫步</div>
-          <div class="tl-desc">住所所在的后宰门街本身是条有韵味的老街，沿街随意走走，感受老济南居民日常生活，顺路逛逛附近小店，不赶时间、不定目的地，约 1 小时。</div>
-          <span class="tl-note">步行即可 · 免费 · 随心漫步</span>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">午餐</div>
-          <div class="tl-desc">住所附近就近用餐，轻松简单。</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time rest">13:30</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">午休</div>
-          <div class="tl-desc">睡个好觉，下午精力恢复后再出发。</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time">15:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">珍珠泉 · 院落散步</div>
-          <div class="tl-desc">济南四大泉群之一，泉水从地下涌出时气泡串串如珍珠，距住所步行约 10 分钟。环境极为幽静，人流少、节奏慢，傍晚前游览格外清凉，约 1 小时。</div>
-          <span class="tl-note">步行 10 分钟 · 门票 15 元 · 人少清静</span>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time food">18:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">晚餐</div>
-          <div class="tl-desc">提前用餐，为晚上大观园夜游留出时间。</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time">19:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">大观园夜游</div>
-          <div class="tl-desc">大观园入夜后灯光亮起，是济南老城最有市井烟火气的夜游地之一。广场上常有<strong>吕剧、山东快书、杂耍</strong>等传统民俗演出，老人最爱看；周边小摊云集，糖人、捏面人、传统零嘴信手拈来，逛上 1.5~2 小时不嫌多。</div>
-          <span class="tl-note">骑车约 10 分钟 · 免费入场 · 演出多在 20:00 前后</span>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-left"><div class="tl-time rest">21:30</div><div class="tl-dot rest"></div></div>
-        <div class="tl-body">
-          <div class="tl-title">返回休息</div>
-          <div class="tl-desc">骑车回住所，顺路可打包一份春水锅贴当宵夜。</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-    <div class="meal-section">
-      <div class="meal-heading">今日餐厅推荐</div>
-      <div class="meal-row">
-        <div class="meal-card lunch">
-          <div class="meal-top">
-            <span class="meal-type-badge">午餐</span>
-            <span class="meal-score-badge">⭐ 您的收藏</span>
-          </div>
-          <div class="meal-name">老济南四合院正宗鲁菜</div>
-          <div class="meal-info">古朴四合院内品鉴正宗鲁菜，环境与气质和今日"老城慢游"主题完全契合，步行可达，适合带长辈好好坐下吃一顿，人均约 80~120 元。</div>
-        </div>
-        <div class="meal-card dinner">
-          <div class="meal-top">
-            <span class="meal-type-badge">晚餐</span>
-            <span class="meal-score-badge">⭐ 您的收藏</span>
-          </div>
-          <div class="meal-name">鲁南仔滕州炒鸡</div>
-          <div class="meal-info">滕州炒鸡鸡肉鲜嫩、汤汁浓香，与鲁菜风格不同，为行程增添别样风味。18:00 提早用餐，吃完正好骑车去大观园夜游，时间衔接完美。</div>
-        </div>
-      </div>
-      <div class="snack-note">
-        <div class="snack-note-label">宵夜 · 顺路带走</div>
-        大观园夜游结束返程时，顺路打包您收藏的 <strong>春水锅贴</strong>，底部焦脆、现煎现吃，当宵夜再合适不过。
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ══ DAY 6 泰山一日游 ══ -->
-  <div class="day-card day-6">
-    <div class="day-card-top"></div>
-    <div class="day-header">
-      <div class="day-num-badge">
-        <span class="day-num-d">8</span>
-        <span class="day-num-m">6月 · 周一</span>
-      </div>
-      <div class="day-info">
-        <h2>第六天 · 泰山一日游</h2>
+        <h2>第五天 · 泰山一日游</h2>
         <p>6:30 早起出发 · 索道轻松登顶 · 傍晚返回济南</p>
       </div>
       <div class="day-region-tag">济南↔泰山</div>
@@ -1394,6 +1410,144 @@
     </div>
   </div>
 
+  <!-- ══ DAY 6 明水古城 ══ -->
+  <div class="day-card day-6">
+    <div class="day-card-top"></div>
+    <div class="day-header">
+      <div class="day-num-badge">
+        <span class="day-num-d">8</span>
+        <span class="day-num-m">6月 · 周一</span>
+      </div>
+      <div class="day-info">
+        <h2>第六天 · 明水古城一日游</h2>
+        <p>章丘小泉城 · 泉水古街 · 演艺赏游 · 李清照故里</p>
+      </div>
+      <div class="day-region-tag">章丘明水</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">8:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">早餐 · 出发前吃</div>
+          <div class="tl-desc">住所附近解决早餐，今日需打车前往章丘，建议 8:30 前出发。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">8:30</div><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">打车前往明水古城</div>
+          <div class="tl-desc">从住所打车或预约网约车前往章丘明水古城，全程约 50 公里，约 45~55 分钟，打车约 100~130 元。电动车无法骑行前往，建议提前叫好车。</div>
+          <span class="tl-note">景区地址：章丘区车站大街 600 号 · 建议提前网约</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">9:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">入园 · 古街漫游 · 百脉泉</div>
+          <div class="tl-desc">从游客中心入园，先沿古街慢走，感受江南水乡与北方古城交融的独特气韵。重点打卡<strong>百脉泉</strong>——济南七十二名泉之一，"百泉俱出"壮观异常，泉水清澈，比趵突泉更有野趣，约 1 小时。</div>
+          <span class="tl-note">门票 98 元/人 · 60岁以上免票 · 建议提前购票</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">10:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">李清照纪念馆 · 漱玉堂</div>
+          <div class="tl-desc">明水是李清照真正的出生地，园内设有<strong>漱玉堂、燕寝凝香</strong>等展室，完整呈现词人从出生到仙逝的人生历程，漱玉泉、梅花泉、易安楼曲径漫步，远望湖面游船点点，文化氛围浓厚，约 1 小时。</div>
+          <span class="tl-note">含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">12:00</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">午餐 · 景区内用餐</div>
+          <div class="tl-desc">景区内有多处特色餐饮，就地用餐方便，可品尝章丘本地特色，无需出园，约 1 小时。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">13:00</div><div class="tl-dot rest"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">戏楼品茶 · 休憩纳凉</div>
+          <div class="tl-desc">午后最热时段，在园内戏楼点一壶茶，坐着欣赏<strong>吕剧、山东快书、皮影戏</strong>等传统演出，凉快又惬意，老人最爱这一段，约 1 小时。</div>
+          <span class="tl-note">景区内随机演出 · 全天多场 · 无需另购票</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">14:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🚢 景区游船 · 水上观城</div>
+          <div class="tl-desc">乘景区游船沿水道穿梭古城，两岸城墙婉约、荷花飘香，水上视角别有一番韵味，坐着游不累脚，带长辈最合适，约 40 分钟。</div>
+          <span class="tl-note">游船另收费 · 环线全程可选</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">15:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">特色商街 · 自由逛游</div>
+          <div class="tl-desc">灯坊、伞扇店、筷子铺、善香堂……各类传统手工艺商铺随意逛，可带一些章丘特色伴手礼回去，约 1 小时。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time food">17:30</div><div class="tl-dot food"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">晚餐 · 景区内用餐</div>
+          <div class="tl-desc">留在景区内用晚餐，等待夜间泉秀灯光秀，不必出园。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">19:00</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🌙 夜间古城漫步 · 等候泉秀</div>
+          <div class="tl-desc">入夜后古城华灯与水面交相辉映，沿古街悠然慢逛，感受古城夜晚别样气韵，提前前往泉秀广场占好观看位置。</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">20:30</div><div class="tl-dot nature"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">✨ 泉秀灯光秀</div>
+          <div class="tl-desc">明水古城压轴演出，以泉水为灵感，融合科技与艺术，喷泉、光影、音乐交织，将章丘泉水文化和历史传承演绎得如梦如幻，约 20 分钟，是全天最震撼的收尾。</div>
+          <span class="tl-note">泉秀广场 · 20:30 开演 · 含在门票内</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time rest">21:00</div><div class="tl-dot rest"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">打车返回济南</div>
+          <div class="tl-desc">看完灯光秀后叫车返回住所，约 45~55 分钟，到家约 22 点左右。明日泰山需早起，回来尽早休息。</div>
+          <span class="tl-note">建议提前在景区内叫好网约车 · 避免出门等车</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="meal-section">
+      <div class="meal-heading">今日餐厅推荐</div>
+      <div class="meal-row">
+        <div class="meal-card lunch">
+          <div class="meal-top">
+            <span class="meal-type-badge">午餐</span>
+            <span class="meal-score-badge">景区内特色</span>
+          </div>
+          <div class="meal-name">明水古城景区内餐厅</div>
+          <div class="meal-info">景区内设有多处特色餐饮，章丘本地风味为主，就地用餐省去出园折返的麻烦，午后可直接继续游览，人均约 50~80 元。</div>
+        </div>
+        <div class="meal-card dinner">
+          <div class="meal-top">
+            <span class="meal-type-badge">晚餐</span>
+            <span class="meal-score-badge">景区内用餐</span>
+          </div>
+          <div class="meal-name">明水古城景区内晚餐</div>
+          <div class="meal-info">留在景区内用晚餐，边等泉秀边吃，不用出园再回来。景区内有多种选择，人均约 50~80 元。</div>
+        </div>
+      </div>
+      <div class="snack-note">
+        <div class="snack-note-label">早餐 · 出发前</div>
+        今日需早出发，推荐住所附近随意解决早餐，<strong>甜沫 + 油旋</strong>或<strong>牛肉烧饼</strong>均可，吃饱再出发，景区内早餐选择较少。
+      </div>
+    </div>
+  </div>
+
+
   <!-- ══ DAY 7 回深圳 ══ -->
   <div class="day-card day-7">
     <div class="day-card-top"></div>
@@ -1452,8 +1606,9 @@
   </div>
 
 
-  <!-- ─────────────── 特色美食 ─────────────── -->
-  <div class="section-title">济南特色美食一览</div>
+
+
+    <div class="section-title">济南特色美食一览</div>
   <div class="specialty-grid">
     <div class="specialty-card">
       <div class="specialty-icon-wrap" style="background:#fff4db;">🐟</div>
@@ -1592,6 +1747,73 @@
     if (e.key === 'ArrowLeft') show(cur - 1);
     if (e.key === 'ArrowRight') show(cur + 1);
   });
+})();
+</script>
+<script>
+(function(){
+  const STORAGE_KEY = 'jinan_todos';
+  function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
+  function save(t) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(t)); } catch {} }
+
+  let todos = load();
+  if (todos.length === 0) {
+    todos = [
+      { id: 1, text: '办理济南公园年卡', done: false },
+      { id: 2, text: '预约茶点', done: false },
+      { id: 3, text: '购买演出票', done: false },
+    ];
+    save(todos);
+  }
+  let nextId = todos.reduce((m, t) => Math.max(m, t.id), 0) + 1;
+
+  const listEl = document.getElementById('todo-list');
+  const inputEl = document.getElementById('todo-input');
+  const addBtn = document.getElementById('todo-add-btn');
+  const statDone = document.getElementById('stat-done');
+  const statTotal = document.getElementById('stat-total');
+  const emptyEl = document.getElementById('todo-empty');
+
+  function render() {
+    listEl.innerHTML = '';
+    const done = todos.filter(t => t.done).length;
+    statDone.textContent = '已完成 ' + done;
+    statTotal.textContent = '共 ' + todos.length + ' 项';
+    emptyEl.style.display = todos.length === 0 ? '' : 'none';
+    todos.forEach(todo => {
+      const li = document.createElement('li');
+      li.className = 'todo-item' + (todo.done ? ' done' : '');
+      const check = document.createElement('div');
+      check.className = 'todo-check';
+      check.innerHTML = todo.done ? '✓' : '';
+      check.addEventListener('click', () => toggle(todo.id));
+      const text = document.createElement('span');
+      text.className = 'todo-text';
+      text.textContent = todo.text;
+      const del = document.createElement('button');
+      del.className = 'todo-del';
+      del.innerHTML = '✕';
+      del.addEventListener('click', () => remove(todo.id));
+      li.appendChild(check); li.appendChild(text); li.appendChild(del);
+      listEl.appendChild(li);
+    });
+  }
+  function add() {
+    const text = inputEl.value.trim();
+    if (!text) { inputEl.focus(); return; }
+    todos.push({ id: nextId++, text, done: false });
+    save(todos); render(); inputEl.value = ''; inputEl.focus();
+  }
+  function toggle(id) {
+    const t = todos.find(x => x.id === id);
+    if (t) { t.done = !t.done; save(todos); render(); }
+  }
+  function remove(id) {
+    todos = todos.filter(x => x.id !== id);
+    save(todos); render();
+  }
+  addBtn.addEventListener('click', add);
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  render();
 })();
 </script>
 </body>
