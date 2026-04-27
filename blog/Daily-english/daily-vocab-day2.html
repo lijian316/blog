@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日英语 · Day 2 · 购物中心</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --accent: #f472b6;
+    --accent2: #fbcfe8;
+    --gold: #fbbf24;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --border: rgba(244,114,182,0.15);
+    --glow: rgba(244,114,182,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', 'Noto Serif SC', sans-serif;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(244,114,182,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(251,191,36,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .day-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), #ec4899);
+    color: #4a0020;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 30%, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.6rem;
+  }
+
+  .scene-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .date-line { margin-top: 0.6rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.08em; }
+
+  .speech-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(244,114,182,0.07);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    margin: 0 auto 2rem;
+    max-width: 460px;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    animation: fadeDown 0.7s 0.2s ease both;
+    opacity: 0;
+    animation-fill-mode: both;
+  }
+
+  .progress-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.05); border-radius: 999px; margin-bottom: 2.5rem; overflow: hidden; }
+  .progress-fill { height: 100%; width: 20%; background: linear-gradient(90deg, var(--accent), var(--gold)); border-radius: 999px; animation: growBar 1s 0.5s ease both; }
+
+  .play-all-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.5s 0.3s ease both;
+    opacity: 0;
+    animation-fill-mode: both;
+  }
+
+  .play-all-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(244,114,182,0.05));
+    border: 1.5px solid rgba(244,114,182,0.3);
+    color: var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.55rem 1.3rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .play-all-btn:hover { background: rgba(244,114,182,0.2); border-color: var(--accent); transform: translateY(-1px); }
+  .play-all-btn.active { background: var(--accent); color: #fff; }
+  .play-all-btn svg { width: 14px; height: 14px; }
+
+  .speed-select {
+    appearance: none;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+  }
+  .speed-select:hover { border-color: var(--accent); color: var(--text); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(370px, 1fr)); gap: 1.2rem; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.6s ease both;
+    opacity: 0;
+  }
+
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(244,114,182,0.1); }
+
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.10s; }
+  .card:nth-child(3)  { animation-delay: 0.15s; }
+  .card:nth-child(4)  { animation-delay: 0.20s; }
+  .card:nth-child(5)  { animation-delay: 0.25s; }
+  .card:nth-child(6)  { animation-delay: 0.30s; }
+  .card:nth-child(7)  { animation-delay: 0.35s; }
+  .card:nth-child(8)  { animation-delay: 0.40s; }
+  .card:nth-child(9)  { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.50s; }
+
+  .card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 0.8rem; right: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(244,114,182,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-left { display: flex; align-items: flex-start; gap: 0.7rem; flex: 1; min-width: 0; }
+
+  .type-tag {
+    background: rgba(244,114,182,0.12);
+    color: var(--accent);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+  }
+  .type-tag.phrase { background: rgba(251,191,36,0.1); color: var(--gold); }
+  .type-tag.verb   { background: rgba(96,165,250,0.1); color: #93c5fd; }
+  .type-tag.adj    { background: rgba(167,139,250,0.1); color: #c4b5fd; }
+
+  .english {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  .speak-btn {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: rgba(244,114,182,0.07);
+    color: var(--accent);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s, transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    margin-top: 2px;
+    position: relative;
+    z-index: 2;
+  }
+  .speak-btn:hover { background: rgba(244,114,182,0.18); border-color: var(--accent); transform: scale(1.08); }
+  .speak-btn.speaking {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(244,114,182,0.2);
+    animation: pulse-ring 1s ease infinite;
+  }
+  .speak-btn svg { width: 15px; height: 15px; }
+
+  .speak-sentence-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+    background: rgba(244,114,182,0.06);
+    border: 1px solid rgba(244,114,182,0.12);
+    color: var(--muted);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .speak-sentence-btn:hover { color: var(--accent2); border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.1); }
+  .speak-sentence-btn.speaking { color: var(--accent); border-color: var(--accent); }
+  .speak-sentence-btn svg { width: 10px; height: 10px; }
+
+  .chinese { font-size: 0.95rem; color: var(--accent2); font-weight: 500; margin-bottom: 0.85rem; }
+  .divider { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin-bottom: 0.85rem; }
+  .example-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .example-en { font-size: 0.86rem; color: var(--text); line-height: 1.65; font-style: italic; margin-bottom: 0.2rem; }
+  .example-en em { color: var(--accent2); font-style: normal; font-weight: 600; }
+  .example-zh { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+  footer { text-align: center; margin-top: 3rem; color: var(--muted); font-size: 0.75rem; animation: fadeUp 0.6s 0.6s ease both; opacity: 0; animation-fill-mode: both; }
+  footer span { color: var(--accent); }
+
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); } to  { opacity: 1; transform: translateY(0); } }
+  @keyframes growBar  { from { width: 0; } to { width: 20%; } }
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0px rgba(244,114,182,0.4); }
+    70%  { box-shadow: 0 0 0 7px rgba(244,114,182,0); }
+    100% { box-shadow: 0 0 0 0px rgba(244,114,182,0); }
+  }
+
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 1.8rem; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="day-badge">Day 02 · April 28, 2026</div>
+    <h1>每日英语词汇</h1>
+    <div class="scene-tag">
+      <span>🛍️</span>
+      <span>今日场景：购物中心逛街 · Shopping Mall</span>
+    </div>
+    <div class="date-line">每天 17:00 更新 · 10 words / phrases per day</div>
+  </header>
+
+  <div class="speech-notice">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+    点击 <strong style="color:var(--accent);margin:0 0.2rem">🔊</strong> 按钮收听单词发音，或一键全部朗读
+  </div>
+
+  <div class="play-all-bar">
+    <button class="play-all-btn" id="playAllBtn" onclick="togglePlayAll()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+      全部朗读
+    </button>
+    <select class="speed-select" id="speedSelect">
+      <option value="0.7">慢速 0.7×</option>
+      <option value="0.85">较慢 0.85×</option>
+      <option value="1" selected>正常 1×</option>
+      <option value="1.2">较快 1.2×</option>
+    </select>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+
+  <div class="grid" id="cardGrid">
+
+    <div class="card" data-num="01" data-word="window shopping" data-sentence="We didn't buy anything today — we were just window shopping to see what's out there.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag phrase">phrase</span>
+          <div class="english">window shopping</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">只逛不买，橱窗购物</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"We didn't buy anything today — we were just <em>window shopping</em> to see what's out there."</div>
+      <div class="example-zh">今天什么都没买——只是随便逛逛看看有什么。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="02" data-word="fitting room" data-sentence="Can I use the fitting room? I'd like to try this jacket on before I decide.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag">noun</span>
+          <div class="english">fitting room</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">试衣间</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"Can I use the <em>fitting room</em>? I'd like to try this jacket on before I decide."</div>
+      <div class="example-zh">我可以用试衣间吗？我想在决定之前先试试这件夹克。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="03" data-word="try on" data-sentence="I want to try on a few pairs of jeans before choosing — do you have my size in stock?">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag verb">verb</span>
+          <div class="english">try on</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">试穿，试戴</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"I want to <em>try on</em> a few pairs of jeans before choosing — do you have my size in stock?"</div>
+      <div class="example-zh">我想先试几条牛仔裤再决定——你们有我的尺码吗？</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="04" data-word="sale rack" data-sentence="I found this dress on the sale rack for only twenty dollars — what a bargain!">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag">noun</span>
+          <div class="english">sale rack</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">打折区货架，特价区</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"I found this dress on the <em>sale rack</em> for only twenty dollars — what a bargain!"</div>
+      <div class="example-zh">我在特价区发现了这条裙子，只要二十美元——太划算了！</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="05" data-word="in stock" data-sentence="Sorry, that colour is not in stock right now, but we can order it for you online.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag phrase">phrase</span>
+          <div class="english">in stock</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">有库存，现货</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"Sorry, that colour is not <em>in stock</em> right now, but we can order it for you online."</div>
+      <div class="example-zh">抱歉，那个颜色目前没有现货，但我们可以帮您网上订购。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="06" data-word="exchange" data-sentence="I'd like to exchange this shirt for a larger size — I kept the receipt.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag verb">verb</span>
+          <div class="english">exchange</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">换货，换尺码</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"I'd like to <em>exchange</em> this shirt for a larger size — I kept the receipt."</div>
+      <div class="example-zh">我想把这件衬衫换一个大一码的——我保留了收据。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="07" data-word="loyalty card" data-sentence="Do you have a loyalty card? You get points every time you shop and can redeem them later.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag">noun</span>
+          <div class="english">loyalty card</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">会员卡，积分卡</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"Do you have a <em>loyalty card</em>? You get points every time you shop and can redeem them later."</div>
+      <div class="example-zh">你有会员卡吗？每次消费都可以积分，之后可以兑换。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="08" data-word="splurge on" data-sentence="I decided to splurge on a nice handbag since I've been saving up for months.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag verb">verb</span>
+          <div class="english">splurge on</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">挥霍，奢侈消费</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"I decided to <em>splurge on</em> a nice handbag since I've been saving up for months."</div>
+      <div class="example-zh">我决定买一个好点的手提包犒劳自己，毕竟存了好几个月的钱了。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="09" data-word="good value for money" data-sentence="This coat is a bit pricey, but it's really good value for money given the quality.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag phrase">phrase</span>
+          <div class="english">good value for money</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">物超所值，性价比高</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"This coat is a bit pricey, but it's really <em>good value for money</em> given the quality."</div>
+      <div class="example-zh">这件大衣有点贵，但考虑到质量，真的很值。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+    <div class="card" data-num="10" data-word="impulse buy" data-sentence="I didn't plan to get those shoes at all — it was totally an impulse buy at the last minute.">
+      <div class="card-top">
+        <div class="card-left">
+          <span class="type-tag">noun</span>
+          <div class="english">impulse buy</div>
+        </div>
+        <button class="speak-btn" onclick="speakWord(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="chinese">冲动消费，一时兴起购物</div>
+      <div class="divider"></div>
+      <div class="example-label">Example</div>
+      <div class="example-en">"I didn't plan to get those shoes at all — it was totally an <em>impulse buy</em> at the last minute."</div>
+      <div class="example-zh">我根本没打算买那双鞋——完全是最后一刻冲动消费了。</div>
+      <button class="speak-sentence-btn" onclick="speakSentence(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>朗读例句
+      </button>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>📅 明日场景预告：<span>⚽ 讨论赛事 · Talking About Sports</span></p>
+    <p style="margin-top:0.5rem;">每天 17:00 · 坚持学英语 · Keep Learning ✨</p>
+  </footer>
+
+</div>
+
+<script>
+  const synth = window.speechSynthesis;
+  let isPlayingAll = false;
+  let playAllQueue = [];
+  let playAllIndex = 0;
+
+  function getSpeed() { return parseFloat(document.getElementById('speedSelect').value); }
+
+  function getEnVoice() {
+    const voices = synth.getVoices();
+    const preferred = ['Samantha', 'Google US English', 'Alex', 'Karen', 'Daniel'];
+    for (const name of preferred) {
+      const v = voices.find(v => v.name === name);
+      if (v) return v;
+    }
+    return voices.find(v => v.lang.startsWith('en')) || null;
+  }
+
+  function speak(text, onEnd) {
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = getSpeed();
+    utter.pitch = 1;
+    const voice = getEnVoice();
+    if (voice) utter.voice = voice;
+    if (onEnd) utter.onend = onEnd;
+    synth.speak(utter);
+    return utter;
+  }
+
+  function clearAllActive() {
+    document.querySelectorAll('.speak-btn.speaking').forEach(b => b.classList.remove('speaking'));
+    document.querySelectorAll('.speak-sentence-btn.speaking').forEach(b => b.classList.remove('speaking'));
+  }
+
+  function speakWord(btn) {
+    if (btn.classList.contains('speaking')) { synth.cancel(); btn.classList.remove('speaking'); return; }
+    clearAllActive();
+    btn.classList.add('speaking');
+    const word = btn.closest('.card').dataset.word;
+    const u = speak(word);
+    u.onend = () => btn.classList.remove('speaking');
+    u.onerror = () => btn.classList.remove('speaking');
+  }
+
+  function speakSentence(btn) {
+    if (btn.classList.contains('speaking')) { synth.cancel(); btn.classList.remove('speaking'); return; }
+    clearAllActive();
+    btn.classList.add('speaking');
+    const sentence = btn.closest('.card').dataset.sentence;
+    const u = speak(sentence);
+    u.onend = () => btn.classList.remove('speaking');
+    u.onerror = () => btn.classList.remove('speaking');
+  }
+
+  function highlightCard(card, on) {
+    card.style.borderColor = on ? 'rgba(244,114,182,0.5)' : '';
+    card.style.boxShadow  = on ? '0 0 0 2px rgba(244,114,182,0.15)' : '';
+  }
+
+  function buildQueue() {
+    const cards = document.querySelectorAll('.card');
+    const q = [];
+    cards.forEach(c => {
+      q.push({ type: 'word',     text: c.dataset.word,     card: c });
+      q.push({ type: 'sentence', text: c.dataset.sentence, card: c });
+    });
+    return q;
+  }
+
+  function playNext() {
+    if (!isPlayingAll || playAllIndex >= playAllQueue.length) { stopPlayAll(); return; }
+    const item = playAllQueue[playAllIndex];
+    if (playAllIndex > 0) highlightCard(playAllQueue[playAllIndex - 1].card, false);
+    highlightCard(item.card, true);
+    item.card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const u = speak(item.text, () => {
+      playAllIndex++;
+      setTimeout(playNext, item.type === 'word' ? 400 : 800);
+    });
+    u.onerror = () => { playAllIndex++; playNext(); };
+  }
+
+  function togglePlayAll() { isPlayingAll ? stopPlayAll() : startPlayAll(); }
+
+  function startPlayAll() {
+    isPlayingAll = true;
+    playAllQueue = buildQueue();
+    playAllIndex = 0;
+    const btn = document.getElementById('playAllBtn');
+    btn.classList.add('active');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> 停止朗读`;
+    playNext();
+  }
+
+  function stopPlayAll() {
+    isPlayingAll = false;
+    synth.cancel();
+    document.querySelectorAll('.card').forEach(c => highlightCard(c, false));
+    const btn = document.getElementById('playAllBtn');
+    btn.classList.remove('active');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><polygon points="5,3 19,12 5,21"/></svg> 全部朗读`;
+  }
+
+  if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => {};
+
+  if (!window.speechSynthesis) {
+    document.getElementById('speechNotice').textContent = '⚠️ 您的浏览器不支持语音朗读，请使用 Chrome 或 Safari';
+    document.querySelectorAll('.speak-btn, .speak-sentence-btn, .play-all-btn').forEach(b => b.disabled = true);
+  }
+</script>
+</body>
+</html>
