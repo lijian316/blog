@@ -1093,6 +1093,66 @@
     background-color: rgba(200,169,110,0.06);
   }
 
+  /* PHASE SELECTOR */
+  .phase-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .phase-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .phase-btn:hover { border-color: var(--ink3); }
+
+  .phase-btn.active {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .phase-btn-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--ink3);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .phase-btn.active .phase-btn-num { color: var(--bg); }
+
+  .phase-btn-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+    text-transform: uppercase;
+  }
+
+  .phase-btn.active .phase-btn-label { color: rgba(255,255,255,0.6); }
+
+  .phase-desc {
+    font-size: 13px;
+    color: var(--ink3);
+    line-height: 1.7;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border-left: 3px solid var(--am);
+    margin-bottom: 4px;
+  }
+
+  .phase-desc strong { color: var(--ink2); }
+
   /* TABS */
   .day-tabs {
     display: flex;
@@ -1160,226 +1220,347 @@
   <div class="section reveal">
     <div class="section-header">
       <span class="section-num">01</span>
-      <h2 class="section-title">每日时间安排</h2>
+      <h2 class="section-title">每日练习计划</h2>
     </div>
 
-    <!-- Tab switcher -->
-    <div class="day-tabs">
+    <!-- Phase selector -->
+    <div class="phase-selector">
+      <button class="phase-btn active" onclick="switchPhase(1, this)">
+        <span class="phase-btn-num">Phase 1</span>
+        <span class="phase-btn-label">Month 1–2 · Build habits</span>
+      </button>
+      <button class="phase-btn" onclick="switchPhase(2, this)">
+        <span class="phase-btn-num">Phase 2</span>
+        <span class="phase-btn-label">Month 3–4 · Add volume</span>
+      </button>
+      <button class="phase-btn" onclick="switchPhase(3, this)">
+        <span class="phase-btn-num">Phase 3</span>
+        <span class="phase-btn-label">Month 5–6 · Full plan</span>
+      </button>
+    </div>
+
+    <!-- Day tabs inside each phase -->
+    <div class="day-tabs" style="margin-top:24px">
       <button class="day-tab active" onclick="switchTab('weekday', this)">工作日</button>
       <button class="day-tab" onclick="switchTab('weekend', this)">周末</button>
     </div>
 
-    <!-- WEEKDAY -->
-    <div id="tab-weekday" class="tab-content">
-      <div class="timeline">
+    <!-- ===================== PHASE 1 ===================== -->
+    <div id="phase1" class="phase-content">
 
-        <!-- 早上 30分 可发声 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">早上</div>
-            <div class="tl-duration morning-color">30'</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot morning-dot"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-card" data-block="w-morning">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge morning-badge">🎤 可发声</div>
-                <div class="tl-card-title">口语开机 — Read Aloud + Repeat Sentence</div>
+      <div id="phase1-weekday" class="tab-content">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p1-wd-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">🎧 无需发声</div>
+                  <div class="tl-card-title">听力 · 入门</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p1w1"><span class="tl-checkmark"></span></label>
               </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="w-morning">
-                <span class="tl-checkmark"></span>
-              </label>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p1w1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 3题</span><span class="tl-task-desc">听力13% · 写作23% — 听写句子，每个词拼对得分</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1w1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Highlight Incorrect Words × 2题</span><span class="tl-task-desc">听力8% — 边听边看文本，找出不一样的词</span></div></label></li>
+              </ul>
             </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="wm1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 4题</span><span class="tl-task-desc">口语9% — 大声朗读，录音回听，找卡顿和停顿点</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wm2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Repeat Sentence × 6题</span><span class="tl-task-desc">口语16% · 听力17% — 听完立刻复述，注重完整性不求每字准确</span></div></label></li>
-            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p1-wd-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge pm-badge">✍️ 无需发声</div>
+                  <div class="tl-card-title">阅读 · 入门</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p1w2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p1w2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Dropdown × 3题</span><span class="tl-task-desc">阅读25% — 根据语境选词，不会的先猜</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1w2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Re-order Paragraphs × 2题</span><span class="tl-task-desc">阅读9% — 把段落排成有逻辑的顺序</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p1-wd-3">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge evening-badge">🎤 可发声</div>
+                  <div class="tl-card-title">口语 · 入门</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p1w3"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p1w3a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 2题</span><span class="tl-task-desc">口语31% — 开口说最重要，用 "The image shows..." 开头，说满25秒</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1w3b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 先写100字也没关系，重点是每天动笔</span></div></label></li>
+              </ul>
+            </div>
           </div>
         </div>
-
-        <!-- 上午 2小时 不发声 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">上午</div>
-            <div class="tl-duration am-color">2h</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot am-dot"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-card" data-block="w-am">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge am-badge">🎧 无需发声</div>
-                <div class="tl-card-title">听力 + 阅读专项</div>
-              </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="w-am">
-                <span class="tl-checkmark"></span>
-              </label>
-            </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="wa1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% · 写作23% — 每个词拼对得分，专注拼写和大小写</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wa2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in the Blanks (Type In) × 6题</span><span class="tl-task-desc">听力8% — 听音频填词，注意上下文逻辑</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wa3"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Highlight Incorrect Words × 3题</span><span class="tl-task-desc">听力8% · 阅读13% — 边听边看文本，点出和音频不符的词</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wa4"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 2题（只听不说）</span><span class="tl-task-desc">听力13% — 戴耳机听讲座，纸上记关键词，口语部分留到周末</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wa5"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in the Blanks Dropdown × 6题</span><span class="tl-task-desc">阅读25% — 最高权重阅读题，根据语境选词</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wa6"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Drag & Drop × 5题 + Re-order × 3题</span><span class="tl-task-desc">阅读20% + 阅读9% — 拖拽填词 + 段落排序逻辑训练</span></div></label></li>
-            </ul>
-          </div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>工作日进度</span><span id="p1-wd-text">0 / 3 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p1-wd-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p1w')">重置今日打卡</button>
         </div>
-
-        <!-- 下午 1小时 不发声 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">下午</div>
-            <div class="tl-duration pm-color">1h</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot pm-dot"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-card" data-block="w-pm">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge pm-badge">✍️ 无需发声</div>
-                <div class="tl-card-title">写作专项</div>
-              </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="w-pm">
-                <span class="tl-checkmark"></span>
-              </label>
-            </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="wp1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 200~250字，引言+2论点+结论，Grammarly检查，内容自然勿死背模板</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wp2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 1题</span><span class="tl-task-desc">阅读23% · 写作28% — 读一段文章写一句话概括，同时拉阅读和写作分</span></div></label></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- 晚上 30分 可发声 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">晚上</div>
-            <div class="tl-duration evening-color">30'</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot evening-dot"></div>
-            <div class="tl-line" style="display:none"></div>
-          </div>
-          <div class="tl-card" data-block="w-evening">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge evening-badge">🎤 可发声</div>
-                <div class="tl-card-title">口语核心 — Describe Image 专攻</div>
-              </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="w-evening">
-                <span class="tl-checkmark"></span>
-              </label>
-            </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="we1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 4题</span><span class="tl-task-desc">口语31% — 用固定开场句式 "The image shows..." 描述趋势/对比/主旨</span></div></label></li>
-              <li><label><input type="checkbox" data-id="we2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 听情景提示，30秒内自然作答，像在工作中回应邮件或电话</span></div></label></li>
-            </ul>
-          </div>
-        </div>
-
       </div>
 
-      <div class="tl-progress-wrap">
-        <div class="tl-progress-label">
-          <span>工作日进度</span>
-          <span id="wd-progress-text">0 / 4 完成</span>
+      <div id="phase1-weekend" class="tab-content" style="display:none">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p1-we-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge morning-badge">🎤 全程可发声</div>
+                  <div class="tl-card-title">口语集中练</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p1e1"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p1e1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 4题</span><span class="tl-task-desc">口语9% — 大声朗读，不停顿，录音回听</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1e1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Repeat Sentence × 5题</span><span class="tl-task-desc">口语16% · 听力17% — 听完立刻复述</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1e1c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 3题</span><span class="tl-task-desc">口语31% — 周末多练，建立图表描述套路</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p1-we-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">📋 本周复盘</div>
+                  <div class="tl-card-title">错题回顾</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p1e2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p1e2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation 错题重做 × 3题</span><span class="tl-task-desc">拼写错的词重点记，下次不再错</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p1e2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 比平时多写50字，逐步提升到200字</span></div></label></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="tl-progress-bar">
-          <div class="tl-progress-fill" id="wd-progress-fill"></div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>周末进度</span><span id="p1-we-text">0 / 2 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p1-we-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p1e')">重置今日打卡</button>
         </div>
-        <button class="tl-reset" onclick="resetGroup('weekday')">重置今日打卡</button>
       </div>
+
     </div>
 
-    <!-- WEEKEND -->
-    <div id="tab-weekend" class="tab-content" style="display:none">
-      <div class="timeline">
+    <!-- ===================== PHASE 2 ===================== -->
+    <div id="phase2" class="phase-content" style="display:none">
 
-        <!-- 周末 第1小时 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">第1小时</div>
-            <div class="tl-duration morning-color">1h</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot morning-dot"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-card" data-block="we-1">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge morning-badge">🎤 全程可发声</div>
-                <div class="tl-card-title">口语全题型覆盖</div>
+      <div id="phase2-weekday" class="tab-content">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p2-wd-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">🎧 无需发声</div>
+                  <div class="tl-card-title">听力专项</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p2w1"><span class="tl-checkmark"></span></label>
               </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="we-1">
-                <span class="tl-checkmark"></span>
-              </label>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p2w1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% · 写作23% — 目标零拼写错误</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks (Type In) × 4题</span><span class="tl-task-desc">听力8% — 听音频填词，新增题型本阶段开始练</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w1c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Highlight Incorrect Words × 3题</span><span class="tl-task-desc">听力8% · 阅读13% — 速度要求提高，不能太慢</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w1d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 2题（只听）</span><span class="tl-task-desc">听力13% — 记关键词，口语版留到周末</span></div></label></li>
+              </ul>
             </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="wk1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 5题</span><span class="tl-task-desc">口语31% — 不同类型各练一道：折线图/柱图/饼图/流程图/地图</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Group Discussion × 3题</span><span class="tl-task-desc">口语19% · 听力20% — 听多人讨论，60秒内总结要点，工作日无法发声周末集中补</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk3"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 3题（完整版）</span><span class="tl-task-desc">口语13% · 听力13% — 听讲座+开口复述，工作日只练了听，今天补上说的部分</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk4"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 3题 + Repeat Sentence × 5题</span><span class="tl-task-desc">维持发声习惯，保持流利度不生疏</span></div></label></li>
-            </ul>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p2-wd-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge pm-badge">✍️ 无需发声</div>
+                  <div class="tl-card-title">阅读 + 写作</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p2w2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p2w2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Dropdown × 5题</span><span class="tl-task-desc">阅读25% — 语境选词，计时练习</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Drag & Drop × 3题</span><span class="tl-task-desc">阅读20% — 新增题型，本阶段开始练</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w2c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 目标200字，结构清晰</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w2d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 1题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括，本阶段新增</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p2-wd-3">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge evening-badge">🎤 可发声</div>
+                  <div class="tl-card-title">口语强化</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p2w3"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p2w3a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 4题</span><span class="tl-task-desc">口语31% — 尝试不同图表类型，不用模板也能说流利</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2w3b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 本阶段新增，情景应答30秒内完成</span></div></label></li>
+              </ul>
+            </div>
           </div>
         </div>
-
-        <!-- 周末 第2小时 -->
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-time-label">第2小时</div>
-            <div class="tl-duration am-color">1h</div>
-          </div>
-          <div class="tl-line-col">
-            <div class="tl-dot am-dot"></div>
-            <div class="tl-line" style="display:none"></div>
-          </div>
-          <div class="tl-card" data-block="we-2">
-            <div class="tl-card-header">
-              <div>
-                <div class="tl-badge am-badge">📋 综合补强</div>
-                <div class="tl-card-title">写作 + 听力 + 错题复盘</div>
-              </div>
-              <label class="tl-check-wrap">
-                <input type="checkbox" class="tl-checkbox" data-id="we-2">
-                <span class="tl-checkmark"></span>
-              </label>
-            </div>
-            <ul class="tl-tasks">
-              <li><label><input type="checkbox" data-id="wk5"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 计时30分钟完成，模拟真实考场节奏</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk6"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 2题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括，检查语法和逻辑</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk7"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% — 重做本周做错的题，零错误为目标</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk8"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">整理本周错题</span><span class="tl-task-desc">按题型分类，找出规律性错误，下周重点攻</span></div></label></li>
-              <li><label><input type="checkbox" data-id="wk9"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 周末额外补充，工作日已练过</span></div></label></li>
-            </ul>
-          </div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>工作日进度</span><span id="p2-wd-text">0 / 3 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p2-wd-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p2w')">重置今日打卡</button>
         </div>
-
       </div>
 
-      <div class="tl-progress-wrap">
-        <div class="tl-progress-label">
-          <span>周末进度</span>
-          <span id="we-progress-text">0 / 2 完成</span>
+      <div id="phase2-weekend" class="tab-content" style="display:none">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p2-we-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge morning-badge">🎤 全程可发声</div>
+                  <div class="tl-card-title">口语全覆盖</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p2e1"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p2e1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 4题</span><span class="tl-task-desc">口语9% — 流利度要有明显提升</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2e1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Repeat Sentence × 6题</span><span class="tl-task-desc">口语16% · 听力17% — 追求完整复述</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2e1c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 5题</span><span class="tl-task-desc">口语31% — 5种图表类型各一道</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2e1d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 2题（完整版）</span><span class="tl-task-desc">口语13% — 听完开口复述，工作日只听不说</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p2-we-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">📋 综合复盘</div>
+                  <div class="tl-card-title">写作 + 错题</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p2e2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p2e2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 计时完成，Grammarly检查</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2e2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 2题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括练习</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p2e2c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">本周错题整理</span><span class="tl-task-desc">找出规律性错误，下周重点攻</span></div></label></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="tl-progress-bar">
-          <div class="tl-progress-fill" id="we-progress-fill"></div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>周末进度</span><span id="p2-we-text">0 / 2 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p2-we-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p2e')">重置今日打卡</button>
         </div>
-        <button class="tl-reset" onclick="resetGroup('weekend')">重置今日打卡</button>
       </div>
+
+    </div>
+
+    <!-- ===================== PHASE 3 ===================== -->
+    <div id="phase3" class="phase-content" style="display:none">
+
+      <div id="phase3-weekday" class="tab-content">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p3-wd-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">🎧 无需发声</div>
+                  <div class="tl-card-title">听力 + 阅读专项</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p3w1"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p3w1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% · 写作23% — 每个词拼对得分</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks (Type In) × 6题</span><span class="tl-task-desc">听力8% — 听音频填词</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w1c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Highlight Incorrect Words × 3题</span><span class="tl-task-desc">听力8% · 阅读13% — 边听边找错词</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w1d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 2题（只听）</span><span class="tl-task-desc">听力13% — 纸上记关键词</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w1e"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Dropdown × 6题</span><span class="tl-task-desc">阅读25% — 最高权重阅读题</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w1f"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Drag & Drop × 5题 + Re-order × 3题</span><span class="tl-task-desc">阅读20% + 阅读9% — 拖拽填词 + 段落排序</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p3-wd-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge pm-badge">✍️ 无需发声</div>
+                  <div class="tl-card-title">写作专项</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p3w2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p3w2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 200~250字，引言+2论点+结论，Grammarly检查</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 1题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p3-wd-3">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge evening-badge">🎤 可发声</div>
+                  <div class="tl-card-title">口语核心</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p3w3"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p3w3a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 4题</span><span class="tl-task-desc">口语31% — 用 "The image shows..." 描述趋势/对比/主旨</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3w3b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 30秒内自然作答</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>工作日进度</span><span id="p3-wd-text">0 / 3 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p3-wd-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p3w')">重置今日打卡</button>
+        </div>
+      </div>
+
+      <div id="phase3-weekend" class="tab-content" style="display:none">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-card" data-block="p3-we-1">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge morning-badge">🎤 全程可发声</div>
+                  <div class="tl-card-title">口语全题型覆盖</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p3e1"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p3e1a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 5题</span><span class="tl-task-desc">口语31% — 5种图表类型各一道</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e1b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Group Discussion × 3题</span><span class="tl-task-desc">口语19% · 听力20% — 工作日无法发声，周末集中补</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e1c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 3题（完整版）</span><span class="tl-task-desc">口语13% — 听讲座+开口复述</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e1d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 4题</span><span class="tl-task-desc">口语9% — 大声朗读，录音回听</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e1e"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Repeat Sentence × 6题</span><span class="tl-task-desc">口语16% · 听力17% — 听完立刻复述</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-card" data-block="p3-we-2">
+              <div class="tl-card-header">
+                <div>
+                  <div class="tl-badge am-badge">📋 综合补强</div>
+                  <div class="tl-card-title">写作 + 听力 + 错题复盘</div>
+                </div>
+                <label class="tl-check-wrap"><input type="checkbox" class="tl-checkbox" data-id="p3e2"><span class="tl-checkmark"></span></label>
+              </div>
+              <ul class="tl-tasks">
+                <li><label><input type="checkbox" data-id="p3e2a"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 计时完成，模拟真实考场节奏</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e2b"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 2题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括，检查语法和逻辑</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e2c"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% — 重做本周错题，零错误为目标</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e2d"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">整理本周错题</span><span class="tl-task-desc">按题型分类，找出规律性错误，下周重点攻</span></div></label></li>
+                <li><label><input type="checkbox" data-id="p3e2e"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 周末额外补充</span></div></label></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tl-progress-wrap">
+          <div class="tl-progress-label"><span>周末进度</span><span id="p3-we-text">0 / 2 完成</span></div>
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="p3-we-fill"></div></div>
+          <button class="tl-reset" onclick="resetPhaseGroup('p3e')">重置今日打卡</button>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -1629,18 +1810,39 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Tab switcher
-  function switchTab(tab, btn) {
-    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-    document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + tab).style.display = 'block';
+  let currentPhase = 1;
+  let currentTab = 'weekday';
+
+  function switchPhase(phase, btn) {
+    currentPhase = phase;
+    document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    document.querySelectorAll('.phase-content').forEach(p => p.style.display = 'none');
+    document.getElementById('phase' + phase).style.display = 'block';
+    // Reset tab to weekday
+    showTab(phase, 'weekday');
+    document.querySelectorAll('.day-tab').forEach((b, i) => b.classList.toggle('active', i === 0));
   }
 
-  // Save/load state
+  function switchTab(tab, btn) {
+    currentTab = tab;
+    document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    showTab(currentPhase, tab);
+  }
+
+  function showTab(phase, tab) {
+    const phaseEl = document.getElementById('phase' + phase);
+    if (!phaseEl) return;
+    phaseEl.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    const target = document.getElementById('phase' + phase + '-' + tab);
+    if (target) target.style.display = 'block';
+  }
+
+  // Checkbox logic
   function getState() {
     const today = new Date().toDateString();
-    const saved = JSON.parse(localStorage.getItem('pte_checklist') || '{}');
+    const saved = JSON.parse(localStorage.getItem('pte_checklist_v2') || '{}');
     return saved.date === today ? saved : { date: today };
   }
 
@@ -1650,7 +1852,7 @@
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
       if (cb.dataset.id) state[cb.dataset.id] = cb.checked;
     });
-    localStorage.setItem('pte_checklist', JSON.stringify(state));
+    localStorage.setItem('pte_checklist_v2', JSON.stringify(state));
   }
 
   function loadState() {
@@ -1659,71 +1861,59 @@
       if (cb.dataset.id && state[cb.dataset.id]) {
         cb.checked = true;
         if (cb.classList.contains('tl-checkbox')) {
-          cb.closest('.tl-card').classList.add('done');
+          cb.closest('.tl-card')?.classList.add('done');
         }
       }
     });
-    updateProgress('weekday');
-    updateProgress('weekend');
+    updateAllProgress();
   }
 
-  function updateProgress(group) {
-    const prefix = group === 'weekday' ? 'w-' : 'we-';
-    const blocks = [...document.querySelectorAll('.tl-checkbox')].filter(cb =>
-      cb.dataset.id && cb.dataset.id.startsWith(prefix)
-    );
-    const done = blocks.filter(cb => cb.checked).length;
-    const total = blocks.length;
-    const textEl = document.getElementById(group === 'weekday' ? 'wd-progress-text' : 'we-progress-text');
-    const fillEl = document.getElementById(group === 'weekday' ? 'wd-progress-fill' : 'we-progress-fill');
-    if (textEl) textEl.textContent = `${done} / ${total} 完成`;
-    if (fillEl) fillEl.style.width = `${total ? (done / total) * 100 : 0}%`;
+  function updateAllProgress() {
+    [1,2,3].forEach(p => {
+      ['wd','we'].forEach(g => {
+        const prefix = 'p' + p + (g === 'wd' ? 'w' : 'e');
+        const blocks = [...document.querySelectorAll('.tl-checkbox')].filter(cb =>
+          cb.dataset.id && cb.dataset.id.startsWith(prefix) && cb.dataset.id.length <= prefix.length + 1
+        );
+        const done = blocks.filter(cb => cb.checked).length;
+        const total = blocks.length;
+        const textEl = document.getElementById('p' + p + '-' + g + '-text');
+        const fillEl = document.getElementById('p' + p + '-' + g + '-fill');
+        if (textEl) textEl.textContent = done + ' / ' + total + ' 完成';
+        if (fillEl) fillEl.style.width = (total ? (done/total)*100 : 0) + '%';
+      });
+    });
   }
 
-  // Block-level checkboxes
   document.querySelectorAll('.tl-checkbox').forEach(cb => {
     cb.addEventListener('change', () => {
       const card = cb.closest('.tl-card');
       card.classList.toggle('done', cb.checked);
       card.querySelectorAll('.tl-tasks input[type="checkbox"]').forEach(sub => sub.checked = cb.checked);
-      saveState();
-      const isWeekend = cb.dataset.id && cb.dataset.id.startsWith('we-');
-      updateProgress(isWeekend ? 'weekend' : 'weekday');
+      saveState(); updateAllProgress();
     });
   });
 
-  // Sub-task checkboxes
   document.querySelectorAll('.tl-tasks input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
       const card = cb.closest('.tl-card');
       const subs = card.querySelectorAll('.tl-tasks input[type="checkbox"]');
       const allDone = [...subs].every(s => s.checked);
       const blockCb = card.querySelector('.tl-checkbox');
-      if (blockCb) {
-        blockCb.checked = allDone;
-        card.classList.toggle('done', allDone);
-        const isWeekend = blockCb.dataset.id && blockCb.dataset.id.startsWith('we-');
-        updateProgress(isWeekend ? 'weekend' : 'weekday');
-      }
-      saveState();
+      if (blockCb) { blockCb.checked = allDone; card.classList.toggle('done', allDone); }
+      saveState(); updateAllProgress();
     });
   });
 
-  function resetGroup(group) {
-    const prefix = group === 'weekday' ? ['w-morning','w-am','w-pm','w-evening','wm','wa','wp','we'] : ['we-','wk'];
+  function resetPhaseGroup(prefix) {
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-      if (cb.dataset.id && prefix.some(p => cb.dataset.id.startsWith(p))) {
-        cb.checked = false;
-      }
+      if (cb.dataset.id && cb.dataset.id.startsWith(prefix)) cb.checked = false;
     });
     document.querySelectorAll('.tl-card').forEach(card => {
       const blockCb = card.querySelector('.tl-checkbox');
-      if (blockCb && blockCb.dataset.id && prefix.some(p => blockCb.dataset.id.startsWith(p))) {
-        card.classList.remove('done');
-      }
+      if (blockCb?.dataset.id?.startsWith(prefix)) card.classList.remove('done');
     });
-    saveState();
-    updateProgress(group);
+    saveState(); updateAllProgress();
   }
 
   loadState();
