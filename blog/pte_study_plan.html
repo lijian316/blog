@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE 58 备考计划</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg2: #ede8de;
+    --surface: #fff9f0;
+    --border: #d4c9b5;
+    --ink: #1a1510;
+    --ink2: #4a3f30;
+    --ink3: #8a7a65;
+    --accent: #c4622d;
+    --accent2: #2d6b8a;
+    --accent3: #2d7a4f;
+    --accent4: #7a2d8a;
+    --morning: #e8a832;
+    --am: #2d6b8a;
+    --pm: #2d7a4f;
+    --evening: #c4622d;
+    --tag-h: rgba(196,98,45,0.12);
+    --tag-l: rgba(45,107,138,0.12);
+    --tag-r: rgba(45,122,79,0.12);
+    --tag-w: rgba(122,45,138,0.12);
+    --tag-s: rgba(232,168,50,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    padding: 80px 60px 60px;
+    position: relative;
+    border-bottom: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: var(--ink3);
+    margin-top: 20px;
+    max-width: 440px;
+  }
+
+  .score-display {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .score-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--ink);
+    display: block;
+    letter-spacing: -0.04em;
+  }
+
+  .score-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--ink3);
+    text-transform: uppercase;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-item {
+    padding: 28px 40px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink3);
+    text-transform: uppercase;
+  }
+
+  /* CONTENT */
+  .content {
+    padding: 0 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink3);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--ink);
+  }
+
+  /* DAILY SCHEDULE */
+  .daily-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .time-block {
+    background: var(--surface);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .time-block::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .time-block.morning::after { background: var(--morning); }
+  .time-block.am::after { background: var(--am); }
+  .time-block.pm::after { background: var(--pm); }
+  .time-block.evening::after { background: var(--evening); }
+
+  .block-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+    color: var(--ink3);
+  }
+
+  .block-duration {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .morning .block-duration { color: var(--morning); }
+  .am .block-duration { color: var(--am); }
+  .pm .block-duration { color: var(--pm); }
+  .evening .block-duration { color: var(--evening); }
+
+  .block-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .block-focus {
+    font-size: 12px;
+    color: var(--ink3);
+    line-height: 1.7;
+  }
+
+  .block-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 12px;
+    text-transform: uppercase;
+  }
+
+  .morning .block-badge { background: rgba(232,168,50,0.15); color: var(--morning); }
+  .am .block-badge { background: rgba(45,107,138,0.12); color: var(--am); }
+  .pm .block-badge { background: rgba(45,122,79,0.12); color: var(--pm); }
+  .evening .block-badge { background: rgba(196,98,45,0.12); color: var(--evening); }
+
+  /* SKILL TAGS */
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin: 2px 2px 2px 0;
+  }
+
+  .tag-s { background: var(--tag-s); color: var(--morning); }
+  .tag-l { background: var(--tag-l); color: var(--am); }
+  .tag-r { background: var(--tag-r); color: var(--pm); }
+  .tag-w { background: var(--tag-w); color: var(--accent4); }
+
+  /* WEEKLY TABLE */
+  .week-grid-wrap {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .week-grid {
+    display: table;
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+  }
+
+  .wg-header-row {
+    display: table-row;
+  }
+
+  .wg-header {
+    display: table-cell;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    width: 20%;
+  }
+
+  .wg-header:first-child { width: 6%; }
+
+  .wg-body-row {
+    display: table-row;
+  }
+
+  .wg-body-row:nth-child(even) .wg-cell,
+  .wg-body-row:nth-child(even) .wg-day {
+    background: rgba(255,255,255,0.4);
+  }
+
+  .wg-cell {
+    display: table-cell;
+    padding: 16px 14px;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink2);
+    line-height: 1.7;
+    vertical-align: top;
+    width: 20%;
+  }
+
+  .wg-day {
+    display: table-cell;
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--ink3);
+    padding: 16px 10px;
+    border-top: 1px solid var(--border);
+    vertical-align: middle;
+    text-align: center;
+    width: 6%;
+  }
+
+  .wg-row:nth-child(odd) .wg-cell,
+  .wg-row:nth-child(odd) .wg-day {
+    background: rgba(255,255,255,0.4);
+  }
+
+  .wg-row-sun .wg-day { color: var(--accent); }
+  .wg-row-sat .wg-day { color: var(--accent); }
+
+  /* PRIORITY TASKS */
+  .priority-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .priority-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .priority-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .priority-rank {
+    font-family: 'DM Serif Display', serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--border);
+    position: absolute;
+    top: 16px;
+    right: 20px;
+  }
+
+  .priority-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .priority-card:nth-child(1) .priority-type { color: var(--accent); }
+  .priority-card:nth-child(2) .priority-type { color: var(--am); }
+  .priority-card:nth-child(3) .priority-type { color: var(--pm); }
+  .priority-card:nth-child(4) .priority-type { color: var(--accent4); }
+  .priority-card:nth-child(5) .priority-type { color: var(--morning); }
+  .priority-card:nth-child(6) .priority-type { color: var(--ink3); }
+
+  .priority-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .priority-desc {
+    font-size: 12px;
+    color: var(--ink3);
+    line-height: 1.7;
+  }
+
+  .priority-impact {
+    margin-top: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+  }
+
+  .impact-bar {
+    height: 3px;
+    background: var(--border);
+    margin-top: 6px;
+    position: relative;
+  }
+
+  .impact-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    border-radius: 2px;
+  }
+
+  .priority-card:nth-child(1) .impact-fill { background: var(--accent); width: 100%; }
+  .priority-card:nth-child(2) .impact-fill { background: var(--am); width: 95%; }
+  .priority-card:nth-child(3) .impact-fill { background: var(--pm); width: 88%; }
+  .priority-card:nth-child(4) .impact-fill { background: var(--accent4); width: 80%; }
+  .priority-card:nth-child(5) .impact-fill { background: var(--morning); width: 72%; }
+  .priority-card:nth-child(6) .impact-fill { background: var(--ink3); width: 55%; }
+
+  /* PHASE TIMELINE */
+  .phase-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .phase-card {
+    background: var(--surface);
+    padding: 36px 32px;
+  }
+
+  .phase-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--ink3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .phase-weeks {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .phase-card:nth-child(1) .phase-weeks { color: var(--accent); }
+  .phase-card:nth-child(2) .phase-weeks { color: var(--am); }
+  .phase-card:nth-child(3) .phase-weeks { color: var(--accent3); }
+
+  .phase-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .phase-tasks {
+    list-style: none;
+  }
+
+  .phase-tasks li {
+    font-size: 12px;
+    color: var(--ink3);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .phase-tasks li:last-child { border-bottom: none; }
+
+  .phase-tasks li::before {
+    content: '→';
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .phase-card:nth-child(1) .phase-tasks li::before { color: var(--accent); }
+  .phase-card:nth-child(2) .phase-tasks li::before { color: var(--am); }
+  .phase-card:nth-child(3) .phase-tasks li::before { color: var(--accent3); }
+
+  .phase-milestone {
+    margin-top: 16px;
+    padding: 12px 14px;
+    font-size: 11px;
+    color: var(--ink2);
+    background: var(--bg2);
+    border-left: 3px solid;
+    line-height: 1.6;
+  }
+
+  .phase-card:nth-child(1) .phase-milestone { border-color: var(--accent); }
+  .phase-card:nth-child(2) .phase-milestone { border-color: var(--am); }
+  .phase-card:nth-child(3) .phase-milestone { border-color: var(--accent3); }
+
+  /* SCORE TARGET */
+  .score-targets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .score-target {
+    background: var(--surface);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .target-skill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 12px;
+  }
+
+  .target-score {
+    font-family: 'DM Serif Display', serif;
+    font-size: 56px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .score-target:nth-child(1) .target-score { color: var(--evening); }
+  .score-target:nth-child(2) .target-score { color: var(--am); }
+  .score-target:nth-child(3) .target-score { color: var(--pm); }
+  .score-target:nth-child(4) .target-score { color: var(--accent4); }
+
+  .target-note {
+    font-size: 11px;
+    color: var(--ink3);
+    line-height: 1.5;
+  }
+
+  /* RESOURCES */
+  .resource-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .resource-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  a.resource-item:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .resource-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .resource-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .resource-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .resource-desc {
+    font-size: 11px;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+
+  .free-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    background: rgba(45,122,79,0.12);
+    color: var(--pm);
+    padding: 1px 5px;
+    margin-left: 6px;
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 2px solid var(--ink);
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--ink);
+  }
+
+  .footer-logo em { font-style: italic; color: var(--accent); }
+
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink3);
+    letter-spacing: 0.15em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 48px 24px 40px; grid-template-columns: 1fr; }
+    .score-display { text-align: left; }
+    .score-num { font-size: 80px; }
+    .content { padding: 0 24px; }
+    .daily-schedule { grid-template-columns: 1fr 1fr; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .priority-grid { grid-template-columns: 1fr; }
+    .phase-list { grid-template-columns: 1fr; }
+    .score-targets { grid-template-columns: repeat(2, 1fr); }
+    .resource-list { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: 50px 1fr 1fr; min-width: unset; }
+    .wg-header:nth-child(n+4), .wg-cell:nth-child(5n+4), .wg-cell:nth-child(5n+5) { display: none; }
+    footer { flex-direction: column; gap: 16px; padding: 32px 24px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tl-item {
+    display: block;
+  }
+
+  .tl-left { display: none; }
+  .tl-line-col { display: none; }
+
+  .tl-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .tl-card.done {
+    background: rgba(45,122,79,0.04);
+    border-color: rgba(45,122,79,0.3);
+  }
+
+  .tl-card.done .tl-card-title {
+    text-decoration: line-through;
+    color: var(--ink3);
+  }
+
+  .tl-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .tl-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    display: inline-block;
+  }
+
+  .morning-badge { background: rgba(232,168,50,0.15); color: var(--morning); }
+  .am-badge { background: rgba(45,107,138,0.12); color: var(--am); }
+  .pm-badge { background: rgba(45,122,79,0.12); color: var(--pm); }
+  .evening-badge { background: rgba(196,98,45,0.12); color: var(--evening); }
+
+  .tl-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    transition: color 0.3s;
+  }
+
+  .tl-phase-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .tl-tasks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tl-tasks li label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink2);
+    cursor: pointer;
+    line-height: 1.5;
+    flex-wrap: nowrap;
+  }
+
+  .tl-task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .tl-task-title {
+    font-size: 13px;
+    color: var(--ink2);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .tl-task-desc {
+    font-size: 11px;
+    color: var(--ink3);
+    line-height: 1.5;
+  }
+
+  .tl-tasks li label input:checked ~ .tl-task-content .tl-task-title {
+    color: var(--ink3);
+    text-decoration: line-through;
+  }
+
+  .tl-tasks li label input:checked ~ .tl-task-content .tl-task-desc {
+    color: var(--border);
+  }
+
+  .tl-tasks li label input[type="checkbox"] {
+    display: none;
+  }
+
+  .tl-tasks li label input:checked + .cb-box + .tl-task-content .tl-task-title,
+  .tl-tasks li label input:checked ~ * {
+    color: var(--ink3);
+  }
+
+  .tl-tasks li label input:checked + .cb-box + .tl-task-content .tl-task-title {
+    text-decoration: line-through;
+  }
+
+  .cb-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+  }
+
+  .tl-tasks li label input:checked + .cb-box {
+    background: var(--pm);
+    border-color: var(--pm);
+  }
+
+  .tl-tasks li label input:checked + .cb-box::after {
+    content: '✓';
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .tl-tasks li label input:checked ~ * {
+    color: var(--ink3);
+    text-decoration: line-through;
+  }
+
+  /* Big checkbox */
+  .tl-check-wrap {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .tl-check-wrap input[type="checkbox"] { display: none; }
+
+  .tl-checkmark {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    background: var(--surface);
+    font-size: 14px;
+  }
+
+  .tl-check-wrap input:checked + .tl-checkmark {
+    background: var(--pm);
+    border-color: var(--pm);
+    color: white;
+  }
+
+  .tl-check-wrap input:checked + .tl-checkmark::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Progress bar */
+  .tl-progress-wrap {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .tl-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink3);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  #progress-text { color: var(--pm); font-weight: 500; }
+
+  .tl-progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .tl-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--am), var(--pm));
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .tl-reset {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    background: none;
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tl-reset:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .tl-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(45,107,138,0.06);
+    border-left: 3px solid var(--am);
+    font-size: 12px;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+
+  /* WEIGHTING TABLE */
+  .wt-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .wt-table {
+    width: 100%;
+    min-width: 480px;
+    border-collapse: collapse;
+    font-size: 11px;
+    border: 1px solid var(--border);
+  }
+
+  .wt-table thead tr {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .wt-table thead th {
+    padding: 12px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .wt-section-col { width: 36px; text-align: left !important; }
+  .wt-type-col { width: auto; text-align: left !important; }
+
+  .wt-section {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px 4px;
+    border-right: 1px solid var(--border);
+    line-height: 1.8;
+    white-space: nowrap;
+  }
+
+  .speaking-section { color: var(--evening); background: rgba(196,98,45,0.04); }
+  .reading-section  { color: var(--pm);      background: rgba(45,122,79,0.04); }
+  .listening-section{ color: var(--am);      background: rgba(45,107,138,0.04); }
+
+  .wt-type {
+    padding: 9px 10px;
+    color: var(--ink2);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .wt-num {
+    text-align: center;
+    padding: 9px 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    color: var(--ink2);
+    white-space: nowrap;
+    width: 44px;
+  }
+
+  .wt-empty { color: var(--border); }
+
+  .wt-low  { color: var(--ink3); }
+  .wt-hit  { color: var(--am); font-weight: 500; background: rgba(45,107,138,0.06); }
+  .wt-high { color: var(--evening); font-weight: 500; background: rgba(196,98,45,0.06); }
+  .wt-top  {
+    color: var(--accent);
+    font-weight: 700;
+    background: rgba(196,98,45,0.1);
+  }
+
+  .wt-group-header td { border-top: 2px solid var(--border); }
+
+  .wt-divider td {
+    height: 6px;
+    background: var(--bg2);
+    border: none;
+    padding: 0;
+  }
+
+  .wt-total td {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    border-top: 2px solid var(--ink);
+  }
+
+  .wt-divider { display: none; }
+  .wt-skip-cell {
+    color: var(--ink3) !important;
+    background: none !important;
+    text-decoration: line-through;
+    text-decoration-color: var(--border);
+  }
+
+  .wt-coverage td, .wt-coverage .wt-num {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .wt-cov-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--am) !important;
+    background: rgba(45,107,138,0.06) !important;
+  }
+
+  .wt-verdict td, .wt-verdict .wt-num {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .wt-verdict-ok {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pm) !important;
+    background: rgba(45,122,79,0.08) !important;
+  }
+
+  .wt-verdict-warn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--morning) !important;
+    background: rgba(232,168,50,0.1) !important;
+  }
+
+  .wt-verdict-val {
+    color: var(--border) !important;
+  }
+
+  .wt-table tbody tr:not(.wt-total):not(.wt-divider):not(.wt-coverage):not(.wt-verdict):hover .wt-type,
+  .wt-table tbody tr:not(.wt-total):not(.wt-divider):not(.wt-coverage):not(.wt-verdict):hover .wt-num:not(.wt-empty) {
+    background-color: rgba(200,169,110,0.06);
+  }
+
+  /* TABS */
+  .day-tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 32px;
+    background: var(--border);
+    padding: 2px;
+    width: fit-content;
+  }
+
+  .day-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: none;
+    background: transparent;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .day-tab.active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .day-tab:not(.active):hover {
+    background: var(--bg2);
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="header-eyebrow">// PTE Academic · 备考计划</div>
+    <h1>备考<em>冲刺</em><br>计划书</h1>
+    <p class="header-sub">目标 PTE 58分 · 四项单项均 ≥ 58分</p>
+  </div>
+  <div class="score-display">
+    <span class="score-num">58</span>
+    <div class="score-label">目标分数</div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-val">4项</span>
+    <div class="stat-desc">单项均须 ≥ 58</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-val">6型</span>
+    <div class="stat-desc">重点攻克题型</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- DAILY SCHEDULE -->
+  <div class="section reveal">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">每日时间安排</h2>
+    </div>
+
+    <!-- Tab switcher -->
+    <div class="day-tabs">
+      <button class="day-tab active" onclick="switchTab('weekday', this)">工作日</button>
+      <button class="day-tab" onclick="switchTab('weekend', this)">周末</button>
+    </div>
+
+    <!-- WEEKDAY -->
+    <div id="tab-weekday" class="tab-content">
+      <div class="timeline">
+
+        <!-- 早上 30分 可发声 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">早上</div>
+            <div class="tl-duration morning-color">30'</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot morning-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card" data-block="w-morning">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge morning-badge">🎤 可发声</div>
+                <div class="tl-card-title">口语开机 — Read Aloud + Repeat Sentence</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="w-morning">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="wm1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 4题</span><span class="tl-task-desc">口语9% — 大声朗读，录音回听，找卡顿和停顿点</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wm2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Repeat Sentence × 6题</span><span class="tl-task-desc">口语16% · 听力17% — 听完立刻复述，注重完整性不求每字准确</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 上午 2小时 不发声 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">上午</div>
+            <div class="tl-duration am-color">2h</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot am-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card" data-block="w-am">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge am-badge">🎧 无需发声</div>
+                <div class="tl-card-title">听力 + 阅读专项</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="w-am">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="wa1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% · 写作23% — 每个词拼对得分，专注拼写和大小写</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wa2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in the Blanks (Type In) × 6题</span><span class="tl-task-desc">听力8% — 听音频填词，注意上下文逻辑</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wa3"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Highlight Incorrect Words × 3题</span><span class="tl-task-desc">听力8% · 阅读13% — 边听边看文本，点出和音频不符的词</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wa4"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 2题（只听不说）</span><span class="tl-task-desc">听力13% — 戴耳机听讲座，纸上记关键词，口语部分留到周末</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wa5"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in the Blanks Dropdown × 6题</span><span class="tl-task-desc">阅读25% — 最高权重阅读题，根据语境选词</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wa6"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Fill in Blanks Drag & Drop × 5题 + Re-order × 3题</span><span class="tl-task-desc">阅读20% + 阅读9% — 拖拽填词 + 段落排序逻辑训练</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 下午 1小时 不发声 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">下午</div>
+            <div class="tl-duration pm-color">1h</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot pm-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card" data-block="w-pm">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge pm-badge">✍️ 无需发声</div>
+                <div class="tl-card-title">写作专项</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="w-pm">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="wp1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 200~250字，引言+2论点+结论，Grammarly检查，内容自然勿死背模板</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wp2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 1题</span><span class="tl-task-desc">阅读23% · 写作28% — 读一段文章写一句话概括，同时拉阅读和写作分</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 晚上 30分 可发声 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">晚上</div>
+            <div class="tl-duration evening-color">30'</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot evening-dot"></div>
+            <div class="tl-line" style="display:none"></div>
+          </div>
+          <div class="tl-card" data-block="w-evening">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge evening-badge">🎤 可发声</div>
+                <div class="tl-card-title">口语核心 — Describe Image 专攻</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="w-evening">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="we1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 4题</span><span class="tl-task-desc">口语31% — 用固定开场句式 "The image shows..." 描述趋势/对比/主旨</span></div></label></li>
+              <li><label><input type="checkbox" data-id="we2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 听情景提示，30秒内自然作答，像在工作中回应邮件或电话</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tl-progress-wrap">
+        <div class="tl-progress-label">
+          <span>工作日进度</span>
+          <span id="wd-progress-text">0 / 4 完成</span>
+        </div>
+        <div class="tl-progress-bar">
+          <div class="tl-progress-fill" id="wd-progress-fill"></div>
+        </div>
+        <button class="tl-reset" onclick="resetGroup('weekday')">重置今日打卡</button>
+      </div>
+    </div>
+
+    <!-- WEEKEND -->
+    <div id="tab-weekend" class="tab-content" style="display:none">
+      <div class="timeline">
+
+        <!-- 周末 第1小时 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">第1小时</div>
+            <div class="tl-duration morning-color">1h</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot morning-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-card" data-block="we-1">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge morning-badge">🎤 全程可发声</div>
+                <div class="tl-card-title">口语全题型覆盖</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="we-1">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="wk1"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Describe Image × 5题</span><span class="tl-task-desc">口语31% — 不同类型各练一道：折线图/柱图/饼图/流程图/地图</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk2"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Group Discussion × 3题</span><span class="tl-task-desc">口语19% · 听力20% — 听多人讨论，60秒内总结要点，工作日无法发声周末集中补</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk3"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Retell Lecture × 3题（完整版）</span><span class="tl-task-desc">口语13% · 听力13% — 听讲座+开口复述，工作日只练了听，今天补上说的部分</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk4"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Read Aloud × 3题 + Repeat Sentence × 5题</span><span class="tl-task-desc">维持发声习惯，保持流利度不生疏</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 周末 第2小时 -->
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-time-label">第2小时</div>
+            <div class="tl-duration am-color">1h</div>
+          </div>
+          <div class="tl-line-col">
+            <div class="tl-dot am-dot"></div>
+            <div class="tl-line" style="display:none"></div>
+          </div>
+          <div class="tl-card" data-block="we-2">
+            <div class="tl-card-header">
+              <div>
+                <div class="tl-badge am-badge">📋 综合补强</div>
+                <div class="tl-card-title">写作 + 听力 + 错题复盘</div>
+              </div>
+              <label class="tl-check-wrap">
+                <input type="checkbox" class="tl-checkbox" data-id="we-2">
+                <span class="tl-checkmark"></span>
+              </label>
+            </div>
+            <ul class="tl-tasks">
+              <li><label><input type="checkbox" data-id="wk5"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write Essay × 1篇</span><span class="tl-task-desc">写作31% — 计时30分钟完成，模拟真实考场节奏</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk6"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Summarize Written Text × 2题</span><span class="tl-task-desc">阅读23% · 写作28% — 一句话概括，检查语法和逻辑</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk7"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Write from Dictation × 5题</span><span class="tl-task-desc">听力13% — 重做本周做错的题，零错误为目标</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk8"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">整理本周错题</span><span class="tl-task-desc">按题型分类，找出规律性错误，下周重点攻</span></div></label></li>
+              <li><label><input type="checkbox" data-id="wk9"><span class="cb-box"></span><div class="tl-task-content"><span class="tl-task-title">Respond to a Situation × 2题</span><span class="tl-task-desc">口语13% — 周末额外补充，工作日已练过</span></div></label></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tl-progress-wrap">
+        <div class="tl-progress-label">
+          <span>周末进度</span>
+          <span id="we-progress-text">0 / 2 完成</span>
+        </div>
+        <div class="tl-progress-bar">
+          <div class="tl-progress-fill" id="we-progress-fill"></div>
+        </div>
+        <button class="tl-reset" onclick="resetGroup('weekend')">重置今日打卡</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WEIGHTING TABLE -->
+  <div class="section reveal">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">官方题型权重表</h2>
+    </div>
+    <p style="font-size:13px;color:var(--ink3);margin-bottom:24px;line-height:1.7;">来源：PTE Academic 官方评分说明（2025版）。各题型对总分及各项技能分的平均贡献比例，是备考优先级的核心依据。</p>
+
+    <div class="wt-wrap">
+      <table class="wt-table">
+        <thead>
+          <tr>
+            <th class="wt-section-col">板块</th>
+            <th class="wt-type-col">题型</th>
+            <th class="wt-num">总分</th>
+            <th class="wt-num">听力</th>
+            <th class="wt-num">阅读</th>
+            <th class="wt-num">口语</th>
+            <th class="wt-num">写作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Speaking & Writing -->
+          <tr class="wt-group-header">
+            <td rowspan="9" class="wt-section speaking-section">口语<br>&amp;<br>写作</td>
+            <td class="wt-type">Read Aloud ⭐</td>
+            <td class="wt-num">4%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">9%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type">Repeat Sentence ⭐</td>
+            <td class="wt-num wt-high">7%</td>
+            <td class="wt-num wt-hit">17%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">16%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Describe Image ⭐</strong></td>
+            <td class="wt-num wt-top">15%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-top">31%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type">Retell Lecture ⭐</td>
+            <td class="wt-num">6%</td>
+            <td class="wt-num wt-hit">13%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">13%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Answer Short Question</td>
+            <td class="wt-num wt-skip-cell">2%</td>
+            <td class="wt-num wt-skip-cell">4%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Summarize Group Discussion ⭐</strong></td>
+            <td class="wt-num wt-high">9%</td>
+            <td class="wt-num wt-top">20%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">19%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type">Respond to a Situation ⭐</td>
+            <td class="wt-num">6%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">13%</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Summarize Written Text ⭐</strong></td>
+            <td class="wt-num wt-high">7%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-top">23%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-top">28%</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Write Essay ⭐</strong></td>
+            <td class="wt-num wt-high">7%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-top">31%</td>
+          </tr>
+
+          <!-- Reading -->
+          <tr class="wt-divider"><td colspan="7"></td></tr>
+          <tr>
+            <td rowspan="5" class="wt-section reading-section">阅读</td>
+            <td class="wt-type"><strong>Fill in Blanks (Dropdown) ⭐</strong></td>
+            <td class="wt-num wt-high">7%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-top">25%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Multiple Choice, Multiple Answers</td>
+            <td class="wt-num wt-skip-cell">1%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">5%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type">Reorder Paragraph ⭐</td>
+            <td class="wt-num">3%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num">9%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Fill in Blanks (Drag & Drop) ⭐</strong></td>
+            <td class="wt-num">6%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">20%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Multiple Choice, Single Answer</td>
+            <td class="wt-num wt-skip-cell">&lt;1%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">3%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+
+          <!-- Listening -->
+          <tr class="wt-skipped">
+            <td rowspan="7" class="wt-section listening-section">听力</td>
+            <td class="wt-type wt-skip-cell">Multiple Choice, Multiple Answers</td>
+            <td class="wt-num wt-skip-cell">1%</td>
+            <td class="wt-num wt-skip-cell">3%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Fill in Blanks (Type In) ⭐</strong></td>
+            <td class="wt-num">3%</td>
+            <td class="wt-num">8%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Highlight Correct Summary</td>
+            <td class="wt-num wt-skip-cell">&lt;1%</td>
+            <td class="wt-num wt-skip-cell">2%</td>
+            <td class="wt-num wt-skip-cell">3%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Multiple Choice, Single Answer</td>
+            <td class="wt-num wt-skip-cell">&lt;1%</td>
+            <td class="wt-num wt-skip-cell">2%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr class="wt-skipped">
+            <td class="wt-type wt-skip-cell">Select Missing Word</td>
+            <td class="wt-num wt-skip-cell">1%</td>
+            <td class="wt-num wt-skip-cell">1%</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+            <td class="wt-num wt-skip-cell">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Highlight Incorrect Words ⭐</strong></td>
+            <td class="wt-num">4%</td>
+            <td class="wt-num">8%</td>
+            <td class="wt-num wt-hit">13%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+          </tr>
+          <tr>
+            <td class="wt-type"><strong>Write from Dictation ⭐</strong></td>
+            <td class="wt-num">5%</td>
+            <td class="wt-num wt-hit">13%</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-empty">—</td>
+            <td class="wt-num wt-hit">23%</td>
+          </tr>
+
+          <!-- Coverage row -->
+          <tr class="wt-coverage">
+            <td colspan="2" style="text-align:right;padding-right:16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--ink3);">计划覆盖</td>
+            <td class="wt-num wt-cov-val">—</td>
+            <td class="wt-num wt-cov-val">79%</td>
+            <td class="wt-num wt-cov-val">90%</td>
+            <td class="wt-num wt-cov-val">101%</td>
+            <td class="wt-num wt-cov-val">82%</td>
+          </tr>
+
+          <!-- Verdict row -->
+          <tr class="wt-verdict">
+            <td colspan="2" style="text-align:right;padding-right:16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--ink3);">能否达 58 分</td>
+            <td class="wt-num wt-verdict-val">—</td>
+            <td class="wt-num wt-verdict-warn">⚠ 可达</td>
+            <td class="wt-num wt-verdict-ok">✓ 可达</td>
+            <td class="wt-num wt-verdict-ok">✓ 可达</td>
+            <td class="wt-num wt-verdict-ok">✓ 可达</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--ink3);margin-top:12px;line-height:1.8;">
+      ⭐ = 已纳入备考计划的重点题型 &nbsp;·&nbsp; 颜色深浅代表权重高低<br>
+      ⚠ 听力覆盖79%，未覆盖题型（MC、Highlight Correct Summary、Select Missing Word）合计权重21%，但均为低权重小题（各1~3%），只要覆盖题型发挥稳定，听力58分可达，建议熟悉题型格式后再做取舍。
+    </p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PTE <em>58</em> 备考</div>
+  <div class="footer-meta">
+    PTE Academic · 58分目标
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Tab switcher
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).style.display = 'block';
+    btn.classList.add('active');
+  }
+
+  // Save/load state
+  function getState() {
+    const today = new Date().toDateString();
+    const saved = JSON.parse(localStorage.getItem('pte_checklist') || '{}');
+    return saved.date === today ? saved : { date: today };
+  }
+
+  function saveState() {
+    const state = getState();
+    state.date = new Date().toDateString();
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      if (cb.dataset.id) state[cb.dataset.id] = cb.checked;
+    });
+    localStorage.setItem('pte_checklist', JSON.stringify(state));
+  }
+
+  function loadState() {
+    const state = getState();
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      if (cb.dataset.id && state[cb.dataset.id]) {
+        cb.checked = true;
+        if (cb.classList.contains('tl-checkbox')) {
+          cb.closest('.tl-card').classList.add('done');
+        }
+      }
+    });
+    updateProgress('weekday');
+    updateProgress('weekend');
+  }
+
+  function updateProgress(group) {
+    const prefix = group === 'weekday' ? 'w-' : 'we-';
+    const blocks = [...document.querySelectorAll('.tl-checkbox')].filter(cb =>
+      cb.dataset.id && cb.dataset.id.startsWith(prefix)
+    );
+    const done = blocks.filter(cb => cb.checked).length;
+    const total = blocks.length;
+    const textEl = document.getElementById(group === 'weekday' ? 'wd-progress-text' : 'we-progress-text');
+    const fillEl = document.getElementById(group === 'weekday' ? 'wd-progress-fill' : 'we-progress-fill');
+    if (textEl) textEl.textContent = `${done} / ${total} 完成`;
+    if (fillEl) fillEl.style.width = `${total ? (done / total) * 100 : 0}%`;
+  }
+
+  // Block-level checkboxes
+  document.querySelectorAll('.tl-checkbox').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const card = cb.closest('.tl-card');
+      card.classList.toggle('done', cb.checked);
+      card.querySelectorAll('.tl-tasks input[type="checkbox"]').forEach(sub => sub.checked = cb.checked);
+      saveState();
+      const isWeekend = cb.dataset.id && cb.dataset.id.startsWith('we-');
+      updateProgress(isWeekend ? 'weekend' : 'weekday');
+    });
+  });
+
+  // Sub-task checkboxes
+  document.querySelectorAll('.tl-tasks input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const card = cb.closest('.tl-card');
+      const subs = card.querySelectorAll('.tl-tasks input[type="checkbox"]');
+      const allDone = [...subs].every(s => s.checked);
+      const blockCb = card.querySelector('.tl-checkbox');
+      if (blockCb) {
+        blockCb.checked = allDone;
+        card.classList.toggle('done', allDone);
+        const isWeekend = blockCb.dataset.id && blockCb.dataset.id.startsWith('we-');
+        updateProgress(isWeekend ? 'weekend' : 'weekday');
+      }
+      saveState();
+    });
+  });
+
+  function resetGroup(group) {
+    const prefix = group === 'weekday' ? ['w-morning','w-am','w-pm','w-evening','wm','wa','wp','we'] : ['we-','wk'];
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      if (cb.dataset.id && prefix.some(p => cb.dataset.id.startsWith(p))) {
+        cb.checked = false;
+      }
+    });
+    document.querySelectorAll('.tl-card').forEach(card => {
+      const blockCb = card.querySelector('.tl-checkbox');
+      if (blockCb && blockCb.dataset.id && prefix.some(p => blockCb.dataset.id.startsWith(p))) {
+        card.classList.remove('done');
+      }
+    });
+    saveState();
+    updateProgress(group);
+  }
+
+  loadState();
+</script>
+
+</body>
+</html>
