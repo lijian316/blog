@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星星人的故事 · StarBaby Collection</title>
+  <meta name="date" content="2026-04-25">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #03030f;
+      color: #f0e6ff;
+      font-family: 'Noto Sans SC', sans-serif;
+      overflow-x: hidden;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section { position: relative; z-index: 1; }
+
+    /* ── Intro ── */
+    .intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .intro-sub {
+      font-size: 12px;
+      letter-spacing: 0.35em;
+      color: #ffd70077;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .intro-title {
+      font-size: clamp(38px, 8vw, 76px);
+      font-weight: 700;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 20%, #ffd700 60%, #ff9ff3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.7s forwards;
+    }
+
+    .intro-story {
+      font-size: 15px;
+      line-height: 2.3;
+      color: #b8a8d8;
+      max-width: 520px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.1s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #ffd70055;
+      opacity: 0;
+      animation: fadeUp 1s ease 2s forwards, nudge 2s ease 2.5s infinite;
+      text-align: center;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, #ffd700, transparent);
+      margin: 10px auto 0;
+    }
+
+    /* ── Character Card ── */
+    .char-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+    }
+
+    .char-card {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      max-width: 860px;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .char-card.from-left  { transform: translateX(-70px); }
+    .char-card.from-right { transform: translateX(70px); flex-direction: row-reverse; }
+    .char-card.visible    { opacity: 1; transform: translateX(0); }
+
+    .char-img-wrap {
+      flex-shrink: 0;
+      width: 200px;
+      height: 270px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .char-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      opacity: 0.25;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .char-img {
+      max-width: 190px;
+      max-height: 260px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px var(--glow));
+      transition: transform 0.35s ease;
+      cursor: default;
+    }
+
+    .char-img:hover { transform: scale(1.06) rotate(-3deg); }
+
+    .char-content { flex: 1; }
+
+    .char-number {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--glow);
+      opacity: 0.65;
+      margin-bottom: 10px;
+    }
+
+    .char-name {
+      font-size: clamp(30px, 4.5vw, 46px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .char-name-en {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--glow);
+      opacity: 0.75;
+      margin-bottom: 20px;
+    }
+
+    .char-story {
+      font-size: 14px;
+      line-height: 2.1;
+      color: #9888b8;
+      margin-bottom: 26px;
+    }
+
+    .char-quote {
+      position: relative;
+      padding: 18px 22px 18px 28px;
+      background: rgba(255,255,255,0.04);
+      border-left: 3px solid var(--glow);
+      border-radius: 0 12px 12px 0;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #eedaff;
+      font-style: italic;
+    }
+
+    .char-quote::before {
+      content: '"';
+      position: absolute;
+      top: -6px;
+      left: 10px;
+      font-size: 52px;
+      color: var(--glow);
+      opacity: 0.25;
+      font-style: normal;
+      line-height: 1;
+    }
+
+    /* Hidden character */
+    .char-card.hidden-char .char-img {
+      filter: brightness(0.18) drop-shadow(0 0 28px #9b59b6);
+    }
+
+    .hidden-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: linear-gradient(135deg, #6c3483, #9b59b6);
+      border-radius: 20px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+      font-style: normal;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      text-align: center;
+      padding: 10px;
+      color: #ffd70033;
+      font-size: 18px;
+      letter-spacing: 14px;
+    }
+
+    /* ── Final Stage ── */
+    .stage-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 85%, #1a082e 0%, #03030f 55%);
+    }
+
+    .stage-light {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 100%;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,220,80,0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .curtain {
+      position: absolute;
+      top: 0; width: 100px; height: 100%;
+      pointer-events: none;
+    }
+    .curtain.left  { left: 0;  background: linear-gradient(to right, #10011a, transparent); }
+    .curtain.right { right: 0; background: linear-gradient(to left,  #10011a, transparent); }
+
+    #falling-stars { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+    .stage-narration {
+      position: relative;
+      z-index: 2;
+      max-width: 580px;
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 1.3s ease, transform 1.3s ease;
+    }
+
+    .stage-narration.visible { opacity: 1; transform: translateY(0); }
+
+    .stage-tag {
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      color: #ffd70066;
+      margin-bottom: 28px;
+    }
+
+    .stage-text {
+      font-size: clamp(15px, 2.2vw, 19px);
+      line-height: 2.6;
+      color: #cebfee;
+    }
+
+    .stage-text .hl { color: #ffd700; font-weight: 500; }
+
+    /* Characters on stage */
+    .stage-chars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+    }
+
+    .stage-chars.visible { opacity: 1; transform: translateY(0); }
+
+    .stage-char {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .stage-char img {
+      width: 88px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px var(--glow));
+    }
+
+    .stage-char.shadow img { filter: brightness(0.2) drop-shadow(0 0 18px #9b59b6); }
+
+    .stage-char-name {
+      font-size: 10px;
+      color: var(--glow);
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+    }
+
+    .stage-footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 56px;
+      font-size: 13px;
+      color: #60508a;
+      letter-spacing: 0.18em;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .stage-footer.visible { opacity: 1; }
+
+    /* ── Falling star shape ── */
+    .fstar {
+      position: absolute;
+      width: 2px;
+      border-radius: 1px;
+      background: linear-gradient(to bottom, rgba(255,215,0,0.9), transparent);
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(-7px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.25; transform: scale(1); }
+      50%       { opacity: 0.45; transform: scale(1.12); }
+    }
+
+    @keyframes fall {
+      from { opacity: 1; transform: translateY(0) rotate(20deg); }
+      to   { opacity: 0; transform: translateY(90vh) rotate(20deg); }
+    }
+
+    @keyframes popIn {
+      0%   { opacity: 0; transform: translateY(40px) scale(0.85); }
+      60%  { transform: translateY(-8px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 620px) {
+      .char-card, .char-card.from-right { flex-direction: column !important; gap: 28px; }
+      .char-img-wrap { width: 150px; height: 200px; }
+      .char-img { max-width: 140px; }
+      .stage-char img { width: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<!-- ── Intro ── -->
+<section class="intro">
+  <p class="intro-sub">✦ Star Baby Collection ✦</p>
+  <h1 class="intro-title">星星人的故事</h1>
+  <p class="intro-story">
+    在遥远的星海深处，有一颗叫做「盲盒星球」的小行星。<br>
+    这里住着七位特别的星星人——<br>
+    他们每一个，都有着自己独特的故事，<br>
+    都藏着一句想对你说的话。<br><br>
+    <span style="font-size:13px;color:#7060a0;">向下滚动，听他们一一开口……</span>
+  </p>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ── 01 Bad Temper ── -->
+<section class="char-section">
+  <div class="char-card from-left" style="--glow:#ff7675;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869876136____bad-temper____.webp" alt="小暴暴">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.01</p>
+      <h2 class="char-name">小暴暴</h2>
+      <p class="char-name-en">Bad Temper ★</p>
+      <p class="char-story">总是皱着眉头，动不动就鼓起腮帮子。<br>但大家都知道——每次发完脾气，他是第一个悄悄回来道歉的。</p>
+      <div class="char-quote">哼，别误会，我只是……不太擅长说「我在乎你」而已。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 02 Magical Chef ── -->
+<section class="char-section">
+  <div class="char-card from-right" style="--glow:#fdcb6e;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869886290____the-magical-chef____.webp" alt="小厨厨">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.02</p>
+      <h2 class="char-name">小厨厨</h2>
+      <p class="char-name-en">The Magical Chef ★</p>
+      <p class="char-story">戴着比头还大的厨师帽，相信每一道料理里都能藏进爱。<br>他说，只要用心，连星星也是甜的。</p>
+      <div class="char-quote">用心做的每一道菜，都是献给世界的一首诗。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 03 Haircut ── -->
+<section class="char-section">
+  <div class="char-card from-left" style="--glow:#a29bfe;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869893597____haircut____.webp" alt="小剪剪">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.03</p>
+      <h2 class="char-name">小剪剪</h2>
+      <p class="char-name-en">Haircut ★</p>
+      <p class="char-story">手里永远拿着一把闪闪发光的剪刀。<br>他说，给人剪发不只是改变发型——而是给人一个重新出发的理由。</p>
+      <div class="char-quote">剪掉烦恼，留住美好。每一次改变，都是勇气的开始。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 04 Baby Ice Pop ── -->
+<section class="char-section">
+  <div class="char-card from-right" style="--glow:#74b9ff;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869900245____baby-ice-pop____.webp" alt="小冰冰">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.04</p>
+      <h2 class="char-name">小冰冰</h2>
+      <p class="char-name-en">Baby Ice Pop ★</p>
+      <p class="char-story">甜甜凉凉的，是夏天最温柔的陪伴。<br>她知道自己会慢慢融化，但还是选择把所有甜都给出去。</p>
+      <div class="char-quote">就算会慢慢融化，也要在消失之前，把甜留给你。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 05 Lose a Tooth ── -->
+<section class="char-section">
+  <div class="char-card from-left" style="--glow:#55efc4;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869916977____lose-a-tooth____.webp" alt="小豁豁">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.05</p>
+      <h2 class="char-name">小豁豁</h2>
+      <p class="char-name-en">Lose a Tooth ★</p>
+      <p class="char-story">嘴里少了一颗牙，笑起来反而最灿烂。<br>他总说，失去不是结束，是在为更好的事情腾出空间。</p>
+      <div class="char-quote">失去的，是为了给更好的留出位置。别难过，新的会来的。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 06 Wake Up Sleepyhead ── -->
+<section class="char-section">
+  <div class="char-card from-right" style="--glow:#fd79a8;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869924535____wake-up-sleepyhead____.webp" alt="小懒懒">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.06</p>
+      <h2 class="char-name">小懒懒</h2>
+      <p class="char-name-en">Wake Up Sleepyhead ★</p>
+      <p class="char-story">永远睡不够，枕头是最好的朋友。<br>但每天早上，她还是会拖着困意，去迎接新的一天。</p>
+      <div class="char-quote">多睡五分钟，是因为我的梦还没讲完……但我会起来的。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✧ ✦</div>
+
+<!-- ── 07 Hidden ── -->
+<section class="char-section">
+  <div class="char-card from-left hidden-char" style="--glow:#9b59b6;">
+    <div class="char-img-wrap">
+      <img class="char-img" src="../gallery/1744869930950____little-balloon-secret____.webp" alt="小秘秘">
+    </div>
+    <div class="char-content">
+      <p class="char-number">STAR NO.07</p>
+      <span class="hidden-badge">✦ 隐藏款 · 未获得</span>
+      <h2 class="char-name">小秘秘</h2>
+      <p class="char-name-en">Little Balloon Secret ★</p>
+      <p class="char-story">没有人见过她真正的样子。<br>她手里抱着一个气球，里面装着只属于你的秘密。<br>也许某天，她会突然出现在你面前……</p>
+      <div class="char-quote" style="border-color:#9b59b6;">我还未到来，但我一直在某处等待着，与你相遇。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Final Stage ── -->
+<section class="stage-section">
+  <div class="stage-bg"></div>
+  <div class="stage-light"></div>
+  <div class="curtain left"></div>
+  <div class="curtain right"></div>
+  <div id="falling-stars"></div>
+
+  <div class="stage-narration" id="stage-narration">
+    <p class="stage-tag">✦ · · · ✦ · · · ✦</p>
+    <p class="stage-text">
+      每一个人，都是一颗<span class="hl">独一无二的星星</span>。<br><br>
+      有时候会暴躁，有时候爱赖床，<br>
+      有时候失去，有时候还在等待……<br><br>
+      但每一颗星星，<br>
+      都在用自己的方式，<span class="hl">发着光</span>。<br><br>
+      希望你也能找到，<br>
+      <span class="hl">属于自己的那颗星星</span>。 ✨
+    </p>
+  </div>
+
+  <div class="stage-chars" id="stage-chars">
+    <div class="stage-char" style="--glow:#ff7675;" data-delay="0"><img src="../gallery/1744869876136____bad-temper____.webp" alt=""><span class="stage-char-name">小暴暴</span></div>
+    <div class="stage-char" style="--glow:#fdcb6e;" data-delay="1"><img src="../gallery/1744869886290____the-magical-chef____.webp" alt=""><span class="stage-char-name">小厨厨</span></div>
+    <div class="stage-char" style="--glow:#a29bfe;" data-delay="2"><img src="../gallery/1744869893597____haircut____.webp" alt=""><span class="stage-char-name">小剪剪</span></div>
+    <div class="stage-char" style="--glow:#74b9ff;" data-delay="3"><img src="../gallery/1744869900245____baby-ice-pop____.webp" alt=""><span class="stage-char-name">小冰冰</span></div>
+    <div class="stage-char" style="--glow:#55efc4;" data-delay="4"><img src="../gallery/1744869916977____lose-a-tooth____.webp" alt=""><span class="stage-char-name">小豁豁</span></div>
+    <div class="stage-char" style="--glow:#fd79a8;" data-delay="5"><img src="../gallery/1744869924535____wake-up-sleepyhead____.webp" alt=""><span class="stage-char-name">小懒懒</span></div>
+    <div class="stage-char shadow" style="--glow:#9b59b6;" data-delay="6"><img src="../gallery/1744869930950____little-balloon-secret____.webp" alt=""><span class="stage-char-name" style="color:#9b59b6;">小秘秘 ✦</span></div>
+  </div>
+
+  <p class="stage-footer" id="stage-footer">✦ Star Baby Collection · 星星人的故事 ✦</p>
+</section>
+
+<script>
+// ── Starfield ──
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+
+function initStars() {
+  stars = Array.from({ length: 220 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.1 + 0.3,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.6 + 0.3,
+  }));
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const t = Date.now() / 1000;
+  stars.forEach(s => {
+    const a = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,248,200,${a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+
+resize(); initStars(); drawStars();
+window.addEventListener('resize', () => { resize(); initStars(); });
+
+// ── Falling Stars ──
+const fallingWrap = document.getElementById('falling-stars');
+let fallingInterval = null;
+
+function spawnFallingStar() {
+  const el = document.createElement('div');
+  el.className = 'fstar';
+  const h = Math.random() * 60 + 30;
+  el.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*30}%;
+    height:${h}px;
+    animation-duration:${Math.random()*1.5+1}s;
+    animation-delay:${Math.random()*0.5}s;
+  `;
+  fallingWrap.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ── Scroll Reveal ──
+const reveal = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); reveal.unobserve(e.target); }
+  });
+}, { threshold: 0.22 });
+
+document.querySelectorAll('.char-card').forEach(el => reveal.observe(el));
+
+// ── Stage Observer ──
+const stageObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+
+    if (id === 'stage-narration') {
+      e.target.classList.add('visible');
+      fallingInterval = setInterval(spawnFallingStar, 280);
+      setTimeout(() => clearInterval(fallingInterval), 9000);
+    }
+
+    if (id === 'stage-chars') {
+      e.target.classList.add('visible');
+      document.querySelectorAll('.stage-char').forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          // little bounce
+          setTimeout(() => {
+            el.style.transform = 'translateY(-6px)';
+            setTimeout(() => { el.style.transform = 'translateY(0)'; }, 200);
+          }, 100);
+        }, i * 160);
+      });
+    }
+
+    if (id === 'stage-footer') {
+      e.target.classList.add('visible');
+    }
+
+    stageObs.unobserve(e.target);
+  });
+}, { threshold: 0.25 });
+
+['stage-narration', 'stage-chars', 'stage-footer'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) stageObs.observe(el);
+});
+</script>
+</body>
+</html>
