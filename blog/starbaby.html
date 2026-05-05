@@ -266,27 +266,43 @@
     .stage-narration {
       position: relative;
       z-index: 2;
-      max-width: 520px;
+      max-width: 480px;
       width: 100%;
       margin-bottom: 64px;
       opacity: 0;
       transform: translateY(32px);
       transition: opacity 1.4s ease, transform 1.4s ease;
-      text-align: center;
     }
 
     .stage-narration.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── Text card ── */
+    .text-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(160,130,220,0.18);
+      border-radius: 10px;
+      padding: 36px 40px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
     .stage-text {
       font-size: clamp(13px, 1.9vw, 16px);
       font-weight: 300;
-      line-height: 2.4;
+      line-height: 2.5;
       color: #a89ec8;
       letter-spacing: 0.06em;
     }
 
     .stage-text .hl       { color: #e8dcff; }
     .stage-text .hl-gold  { color: #ffd98a; }
+
+    .text-card-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(160,130,220,0.25);
+      margin: 24px auto;
+    }
 
     /* Characters on stage */
     .stage-chars {
@@ -542,22 +558,26 @@
   <div id="falling-stars"></div>
 
   <div class="stage-narration" id="stage-narration">
-    <p class="stage-text">
-      你可以漂向任何地方，<br>
-      可以忽明忽暗，可以沉默很久，<br>
-      可以不知道自己在哪，<br>
-      但<span class="hl">永远不会消失</span>。<br>
-      那是<span class="hl">自由</span>。<br>
-      <br>
-      我可以不说话，也不靠近，<br>
-      只是一直在那片天空里，<br>
-      和你隔着一段距离，亮着。<br>
-      你不用回头找我，<br>
-      你只要知道，<br>
-      那个方向，<br>
-      <span class="hl-gold">一直有光</span>。<br>
-      那是<span class="hl">陪伴</span>。
-    </p>
+    <div class="text-card">
+      <p class="stage-text">
+        你可以漂向任何地方，<br>
+        可以忽明忽暗，可以沉默很久，<br>
+        可以不知道自己在哪，<br>
+        但<span class="hl">永远不会消失</span>。<br>
+        那是<span class="hl">自由</span>。
+      </p>
+      <div class="text-card-divider"></div>
+      <p class="stage-text">
+        我可以不说话，也不靠近，<br>
+        只是一直在那片天空里，<br>
+        和你隔着一段距离，亮着。<br>
+        你不用回头找我，<br>
+        你只要知道，<br>
+        那个方向，<br>
+        <span class="hl-gold">一直有光</span>。<br>
+        那是<span class="hl">陪伴</span>。
+      </p>
+    </div>
   </div>
 
   <div class="stage-chars" id="stage-chars">
