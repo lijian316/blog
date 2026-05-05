@@ -78,15 +78,20 @@
       opacity: 0;
       animation: fadeUp 1s ease 2s forwards, nudge 2s ease 2.5s infinite;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
-    .scroll-hint::after {
+    /* line first (top), SCROLL text below */
+    .scroll-hint::before {
       content: '';
       display: block;
       width: 1px;
       height: 36px;
-      background: linear-gradient(to bottom, #ffd700, transparent);
-      margin: 10px auto 0;
+      /* thin at top, thick at bottom — gradient from transparent to gold */
+      background: linear-gradient(to bottom, transparent, #ffd700);
     }
 
     /* ── Character Card ── */
