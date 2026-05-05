@@ -261,7 +261,7 @@
     .curtain.left  { left: 0;  background: linear-gradient(to right, #10011a, transparent); }
     .curtain.right { right: 0; background: linear-gradient(to left,  #10011a, transparent); }
 
-    #falling-stars { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    #falling-stars { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
 
     .stage-narration {
       position: relative;
@@ -346,9 +346,10 @@
     .fstar {
       position: absolute;
       width: 2px;
-      border-radius: 1px;
-      background: linear-gradient(to bottom, rgba(255,215,0,0.9), transparent);
-      animation: fall linear forwards;
+      border-radius: 2px;
+      /* transparent tail at top-NW end, bright white head at bottom-SE end */
+      background: linear-gradient(to bottom, transparent 0%, rgba(255,215,0,0.55) 45%, rgba(255,255,255,1) 100%);
+      animation: meteor linear forwards;
       pointer-events: none;
     }
 
@@ -368,9 +369,10 @@
       50%       { opacity: 0.45; transform: scale(1.12); }
     }
 
-    @keyframes fall {
-      from { opacity: 1; transform: translateY(0) rotate(20deg); }
-      to   { opacity: 0; transform: translateY(90vh) rotate(20deg); }
+    /* rotate(-45deg) tilts bar NW-SE; translateY(+) in that frame = travel toward SE */
+    @keyframes meteor {
+      from { opacity: 1; transform: rotate(-45deg) translateY(0); }
+      to   { opacity: 0; transform: rotate(-45deg) translateY(160vh); }
     }
 
     @keyframes popIn {
@@ -397,11 +399,13 @@
   <p class="intro-sub">✦ Star Baby Collection ✦</p>
   <h1 class="intro-title">星星人的故事</h1>
   <p class="intro-story">
-    在遥远的星海深处，有一颗叫做「盲盒星球」的小行星。<br>
-    这里住着七位特别的星星人——<br>
-    他们每一个，都有着自己独特的故事，<br>
-    都藏着一句想对你说的话。<br><br>
-    <span style="font-size:13px;color:#7060a0;">向下滚动，听他们一一开口……</span>
+    有些相遇，是命中注定的。<br>
+    打开盲盒的那一刻，<br>
+    就像宇宙悄悄安排好的一场见面。<br><br>
+    这七位星星人，带着各自的小脾气与小梦想，<br>
+    穿越星海，来到你身边。<br><br>
+    他们想对你说的话，<br>
+    也许正是你今天最需要听到的那句。<br><br>
   </p>
   <div class="scroll-hint">SCROLL</div>
 </section>
@@ -416,7 +420,7 @@
       <p class="char-number">STAR NO.01</p>
       <h2 class="char-name">Bad Temper</h2>
       <p class="char-name-en">坏脾气 · StarBaby No.01</p>
-      <p class="char-story">总是皱着眉头，动不动就鼓起腮帮子。<br>但大家都知道——每次发完脾气，他是第一个悄悄回来道歉的。</p>
+      <p class="char-story">总是皱着眉头，动不动就鼓起腮帮子。<br>但大家都知道——每次发完脾气，他是第一个悄悄回来，把你的杯子重新填满的那个。</p>
       <div class="char-quote">哼，别误会，我只是……不太擅长说「我在乎你」而已。</div>
     </div>
   </div>
@@ -452,7 +456,7 @@
       <p class="char-number">STAR NO.03</p>
       <h2 class="char-name">Haircut</h2>
       <p class="char-name-en">小理发师 · StarBaby No.03</p>
-      <p class="char-story">手里永远拿着一把闪闪发光的剪刀。<br>他说，给人剪发不只是改变发型——而是给人一个重新出发的理由。</p>
+      <p class="char-story">每一次坐进理发椅，<br>剪掉的不只是发梢——<br>是那些说不清楚的疲惫，是拖了很久的低落。<br>风吹过新剪的发，好像什么都可以重新开始。</p>
       <div class="char-quote">剪掉烦恼，留住美好。每一次改变，都是勇气的开始。</div>
     </div>
   </div>
@@ -606,13 +610,14 @@ let fallingInterval = null;
 function spawnFallingStar() {
   const el = document.createElement('div');
   el.className = 'fstar';
-  const h = Math.random() * 60 + 30;
+  const h = Math.random() * 110 + 70;
+  // start above (negative top) and spread across left 70% of stage
   el.style.cssText = `
-    left:${Math.random()*100}%;
-    top:${Math.random()*30}%;
+    left:${Math.random() * 70}%;
+    top:${-(h + Math.random() * 60)}px;
     height:${h}px;
-    animation-duration:${Math.random()*1.5+1}s;
-    animation-delay:${Math.random()*0.5}s;
+    animation-duration:${Math.random() * 0.7 + 0.55}s;
+    animation-delay:${Math.random() * 0.25}s;
   `;
   fallingWrap.appendChild(el);
   setTimeout(() => el.remove(), 3000);
