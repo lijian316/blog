@@ -70,8 +70,10 @@
     .scroll-hint {
       position: absolute;
       bottom: 36px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
+      width: max-content;
+      margin: 0 auto;
       font-size: 11px;
       letter-spacing: 0.3em;
       color: #ffd70055;
@@ -436,8 +438,8 @@
     }
 
     @keyframes nudge {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(-7px); }
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
     }
 
     @keyframes pulse {
