@@ -611,16 +611,16 @@ function spawnFallingStar() {
   const el = document.createElement('div');
   el.className = 'fstar';
   const h = Math.random() * 110 + 70;
-  // start above (negative top) and spread across left 70% of stage
+  const dur = Math.random() * 1.2 + 1.6; // 1.6s – 2.8s，慢速飘落
   el.style.cssText = `
     left:${Math.random() * 70}%;
     top:${-(h + Math.random() * 60)}px;
     height:${h}px;
-    animation-duration:${Math.random() * 0.7 + 0.55}s;
-    animation-delay:${Math.random() * 0.25}s;
+    animation-duration:${dur}s;
+    animation-delay:${Math.random() * 0.4}s;
   `;
   fallingWrap.appendChild(el);
-  setTimeout(() => el.remove(), 3000);
+  setTimeout(() => el.remove(), (dur + 0.6) * 1000);
 }
 
 // ── Scroll Reveal ──
@@ -640,8 +640,8 @@ const stageObs = new IntersectionObserver(entries => {
 
     if (id === 'stage-narration') {
       e.target.classList.add('visible');
-      fallingInterval = setInterval(spawnFallingStar, 280);
-      setTimeout(() => clearInterval(fallingInterval), 9000);
+      // 持续产生流星，离开视口时暂停，回来时恢复
+      if (!fallingInterval) fallingInterval = setInterval(spawnFallingStar, 420);
     }
 
     if (id === 'stage-chars') {
@@ -672,6 +672,19 @@ const stageObs = new IntersectionObserver(entries => {
   const el = document.getElementById(id);
   if (el) stageObs.observe(el);
 });
+
+// 舞台可见时持续下流星，离开视口时暂停
+const stageSection = document.querySelector('.stage-section');
+if (stageSection) {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      if (!fallingInterval) fallingInterval = setInterval(spawnFallingStar, 420);
+    } else {
+      clearInterval(fallingInterval);
+      fallingInterval = null;
+    }
+  }, { threshold: 0.05 }).observe(stageSection);
+}
 </script>
 </body>
 </html>
