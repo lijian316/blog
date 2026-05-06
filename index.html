@@ -206,6 +206,18 @@
       flex-shrink: 0;
     }
 
+    .link-pin-sep {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 0 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .link-item.pinned .link-title { color: #fff; }
+    .link-item.pinned .link-host  { color: var(--accent2); }
+
     /* ── About section ── */
     .about-section {
       margin-top: 0;
@@ -259,18 +271,27 @@
   fetch('blog/daily.json').then(r => r.json()).then(a => renderList('daily-list', a));
 
   const _links = [
+    { title: "科技爱好者周刊", url: "https://www.ruanyifeng.com/blog/weekly/", pinned: true },
     { title: "阮一峰的网络日志", url: "https://www.ruanyifeng.com/blog/" },
     { title: "中国卷烟博物馆", url: "https://www.ciggies.app/" },
     { title: "LINUX DO", url: "https://linux.do/" },
     { title: "Passport Index", url: "https://www.passportindex.org/" },
   ];
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('link-list').innerHTML = _links.map(l => `
-      <a href="${l.url}" target="_blank" rel="noopener" class="link-item">
+    const pinned = _links.filter(l => l.pinned);
+    const rest   = _links.filter(l => !l.pinned);
+    const renderLink = (l) => `
+      <a href="${l.url}" target="_blank" rel="noopener" class="link-item${l.pinned ? ' pinned' : ''}">
         <span class="link-host">${new URL(l.url).hostname}</span>
         <span class="link-title">${l.title}</span>
-      </a>
-    `).join('');
+      </a>`;
+    let html = '';
+    if (pinned.length) {
+      html += pinned.map(renderLink).join('');
+      if (rest.length) html += `<div class="link-pin-sep">more</div>`;
+    }
+    html += rest.map(renderLink).join('');
+    document.getElementById('link-list').innerHTML = html;
   });
 
   function showPage(name, el) {
