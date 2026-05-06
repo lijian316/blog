@@ -167,6 +167,45 @@
     .page { display: none; }
     .page.active { display: block; }
 
+    /* ── Links list ── */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .link-item:first-child { border-top: 1px solid var(--border); }
+
+    .link-item:hover .link-title {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .link-title {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      transition: color 0.15s;
+    }
+
+    .link-host {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     /* ── About section ── */
     .about-section {
       margin-top: 0;
@@ -219,6 +258,16 @@
   fetch('blog/articles.json').then(r => r.json()).then(a => renderList('post-list', a));
   fetch('blog/daily.json').then(r => r.json()).then(a => renderList('daily-list', a));
 
+  const _links = [
+    { title: "阮一峰的网络日志", url: "https://www.ruanyifeng.com/blog/" },
+  ];
+  document.getElementById('link-list').innerHTML = _links.map(l => `
+    <a href="${l.url}" target="_blank" rel="noopener" class="link-item">
+      <span class="link-host">${new URL(l.url).hostname}</span>
+      <span class="link-title">${l.title}</span>
+    </a>
+  `).join('');
+
   function showPage(name, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
@@ -238,6 +287,8 @@
   <span class="nav-sep">|</span>
   <a href="#" class="nav-link" id="nav-daily" onclick="showPage('daily', this)">Daily</a>
   <span class="nav-sep">|</span>
+  <a href="#" class="nav-link" id="nav-links" onclick="showPage('links', this)">Links</a>
+  <span class="nav-sep">|</span>
   <a href="#" class="nav-link" id="nav-about" onclick="showPage('about', this)">About</a>
 </nav>
 
@@ -250,6 +301,10 @@
 
   <div class="page" id="page-daily">
     <div class="post-list" id="daily-list"></div>
+  </div>
+
+  <div class="page" id="page-links">
+    <div class="link-list" id="link-list"></div>
   </div>
 
   <div class="page about-section" id="page-about">
