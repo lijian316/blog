@@ -263,12 +263,14 @@
     { title: "中国卷烟博物馆", url: "https://www.ciggies.app/" },
     { title: "LINUX DO", url: "https://linux.do/" },
   ];
-  document.getElementById('link-list').innerHTML = _links.map(l => `
-    <a href="${l.url}" target="_blank" rel="noopener" class="link-item">
-      <span class="link-host">${new URL(l.url).hostname}</span>
-      <span class="link-title">${l.title}</span>
-    </a>
-  `).join('');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('link-list').innerHTML = _links.map(l => `
+      <a href="${l.url}" target="_blank" rel="noopener" class="link-item">
+        <span class="link-host">${new URL(l.url).hostname}</span>
+        <span class="link-title">${l.title}</span>
+      </a>
+    `).join('');
+  });
 
   function showPage(name, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
