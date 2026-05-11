@@ -933,7 +933,7 @@ function tog(header) {
 <style>
   .cmnt-fab {
     position: fixed;
-    bottom: 24px; right: 24px;
+    bottom: 24px; left: 50%; transform: translateX(-50%);
     width: 48px; height: 48px;
     border-radius: 50%;
     background: #1a1a1a;
@@ -1018,7 +1018,7 @@ function tog(header) {
 (function(){
   const fab=document.getElementById('cmntFab'),backdrop=document.getElementById('cmntBackdrop'),drawer=document.getElementById('cmntDrawer'),closeBtn=document.getElementById('cmntClose'),body=document.getElementById('cmntBody');
   let loaded=false;
-  function open(){backdrop.classList.add('open');drawer.classList.add('open');fab.style.display='none';if(!loaded){loaded=true;const s=document.createElement('script');s.src='https://giscus.app/client.js';s.setAttribute('data-repo','lijian316/blog');s.setAttribute('data-repo-id','R_kgDOPCC2iQ');s.setAttribute('data-category','Announcements');s.setAttribute('data-category-id','DIC_kwDOPCC2ic4C801U');s.setAttribute('data-mapping','pathname');s.setAttribute('data-strict','0');s.setAttribute('data-reactions-enabled','1');s.setAttribute('data-emit-metadata','0');s.setAttribute('data-input-position','bottom');s.setAttribute('data-theme','dark_dimmed');s.setAttribute('data-lang','zh-CN');s.setAttribute('crossorigin','anonymous');s.async=true;body.appendChild(s);}}
+  function open(){backdrop.classList.add('open');drawer.classList.add('open');fab.style.display='none';if(!loaded){loaded=true;const s=document.createElement('script');s.src='https://giscus.app/client.js';s.setAttribute('data-repo','lijian316/blog');s.setAttribute('data-repo-id','R_kgDOPCC2iQ');s.setAttribute('data-category','Announcements');s.setAttribute('data-category-id','DIC_kwDOPCC2ic4C801U');s.setAttribute('data-mapping','pathname');s.setAttribute('data-strict','0');s.setAttribute('data-reactions-enabled','1');s.setAttribute('data-emit-metadata','0');s.setAttribute('data-input-position','bottom');s.setAttribute('data-theme','catppuccin_latte');s.setAttribute('data-lang','zh-CN');s.setAttribute('crossorigin','anonymous');s.async=true;body.appendChild(s);}}
   function close(){backdrop.classList.remove('open');drawer.classList.remove('open');fab.style.display='';}
   fab.addEventListener('click',open);closeBtn.addEventListener('click',close);backdrop.addEventListener('click',close);
 })();
