@@ -933,7 +933,7 @@ function tog(header) {
 <style>
   .cmnt-fab {
     position: fixed;
-    bottom: 24px; left: 50%; transform: translateX(-50%);
+    bottom: 0; left: 50%; transform: translateX(-50%) translateY(calc(100% - 16px));
     width: 48px; height: 48px;
     border-radius: 50%;
     background: #32302f;
@@ -944,7 +944,7 @@ function tog(header) {
     z-index: 1000;
     transition: transform 0.2s, box-shadow 0.2s;
   }
-  .cmnt-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0,0,0,0.6); }
+  .cmnt-fab:hover { transform: translateX(-50%) translateY(-10px); box-shadow: 0 6px 28px rgba(0,0,0,0.6); }
   .cmnt-fab svg { width: 22px; height: 22px; }
   .cmnt-backdrop {
     display: none;
