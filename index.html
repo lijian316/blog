@@ -243,6 +243,95 @@
       font-size: 12px;
       color: var(--muted);
     }
+
+    /* ── Repo browser ── */
+    .repo-crumb {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+    .repo-crumb a { color: var(--accent); }
+    .repo-crumb a:hover { color: #fff; text-decoration: underline; }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .repo-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 13px;
+    }
+    .repo-card:hover { border-color: var(--accent); background: var(--bg2); }
+    .repo-card-icon { font-size: 16px; }
+    .repo-card-name { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .repo-image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .repo-image-item {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+    }
+    .repo-image-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .repo-image-item:hover { border-color: var(--accent); }
+
+    .repo-loading, .repo-error, .repo-empty {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 24px 0;
+    }
+    .repo-error { color: #d47e7e; }
+
+    .repo-back {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .repo-back:hover { color: #fff; }
+
+    .repo-markdown {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .repo-markdown h1, .repo-markdown h2, .repo-markdown h3 {
+      color: #fff;
+      margin: 24px 0 12px;
+    }
+    .repo-markdown p { margin-bottom: 14px; }
+    .repo-markdown code {
+      background: var(--bg2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .repo-markdown pre {
+      background: var(--bg2);
+      padding: 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin-bottom: 14px;
+    }
+    .repo-markdown img { max-width: 100%; border-radius: 6px; }
+    .repo-markdown a { color: var(--accent); text-decoration: underline; }
+    .repo-markdown ul, .repo-markdown ol { padding-left: 22px; margin-bottom: 14px; }
   </style>
 </head>
 <body>
@@ -299,7 +388,58 @@
     document.getElementById('page-' + name).classList.add('active');
     el.classList.add('active');
   }
+
+  // ── 仓库导航：每一项对应一个公开的 GitHub 仓库，点击后直接读取该仓库内容 ──
+  // 加新仓库只需要在这里加一行，label 是标签显示文字，repo 是仓库名
+  const REPO_NAV = [
+    { id: 'gallery', label: '图集', repo: 'image-bed' },
+    { id: 'words',   label: '词汇', repo: 'words' },
+    { id: 'record',  label: '记录', repo: 'record' },
+    { id: 'dialog',  label: '对话', repo: 'dialog' },
+    { id: 'planing', label: '计划', repo: 'Planing' },
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.site-nav');
+    const main = document.querySelector('.main');
+    const navAbout = document.getElementById('nav-about');
+    const pageAbout = document.getElementById('page-about');
+
+    REPO_NAV.forEach((cfg, i) => {
+      if (i > 0) {
+        const sep = document.createElement('span');
+        sep.className = 'nav-sep';
+        sep.textContent = '|';
+        nav.insertBefore(sep, navAbout);
+      }
+
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'nav-link';
+      a.id = 'nav-' + cfg.id;
+      a.textContent = cfg.label;
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        showPage(cfg.id, this);
+        loadRepoTab(cfg);
+      });
+      nav.insertBefore(a, navAbout);
+
+      const page = document.createElement('div');
+      page.className = 'page';
+      page.id = 'page-' + cfg.id;
+      page.innerHTML = `<div class="repo-browser" id="repo-${cfg.id}"></div>`;
+      main.insertBefore(page, pageAbout);
+    });
+
+    const trailingSep = document.createElement('span');
+    trailingSep.className = 'nav-sep';
+    trailingSep.textContent = '|';
+    nav.insertBefore(trailingSep, navAbout);
+  });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="assets/js/repo-browser.js"></script>
 
 <!-- ── Site header ── -->
 <header class="site-header">
