@@ -391,11 +391,7 @@
 
   // ── 仓库导航：每一项对应一个公开的 GitHub 仓库，点击后直接读取该仓库内容 ──
   // 加新仓库只需要在这里加一行，label 是标签显示文字，repo 是仓库名
-  const REPO_NAV = [
-    { id: 'record',  label: '记录', repo: 'record' },
-    { id: 'dialog',  label: '对话', repo: 'dialog' },
-    { id: 'planing', label: '计划', repo: 'Planing' },
-  ];
+  const REPO_NAV = [];
 
   document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('.site-nav');
@@ -430,10 +426,12 @@
       main.insertBefore(page, pageAbout);
     });
 
-    const trailingSep = document.createElement('span');
-    trailingSep.className = 'nav-sep';
-    trailingSep.textContent = '|';
-    nav.insertBefore(trailingSep, navAbout);
+    if (REPO_NAV.length) {
+      const trailingSep = document.createElement('span');
+      trailingSep.className = 'nav-sep';
+      trailingSep.textContent = '|';
+      nav.insertBefore(trailingSep, navAbout);
+    }
   });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
